@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-65624001-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>Writing Spark batches only in SQL | Sanori&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Apache SparkTM is known as popular big data framework which is faster than Hadoop MapReduce, easy-to-use, and fault-tolerant. Most of the Spark tutorials require readers to understand Scala, Java, or">
+<meta name="keywords" content="Spark,SparkSQL,SQL,DataFrame,Dataset">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Writing Spark batches only in SQL">
+<meta property="og:url" content="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/index.html">
+<meta property="og:site_name" content="Sanori&#39;s Blog">
+<meta property="og:description" content="Apache SparkTM is known as popular big data framework which is faster than Hadoop MapReduce, easy-to-use, and fault-tolerant. Most of the Spark tutorials require readers to understand Scala, Java, or">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/spark-doc-sql.png">
+<meta property="og:updated_time" content="2017-10-07T14:59:06.546Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Writing Spark batches only in SQL">
+<meta name="twitter:description" content="Apache SparkTM is known as popular big data framework which is faster than Hadoop MapReduce, easy-to-use, and fault-tolerant. Most of the Spark tutorials require readers to understand Scala, Java, or">
+<meta name="twitter:image" content="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/spark-doc-sql.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sanori&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">The world that sanori perceives</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/links">Links</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sanori.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Writing-Spark-batches-only-in-SQL" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/Writing-Spark-batches-only-in-SQL/" class="article-date">
+  <time datetime="2017-10-07T14:57:03.000Z" itemprop="datePublished">2017-10-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Writing Spark batches only in SQL
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://spark.apache.org/" target="_blank" rel="external">Apache Spark<sup>TM</sup></a> is known as popular big data framework which is faster than Hadoop MapReduce, easy-to-use, and fault-tolerant. Most of the Spark tutorials require readers to understand Scala, Java, or Python as base programming language. But, in my opinion, SQL is enough to write a spark batch script.</p>
+<p>In this article, I will show that <strong>you can write Spark batches only in SQL if your input data is ready as structured dataset</strong>. This means that you don’t need to learn Scala or Python, RDD, DataFrame if your job can be expressed in SQL. Moreover, the expression power of SparkSQL may be stronger than you think.</p>
+<p>The SQL scripts as follows can be found at <a href="https://github.com/sanori/spark-sql-example" target="_blank" rel="external">https://github.com/sanori/spark-sql-example</a>. You can test them yourself.</p>
+<h2 id="Spark-batches"><a href="#Spark-batches" class="headerlink" title="Spark batches"></a>Spark batches</h2><p>Typical Spark batches are a program that</p>
+<ol>
+<li>read data from data sources,</li>
+<li>transform and calculate the data, and</li>
+<li>save the result.</li>
+</ol>
+<p>Most of the Spark tutorials require Scala or Python (or R) programming language to write a Spark batch. For example, you may write a Python script to calculate the lines of each plays of Shakespeare when you are provided the full text in parquet format as follows. (Some codes are included for illustration purpose.)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> SparkSession</div><div class="line"><span class="keyword">import</span> pyspark.sql.functions <span class="keyword">as</span> sf</div><div class="line"><span class="keyword">import</span> os.path</div><div class="line"></div><div class="line"><span class="comment"># Start Spark</span></div><div class="line">spark = SparkSession \</div><div class="line">    .builder \</div><div class="line">    .appName(<span class="string">"pyspark example"</span>) \</div><div class="line">    .getOrCreate()</div><div class="line"></div><div class="line">basedir = os.path.dirname(os.path.realpath(__file__))</div><div class="line"></div><div class="line"><span class="comment"># Read all of Shakespeare's plays</span></div><div class="line">df = spark.read.parquet(os.path.join(basedir, <span class="string">"data/shakespeare.gz.parquet"</span>))</div><div class="line"></div><div class="line"><span class="comment"># Print the schema to the console</span></div><div class="line">df.printSchema()</div><div class="line"></div><div class="line"><span class="comment"># Calculate number of lines of each work (play)</span></div><div class="line">result = df \</div><div class="line">    .groupBy(<span class="string">"play_name"</span>) \</div><div class="line">    .agg(sf.count(<span class="string">"line_id"</span>).alias(<span class="string">"lines"</span>)) \</div><div class="line">    .orderBy(<span class="string">"lines"</span>, ascending=<span class="keyword">False</span>)</div><div class="line"></div><div class="line"><span class="comment"># Print a part of the result to the console</span></div><div class="line">result.show()</div><div class="line"></div><div class="line"><span class="comment"># Save the result as one file in JSON Lines format</span></div><div class="line">result \</div><div class="line">    .repartition(<span class="number">1</span>) \</div><div class="line">    .write \</div><div class="line">    .json(os.path.join(basedir, <span class="string">"length_of_play"</span>), mode=<span class="string">"overwrite"</span>)</div><div class="line"></div><div class="line"><span class="comment"># Stop Spark</span></div><div class="line">spark.stop()</div></pre></td></tr></table></figure>
+<p>The data calculation part of the above code is to get the <code>result</code> DataFrame, which is from line 20 to 23. This part can be written using SQL as follows:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Calculate number of lines of each work (play)</span></div><div class="line">df.createOrReplaceTempView(<span class="string">"shakespeare"</span>)  <span class="comment"># register df as shakespeare table</span></div><div class="line">result = spark.sql(<span class="string">"""</span></div><div class="line">SELECT play_name, count(line_id) AS lines</div><div class="line">FROM shakespeare</div><div class="line">GROUP BY play_name</div><div class="line">ORDER BY lines DESC</div><div class="line">""")</div></pre></td></tr></table></figure>
+<p>As I learn more about Spark, I realized that most of the data processing code can be replaced by SQL. And I found that most of the Spark batch script can be rewritten in SQL. For example, the above batch script can be rewritten in SQL as follows:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">-- Read all of Shakespeare's plays</span></div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TEMPORARY</span> <span class="keyword">VIEW</span> shakespeare</div><div class="line">  <span class="keyword">USING</span> parquet</div><div class="line">  OPTIONS (<span class="keyword">path</span> <span class="string">"data/shakespeare.gz.parquet"</span>);</div><div class="line"></div><div class="line"><span class="comment">-- Print the table schema and additional informations to the console</span></div><div class="line"><span class="keyword">DESCRIBE</span> <span class="keyword">EXTENDED</span> shakespeare;</div><div class="line"></div><div class="line"><span class="comment">-- Calculate number of lines of each work and print to the console</span></div><div class="line"><span class="keyword">SELECT</span> play_name, <span class="keyword">count</span>(line_id) <span class="keyword">AS</span> <span class="keyword">lines</span></div><div class="line">  <span class="keyword">FROM</span> shakespeare</div><div class="line">  <span class="keyword">GROUP</span> <span class="keyword">BY</span> play_name</div><div class="line">  <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">lines</span> <span class="keyword">DESC</span></div><div class="line">  <span class="keyword">LIMIT</span> <span class="number">20</span>;</div><div class="line"></div><div class="line"><span class="comment">-- Save the result as one file in JSON Lines format</span></div><div class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> lengthOfPlay;   <span class="comment">-- to overwrite, remove existing table</span></div><div class="line"><span class="keyword">SET</span> spark.sql.shuffle.partitions=<span class="number">1</span>;   <span class="comment">-- to make single output file</span></div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> lengthOfPlay</div><div class="line">  <span class="keyword">USING</span> <span class="keyword">json</span></div><div class="line">  LOCATION <span class="string">"length_of_play"</span></div><div class="line">  <span class="keyword">AS</span> <span class="keyword">SELECT</span> play_name, <span class="keyword">count</span>(line_id) <span class="keyword">AS</span> <span class="keyword">lines</span></div><div class="line">    <span class="keyword">FROM</span> shakespeare</div><div class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> play_name</div><div class="line">    <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">lines</span> <span class="keyword">DESC</span>;</div></pre></td></tr></table></figure>
+<p>The above SQL script can be executed by <code>spark-sql</code> which is included in default Spark distribution. This may imply that Spark creators consider SQL as one of the main programming language. In fact, most of the SQL references are from the official Spark programming guide named <a href="http://spark.apache.org/docs/latest/sql-programming-guide.html" target="_blank" rel="external">Spark SQL, DataFrames and Datasets Guide</a>. To see the SQL examples, you should click <strong>“Sql”</strong> tab as follows:</p>
+<img src="/2017/10/Writing-Spark-batches-only-in-SQL/spark-doc-sql.png" alt="SQL tab on Spark official document" title="SQL tab on Spark official document">
+<h2 id="Writing-SQL-only-script"><a href="#Writing-SQL-only-script" class="headerlink" title="Writing SQL only script"></a>Writing SQL only script</h2><p>The most problematic part of writing a Spark script only in SQL would be file operations. Most of the Spark tutorials suggest to use Scala or Python Language to read a data file and/or save the result of data processing. But, there are several ways to read or write a data file in SparkSQL as follows.</p>
+<p>The file path in the following examples can be a HDFS URI path. That is, you can write SQL script for cluster or distributed environment.</p>
+<h3 id="Read-a-data-file"><a href="#Read-a-data-file" class="headerlink" title="Read a data file"></a>Read a data file</h3><h4 id="Read-directly-from-SQL-FROM"><a href="#Read-directly-from-SQL-FROM" class="headerlink" title="Read directly from SQL FROM"></a>Read directly from SQL <code>FROM</code></h4><p>You can simply read the data as a table using SQL <code>FROM</code> statement.<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> play_name</div><div class="line"><span class="keyword">FROM</span> parquet.<span class="string">`data/shakespeare.gz.parquet`</span></div></pre></td></tr></table></figure></p>
+<p>Reference: <a href="http://spark.apache.org/docs/latest/sql-programming-guide.html#run-sql-on-files-directly" target="_blank" rel="external">http://spark.apache.org/docs/latest/sql-programming-guide.html#run-sql-on-files-directly</a></p>
+<h4 id="Register-a-file-as-VIEW-or-TABLE"><a href="#Register-a-file-as-VIEW-or-TABLE" class="headerlink" title="Register a file as VIEW or TABLE"></a>Register a file as <code>VIEW</code> or <code>TABLE</code></h4><p>You may use data definition language such as <code>CREATE VIEW</code> or <code>CREATE TABLE</code> if you want to load data as a table or a view. I recommend to use <code>CREATE TEMPORARY VIEW</code> if you don’t want to modify the original data since a <code>TABLE</code> can be modified by <code>INSERT INTO</code>, <code>TRUNCATE</code>, etc.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TEMPORARY</span> <span class="keyword">VIEW</span> shakespeare</div><div class="line"><span class="keyword">USING</span> parquet</div><div class="line">OPTIONS (<span class="keyword">path</span> <span class="string">"data/shakespeare.gz.parquet"</span>)</div></pre></td></tr></table></figure>
+<p>Reference:</p>
+<ul>
+<li><a href="http://spark.apache.org/docs/latest/sql-programming-guide.html#loading-data-programmatically" target="_blank" rel="external">http://spark.apache.org/docs/latest/sql-programming-guide.html#loading-data-programmatically</a></li>
+<li><a href="https://docs.databricks.com/spark/latest/spark-sql/language-manual/create-view.html" target="_blank" rel="external">https://docs.databricks.com/spark/latest/spark-sql/language-manual/create-view.html</a></li>
+</ul>
+<h3 id="Write-a-result-to-a-file"><a href="#Write-a-result-to-a-file" class="headerlink" title="Write a result to a file"></a>Write a result to a file</h3><p>In Spark tutorials with Scala or Python, the processed result can be saved to a file using <a href="http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.Dataset@write:org.apache.spark.sql.DataFrameWriter[T]" target="_blank" rel="external"><code>write</code></a> API of Dataset. This is intuitive for most programmers.</p>
+<p>In SQL, all the data are abstracted as tables. Therefore, you should create a table to save or write the resultant data, instead of searching for write API for SQL.</p>
+<h4 id="CREATE-TABLE-AS-SELECT"><a href="#CREATE-TABLE-AS-SELECT" class="headerlink" title="CREATE TABLE AS SELECT"></a><code>CREATE TABLE AS SELECT</code></h4><p>If you save a new dataset, you may use <code>CREATE TABLE AS SELECT</code> statement.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> lengthOfPlay</div><div class="line">  <span class="keyword">USING</span> <span class="keyword">json</span></div><div class="line">  LOCATION <span class="string">"length_of_play"</span></div><div class="line">  <span class="keyword">AS</span> <span class="keyword">SELECT</span> play_name, <span class="keyword">count</span>(line_id) <span class="keyword">AS</span> <span class="keyword">lines</span></div><div class="line">    <span class="keyword">FROM</span> shakespeare</div><div class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> play_name</div><div class="line">    <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">lines</span> <span class="keyword">DESC</span>;</div></pre></td></tr></table></figure>
+<h4 id="INSERT-SELECT"><a href="#INSERT-SELECT" class="headerlink" title="INSERT SELECT"></a><code>INSERT SELECT</code></h4><p>If you want to append new data to existing table or directory,<br>you may use <code>INSERT INTO &lt;table&gt; SELECT</code> statement.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> lengthOfPlay</div><div class="line">  <span class="keyword">SELECT</span> play_name, <span class="keyword">count</span>(line_id) <span class="keyword">AS</span> <span class="keyword">lines</span></div><div class="line">  <span class="keyword">FROM</span> shakespeare</div><div class="line">  <span class="keyword">GROUP</span> <span class="keyword">BY</span> play_name</div><div class="line">  <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">lines</span> <span class="keyword">DESC</span>;</div></pre></td></tr></table></figure>
+<p>The table where the data are added must be created before to use <code>INSERT</code>.<br>A typical table definition example is as follows.<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> lengthOfPlay (</div><div class="line">  play_name <span class="keyword">STRING</span>,</div><div class="line">  <span class="keyword">lines</span> <span class="built_in">INT</span></div><div class="line">  )</div><div class="line">  <span class="keyword">USING</span> <span class="keyword">json</span></div><div class="line">  LOCATION <span class="string">"length_of_play"</span>;</div></pre></td></tr></table></figure></p>
+<p>For more information, consult <a href="https://docs.databricks.com/spark/latest/spark-sql/language-manual/insert.html" target="_blank" rel="external">https://docs.databricks.com/spark/latest/spark-sql/language-manual/insert.html</a></p>
+<p>You may consider <code>INSERT OVERWRITE TABLE</code> statement to create a new dataset.<br>But, in my humble opinion, <code>CREATE TABLE AS SELECT</code> is better to create new dataset<br>since the table should be created before <code>INSERT</code> statement,<br>and there is a chance of schema inconsistency between <code>CREATE TABLE</code> and <code>INSERT SELECT</code>.</p>
+<p>Note that there is no <code>UPDATE</code> statement in SparkSQL<br>since all the data in Spark are immutable, or not changeable.<br>You may create, append, or delete data, but you cannot change existing data.</p>
+<h2 id="Running-SQL-only-script"><a href="#Running-SQL-only-script" class="headerlink" title="Running SQL only script"></a>Running SQL only script</h2><h3 id="spark-sql"><a href="#spark-sql" class="headerlink" title="spark-sql"></a><code>spark-sql</code></h3><p>If you have installed Spark, you can execute the SQL script file as follows:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$SPARK_HOME</span>/bin/spark-sql -f &lt;script.sql&gt;</div></pre></td></tr></table></figure></p>
+<p>If you have added the spark executables to your <code>PATH</code>, <code>spark-sql -f &lt;script.sql&gt;</code> is enough.</p>
+<p>Like <code>spark-submit</code>, <code>spark-sql</code> supports <code>--master</code>, <code>--conf</code>, <code>--executor-memory MEM</code>, <code>--executor-cores NUM</code> options. Therefore you can tune Spark parameters for better performance.</p>
+<p>For more information on options and its meaning, consult <a href="http://spark.apache.org/docs/latest/submitting-applications.html#launching-applications-with-spark-submit" target="_blank" rel="external">http://spark.apache.org/docs/latest/submitting-applications.html#launching-applications-with-spark-submit</a></p>
+<h3 id="Setting-parameters-by-SET"><a href="#Setting-parameters-by-SET" class="headerlink" title="Setting parameters by SET"></a>Setting parameters by <code>SET</code></h3><p>You can set Spark parameters using <code>SET</code> statement in SparkSQL instead of setting parameters in <code>spark-sql</code> options. For example, you can replace <code>--master</code> option in <code>spark-sql</code> as follows.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SET</span> spark.master=<span class="string">"local[*]"</span>;</div></pre></td></tr></table></figure>
+<p>For more configuration variables, consult <a href="http://spark.apache.org/docs/latest/configuration.html#available-properties" target="_blank" rel="external">http://spark.apache.org/docs/latest/configuration.html#available-properties</a></p>
+<p>Reference: <a href="https://docs.databricks.com/spark/latest/spark-sql/language-manual/set.html" target="_blank" rel="external">https://docs.databricks.com/spark/latest/spark-sql/language-manual/set.html</a></p>
+<h2 id="Difference-from-RDBMS"><a href="#Difference-from-RDBMS" class="headerlink" title="Difference from RDBMS"></a>Difference from RDBMS</h2><p>Although Spark supports SQL including data definition language, Spark is <strong>NOT</strong> a relational DBMS. Spark just have taken SQL as data processing language.</p>
+<p>All the data in Spark are immutable. That is, you <strong>cannot update</strong> existing tables, rows, and columns. There is no <code>UPDATE</code> statement.</p>
+<h2 id="Motivation-of-this-article"><a href="#Motivation-of-this-article" class="headerlink" title="Motivation of this article"></a>Motivation of this article</h2><ul>
+<li>Increasing Boilerplates in Spark batch scripts<ul>
+<li>Boilerplate codes are increasing as time goes by and it makes hard to manage.</li>
+<li>Most of Python/Scala batches are the same except SQL part which process data.</li>
+<li>Shell scripts are also required to submit Spark jobs using <code>spark-submit</code> with parameters.</li>
+</ul>
+</li>
+<li>SparkSQL is similar to Dataset API<ul>
+<li>Writing Dataset processing code using Dataset API is very similar to write SQL script.</li>
+<li>Most of the Spark batches can be expressed in SQL language only.</li>
+<li>SparkSQL examples exist in Dataset API.</li>
+</ul>
+</li>
+<li>Dataset is recommended than RDD since Spark 2<ul>
+<li>Dataset, which is general type of DataFrame, is supported by query optimizer (Catalyst) and efficient code generator and serializer (Tungsten).</li>
+<li>It is recommended to use Dataset instead of RDD due to the efficiency when the developer is not a Spark expert.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Further-Works"><a href="#Further-Works" class="headerlink" title="Further Works"></a>Further Works</h2><p>The expresion power of SparkSQL may be more than we think.</p>
+<ul>
+<li><a href="http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.expressions.Window$" target="_blank" rel="external">Window functions</a></li>
+<li><a href="https://databricks.com/blog/2017/05/24/working-with-nested-data-using-higher-order-functions-in-sql-on-databricks.html" target="_blank" rel="external">Higher order functions</a></li>
+</ul>
+<p>I will write a article about these topics when I get time.</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li>Spark SQL, DataFrames and Datasets Guide: <a href="http://spark.apache.org/docs/latest/sql-programming-guide.html" target="_blank" rel="external">http://spark.apache.org/docs/latest/sql-programming-guide.html</a></li>
+<li>Spark SQL Reference: <a href="https://docs.databricks.com/spark/latest/spark-sql/index.html" target="_blank" rel="external">https://docs.databricks.com/spark/latest/spark-sql/index.html</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/" data-id="cj8hg7txz00085zjd1gipy2qm" class="article-share-link">Share</a>
+      
+        <a href="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataFrame/">DataFrame</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dataset/">Dataset</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL/">SQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark/">Spark</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SparkSQL/">SparkSQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/07/Running-Spark-on-Scala-Worksheet/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Running Spark on Scala Worksheet</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CLI/">CLI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CUDA/">CUDA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CommandLineInterface/">CommandLineInterface</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataFrame/">DataFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dataset/">Dataset</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REPL/">REPL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala-Worksheet/">Scala Worksheet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SparkSQL/">SparkSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TensorFlow/">TensorFlow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interactive-development/">interactive development</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nVidia/">nVidia</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nvidia-docker/">nvidia-docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sbt/">sbt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark-shell/">spark-shell</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/CUDA/" style="font-size: 10px;">CUDA</a> <a href="/tags/CommandLineInterface/" style="font-size: 10px;">CommandLineInterface</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/REPL/" style="font-size: 10px;">REPL</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Scala-Worksheet/" style="font-size: 10px;">Scala Worksheet</a> <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/SparkSQL/" style="font-size: 10px;">SparkSQL</a> <a href="/tags/TensorFlow/" style="font-size: 10px;">TensorFlow</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/interactive-development/" style="font-size: 10px;">interactive development</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/nVidia/" style="font-size: 10px;">nVidia</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/nvidia-docker/" style="font-size: 10px;">nvidia-docker</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/spark-shell/" style="font-size: 10px;">spark-shell</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/10/Writing-Spark-batches-only-in-SQL/">Writing Spark batches only in SQL</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/Running-Spark-on-Scala-Worksheet/">Running Spark on Scala Worksheet</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/Using-sbt-instead-of-spark-shell/">Using sbt instead of spark-shell</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/Tensorflow-over-docker-with-GPU/">TensorFlow over docker with GPU support</a>
+          </li>
+        
+          <li>
+            <a href="/2015/09/Writing-Command-Line-Scripts-in-Node-js/">Writing Command Line Scripts in Node.js</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Joo-Won Jung<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/links" class="mobile-nav-link">Links</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'sanoriblog';
+  
+  var disqus_url = 'http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
