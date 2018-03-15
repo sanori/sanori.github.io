@@ -21,7 +21,7 @@ ga('send', 'pageview');
   <title>TensorFlow over docker with GPU support | Sanori&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="I have succeeded to run TensorFlow on my desktop which runs Ubuntu 16.04 LTS with nVidia GeForce GTX 1050. I want to share the easy and fast way to install TensorFlow, so I write this down. This does">
-<meta name="keywords" content="TensorFlow,nVidia,CUDA,docker,nvidia-docker">
+<meta name="keywords" content="TensorFlow,nvidia-docker,docker,nVidia,CUDA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TensorFlow over docker with GPU support">
 <meta property="og:url" content="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/index.html">
@@ -111,25 +111,25 @@ ga('send', 'pageview');
         <p>I have succeeded to run TensorFlow on my desktop which runs Ubuntu 16.04 LTS with nVidia GeForce GTX 1050. I want to share the easy and fast way to install TensorFlow, so I write this down. This does <strong>NOT</strong> require to download and install CUDA toolkit nor cuDNN, but you can get GPU acceleration.</p>
 <h2 id="Prerequisite"><a href="#Prerequisite" class="headerlink" title="Prerequisite"></a>Prerequisite</h2><ul>
 <li>nVidia graphics card (CUDA Compute Capability &gt;= 3.0)<ul>
-<li>You can check at <a href="https://developer.nvidia.com/cuda-gpus" target="_blank" rel="external">nVidia documentation</a>.</li>
+<li>You can check at <a href="https://developer.nvidia.com/cuda-gpus" target="_blank" rel="noopener">nVidia documentation</a>.</li>
 </ul>
 </li>
 <li>nVidia driver which supports your graphics card<ul>
-<li>Ubuntu: <a href="https://launchpad.net/~graphics-drivers/+archive/ubuntu/ppa" target="_blank" rel="external">ppa:graphics-drivers/ppa</a></li>
+<li>Ubuntu: <a href="https://launchpad.net/~graphics-drivers/+archive/ubuntu/ppa" target="_blank" rel="noopener">ppa:graphics-drivers/ppa</a></li>
 </ul>
 </li>
-<li><a href="https://docs.docker.com/engine/installation/" target="_blank" rel="external">Docker engine</a></li>
+<li><a href="https://docs.docker.com/engine/installation/" target="_blank" rel="noopener">Docker engine</a></li>
 </ul>
 <h2 id="Quick-start"><a href="#Quick-start" class="headerlink" title="Quick start"></a>Quick start</h2><ol>
-<li>install <a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="external">nvidia-docker</a>.</li>
+<li>install <a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="noopener">nvidia-docker</a>.</li>
 <li><p>run TensorFlow using nvidia-docker.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo nvidia-docker run -it --rm -p 8888:8888 gcr.io/tensorflow/tensorflow:latest-gpu</div></pre></td></tr></table></figure>
 </li>
 <li><p>&lt;ctrl&gt;-click or copy &amp; paste the URI looks like <code>http://localhost:8888/?token=&lt;hex_string&gt;</code> that appears on your terminal. Then you can get Jupyter notebook on your browser.</p>
-<img src="/2017/02/Tensorflow-over-docker-with-GPU/TensorFlow-jupyter.png" alt="Jupyter Notebook of TensorFlow" title="Jupyter Notebook of TensorFlow">
+<img src="/2017/02/Tensorflow-over-docker-with-GPU/TensorFlow-jupyter.png" title="Jupyter Notebook of TensorFlow">
 </li>
 </ol>
-<h2 id="Why-this-works"><a href="#Why-this-works" class="headerlink" title="Why this works"></a>Why this works</h2><p><a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="external">nvidia-docker</a> provides CUDA toolkit and cuDNN and tensorflow docker images utilizes it. All the installation procedures are abstracted by Docker images.</p>
+<h2 id="Why-this-works"><a href="#Why-this-works" class="headerlink" title="Why this works"></a>Why this works</h2><p><a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="noopener">nvidia-docker</a> provides CUDA toolkit and cuDNN and tensorflow docker images utilizes it. All the installation procedures are abstracted by Docker images.</p>
 <h2 id="Troubleshooting-in-Ubuntu"><a href="#Troubleshooting-in-Ubuntu" class="headerlink" title="Troubleshooting in Ubuntu"></a>Troubleshooting in Ubuntu</h2><ol>
 <li><p>Identify your nVidia graphics card</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ lspci | grep -i nvidia</div></pre></td></tr></table></figure>
@@ -145,7 +145,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/" data-id="cj8hg7txl00025zjdh0slmwlf" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/" data-id="cjesu6e6j00045ujdda9wns73" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -195,7 +195,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CLI/">CLI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CUDA/">CUDA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CommandLineInterface/">CommandLineInterface</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataFrame/">DataFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dataset/">Dataset</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REPL/">REPL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala-Worksheet/">Scala Worksheet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SparkSQL/">SparkSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TensorFlow/">TensorFlow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interactive-development/">interactive development</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nVidia/">nVidia</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nvidia-docker/">nvidia-docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sbt/">sbt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark-shell/">spark-shell</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CLI/">CLI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CUDA/">CUDA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CommandLineInterface/">CommandLineInterface</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataFrame/">DataFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dataset/">Dataset</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Keras/">Keras</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REPL/">REPL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala-Worksheet/">Scala Worksheet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SparkSQL/">SparkSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TensorFlow/">TensorFlow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interactive-development/">interactive development</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nVidia/">nVidia</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nvidia-docker/">nvidia-docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sbt/">sbt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark-shell/">spark-shell</a></li></ul>
     </div>
   </div>
 
@@ -205,7 +205,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/CUDA/" style="font-size: 10px;">CUDA</a> <a href="/tags/CommandLineInterface/" style="font-size: 10px;">CommandLineInterface</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/REPL/" style="font-size: 10px;">REPL</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Scala-Worksheet/" style="font-size: 10px;">Scala Worksheet</a> <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/SparkSQL/" style="font-size: 10px;">SparkSQL</a> <a href="/tags/TensorFlow/" style="font-size: 10px;">TensorFlow</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/interactive-development/" style="font-size: 10px;">interactive development</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/nVidia/" style="font-size: 10px;">nVidia</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/nvidia-docker/" style="font-size: 10px;">nvidia-docker</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/spark-shell/" style="font-size: 10px;">spark-shell</a>
+      <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/CUDA/" style="font-size: 10px;">CUDA</a> <a href="/tags/CommandLineInterface/" style="font-size: 10px;">CommandLineInterface</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/Keras/" style="font-size: 10px;">Keras</a> <a href="/tags/REPL/" style="font-size: 10px;">REPL</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Scala-Worksheet/" style="font-size: 10px;">Scala Worksheet</a> <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/SparkSQL/" style="font-size: 10px;">SparkSQL</a> <a href="/tags/TensorFlow/" style="font-size: 15px;">TensorFlow</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/interactive-development/" style="font-size: 10px;">interactive development</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/nVidia/" style="font-size: 10px;">nVidia</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/nvidia-docker/" style="font-size: 15px;">nvidia-docker</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/spark-shell/" style="font-size: 10px;">spark-shell</a>
     </div>
   </div>
 
@@ -214,7 +214,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li></ul>
     </div>
   </div>
 
@@ -225,6 +225,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/03/Running-Keras-directly-on-Tensorflow/">Running Keras directly on TensorFlow</a>
+          </li>
         
           <li>
             <a href="/2017/10/Writing-Spark-batches-only-in-SQL/">Writing Spark batches only in SQL</a>
@@ -242,10 +246,6 @@ ga('send', 'pageview');
             <a href="/2017/02/Tensorflow-over-docker-with-GPU/">TensorFlow over docker with GPU support</a>
           </li>
         
-          <li>
-            <a href="/2015/09/Writing-Command-Line-Scripts-in-Node-js/">Writing Command Line Scripts in Node.js</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -258,7 +258,7 @@ ga('send', 'pageview');
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2017 Joo-Won Jung<br>
+      &copy; 2018 Joo-Won Jung<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
