@@ -34,7 +34,7 @@ ga('send', 'pageview');
     <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.ico">
   
   
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
@@ -127,7 +127,7 @@ ga('send', 'pageview');
 <p>The (original) Keras gives the following warning to help migrating to Keras 2:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UserWarning: Update your `Dense` call to the Keras 2 API: `Dense(12, activation=&quot;relu&quot;, kernel_initializer=&quot;uniform&quot;, input_dim=11)`</div></pre></td></tr></table></figure></p>
 <p>But, the Keras API of TensorFlow 1.6.0 gives the following error message:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">TypeError: (&apos;Keyword argument not understood:&apos;, &apos;init&apos;)</div></pre></td></tr></table></figure></p>
 <p>The most critical argument is <code>nb_epoch</code> in <code>model.fit()</code> since TensorFlow <strong>does not give any error messages</strong>. You should change <code>nb_epoch</code> to <code>epochs</code>. Without this, TensorFlow just run 1 epoch only.</p>
-<h2 id="Migration-Example"><a href="#Migration-Example" class="headerlink" title="Migration Example"></a>Migration Example</h2><h3 id="Sample-Keras-1-code"><a href="#Sample-Keras-1-code" class="headerlink" title="Sample Keras 1 code"></a>Sample Keras 1 code</h3><p><a href="https://www.udemy.com/a-gentle-introduction-to-deep-learning-using-keras/" target="_blank" rel="noopener"><em>“A Gentle Introduction to Deep Learning using Keras”</em></a><br>is a great introductory lecture about Keras. It is one hour lecture and easy to understand with explanatory example code in Jupyter notebook. You can get the iPython notebook and sample data from<br><a href="https://www.udemy.com/a-gentle-introduction-to-deep-learning-using-keras/learn/v4/t/lecture/6847974" target="_blank" rel="noopener">Section 1, Lecture 9</a>.</p>
+<h2 id="Migration-Example"><a href="#Migration-Example" class="headerlink" title="Migration Example"></a>Migration Example</h2><h3 id="Sample-Keras-1-code"><a href="#Sample-Keras-1-code" class="headerlink" title="Sample Keras 1 code"></a>Sample Keras 1 code</h3><p><a href="https://www.udemy.com/a-gentle-introduction-to-deep-learning-using-keras/" target="_blank" rel="noopener"><em>“A Gentle Introduction to Deep Learning using Keras”</em></a> is a great introductory lecture about Keras. It is one hour lecture and easy to understand with explanatory example code in Jupyter notebook. You can get the iPython notebook and sample data from <a href="https://www.udemy.com/a-gentle-introduction-to-deep-learning-using-keras/learn/v4/t/lecture/6847974" target="_blank" rel="noopener">Section 1, Lecture 9</a>.</p>
 <p>The Keras code in the Lecture is written in Keras 1. So, you need to modify some python code to run it on TensorFlow directly.</p>
 <h3 id="Run-TensorFlow-usnig-docker-image"><a href="#Run-TensorFlow-usnig-docker-image" class="headerlink" title="Run TensorFlow usnig docker image"></a>Run TensorFlow usnig docker image</h3><p>If you are not interested in docker, you can skip this section.</p>
 <p>You can run TensorFlow instantly <strong>without</strong> installing Python, pip, pandas, TensorFlow, CUDA, cuDNN if you are using <a href="https://www.docker.com/" target="_blank" rel="noopener">docker</a>.</p>
@@ -147,7 +147,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/" data-id="cjevq4k750000l5jdcvvud48d" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/" data-id="cjevqsbvw0000fijd7ch66x67" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -264,7 +264,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/" data-id="cjevq4k7h0009l5jdim7g670e" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/" data-id="cjevqsbw50008fijduh2jde3c" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -338,7 +338,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/" data-id="cjevq4k790002l5jd54gh5qya" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/" data-id="cjevqsbvz0001fijd00u37e9h" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -396,7 +396,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/" data-id="cjevq4k7f0006l5jdw1chf5wa" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/" data-id="cjevqsbw40005fijd1dvovfvl" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -469,7 +469,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/" data-id="cjevq4k7c0004l5jdydxyon61" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/" data-id="cjevqsbw10003fijdd4v2p9ex" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -524,7 +524,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/" data-id="cjevq4k7g0008l5jd2y14dy79" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/" data-id="cjevqsbw50007fijdmnxnmpxx" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -566,7 +566,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2015/09/Test-posting/" data-id="cjevq4k7e0005l5jd41t3fwnq" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2015/09/Test-posting/" data-id="cjevqsbw30004fijdjzv4ft0q" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2015/09/Test-posting/#disqus_thread" class="article-comment-link">Comments</a>
       
