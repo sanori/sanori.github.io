@@ -18,19 +18,22 @@ ga('send', 'pageview');
 
 
   
-  <title>Test posting | Sanori&#39;s Blog</title>
+  <title>JavaScript Pitfalls &amp; Tips: Sort | Sanori&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="This is a test posting for test Hexo and github pages. -Sanori">
+  <meta name="description" content="JavaScript Quiz:  What would be the result of the above JavaScript code? You may expect [2, 10, 456, 3548] since the array seem to be an integer array and JavaScript would sort it in numeric order. Bu">
+<meta name="keywords" content="node.js,javascript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Test posting">
-<meta property="og:url" content="http://sanori.github.io/2015/09/Test-posting/index.html">
+<meta property="og:title" content="JavaScript Pitfalls &amp; Tips: Sort">
+<meta property="og:url" content="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
-<meta property="og:description" content="This is a test posting for test Hexo and github pages. -Sanori">
+<meta property="og:description" content="JavaScript Quiz:  What would be the result of the above JavaScript code? You may expect [2, 10, 456, 3548] since the array seem to be an integer array and JavaScript would sort it in numeric order. Bu">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2017-06-06T08:14:33.639Z">
+<meta property="og:image" content="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png">
+<meta property="og:updated_time" content="2018-05-24T18:51:03.392Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Test posting">
-<meta name="twitter:description" content="This is a test posting for test Hexo and github pages. -Sanori">
+<meta name="twitter:title" content="JavaScript Pitfalls &amp; Tips: Sort">
+<meta name="twitter:description" content="JavaScript Quiz:  What would be the result of the above JavaScript code? You may expect [2, 10, 456, 3548] since the array seem to be an integer array and JavaScript would sort it in numeric order. Bu">
+<meta name="twitter:image" content="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png">
   
     <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
   
@@ -41,7 +44,7 @@ ga('send', 'pageview');
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
   
-    <link rel="amphtml" href="http://sanori.github.io/2015/09/Test-posting/amp/">
+    <link rel="amphtml" href="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/amp/">
 
   <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -86,10 +89,10 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Test-posting" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-JavaScript-Pitfalls-Tips-Sort" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/09/Test-posting/" class="article-date">
-  <time datetime="2015-09-06T19:49:36.000Z" itemprop="datePublished">2015-09-07</time>
+    <a href="/2018/05/JavaScript-Pitfalls-Tips-Sort/" class="article-date">
+  <time datetime="2018-05-24T18:51:03.000Z" itemprop="datePublished">2018-05-25</time>
 </a>
     
   </div>
@@ -100,7 +103,7 @@ ga('send', 'pageview');
         
   
     <h1 class="article-title" itemprop="name">
-      Test posting
+      JavaScript Pitfalls &amp; Tips: Sort
     </h1>
   
 
@@ -108,32 +111,41 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>This is a test posting for test Hexo and github pages.</p>
-<p>-Sanori</p>
+        <p>JavaScript Quiz:</p>
+<img src="/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png" title="[10, 2, 456, 3548].sort()">
+<p>What would be the result of the above JavaScript code? You may expect <code>[2, 10, 456, 3548]</code> since the array seem to be an integer array and JavaScript would sort it in numeric order. But, the correct result is as follows:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">2</span>, <span class="number">3548</span>, <span class="number">456</span>]</span><br></pre></td></tr></table></figure></p>
+<p>It is because the default comparison function of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort" target="_blank" rel="noopener"><code>Array.prototype.sort()</code></a> is the <em>string comparison</em> after converting each element to string.</p>
+<p>Why the default sort function of JavaScript array as string comparison? I guess that the reason is the array type in JavaScript is for general types. For example, the following is a valid array of JavaScript.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [ <span class="string">'13'</span>, <span class="string">'Bob'</span>, <span class="number">20</span>, <span class="literal">NaN</span>, <span class="literal">Infinity</span> ];</span><br></pre></td></tr></table></figure>
+<p>Since the default sort function is for string, <code>a.sort()</code> works consistently and with no error.</p>
+<h2 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h2><p>But, if you want to sort the array as numbers, how can you make it? There are two ways.</p>
+<h3 id="Comparison-function-for-Number"><a href="#Comparison-function-for-Number" class="headerlink" title="Comparison function for Number"></a>Comparison function for <code>Number</code></h3><p>You may supply a comparison function for numbers as follows:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">2</span>, <span class="number">456</span>, <span class="number">3548</span>].sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>) </span>&#123; <span class="keyword">return</span> a - b &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>If you use ES2015 or above, you may use arrow function to keep it simple:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">2</span>, <span class="number">456</span>, <span class="number">3548</span>].sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b)</span><br></pre></td></tr></table></figure></p>
+<h3 id="Typed-array-ES2015-above"><a href="#Typed-array-ES2015-above" class="headerlink" title="Typed array (ES2015 above)"></a>Typed array (ES2015 above)</h3><p>You may think the sort function should sort in numeric order if the array is numeric typed array. You are right if you make the array numeric typed. JavaScript supports typed array.</p>
+<p>ES2015 introduced <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray" target="_blank" rel="noopener"><code>TypedArray</code></a> as a view of binary data buffer. But you may use it as an array of the same type. So you can make the general array as typed array and sort as follows:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Float64Array</span>.from([<span class="number">10</span>, <span class="number">2</span>, <span class="number">456</span>, <span class="number">3548</span>]).sort()</span><br></pre></td></tr></table></figure></p>
+<p>Note that there is <strong>no</strong> <code>Int64Array</code> type since the widest integer in bitwise operation is 32-bit.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2015/09/Test-posting/" data-id="cjhkw8udl00066xjdseupf90t" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/" data-id="cjhkw8uda00006xjd4ny0j2o2" class="article-share-link">Share</a>
       
-        <a href="http://sanori.github.io/2015/09/Test-posting/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/#disqus_thread" class="article-comment-link">Comments</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2015/09/Writing-Command-Line-Scripts-in-Node-js/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Writing Command Line Scripts in Node.js
-        
-      </div>
-    </a>
   
+    <a href="/2018/03/Running-Keras-directly-on-Tensorflow/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Running Keras directly on TensorFlow</div>
+    </a>
   
 </nav>
 
@@ -239,7 +251,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'sanoriblog';
   
-  var disqus_url = 'http://sanori.github.io/2015/09/Test-posting/';
+  var disqus_url = 'http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/';
   
   (function(){
     var dsq = document.createElement('script');
