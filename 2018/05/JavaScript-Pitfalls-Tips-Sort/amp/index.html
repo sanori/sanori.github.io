@@ -10,7 +10,7 @@
 	<meta property="og:type" content="article">
 	<meta property="og:url" content="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/">
 	
-		<meta property="og:image" content="/amp-dist/sample/sample-substituteTitleImage.png">
+		<meta property="og:image" content="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png">
 	
 	<meta property="og:site_name" content="Sanori&#39;s Blog">
 	
@@ -20,7 +20,7 @@
 	<meta name="twitter:title" content="JavaScript Pitfalls &amp; Tips: Sort - Sanori&#39;s Blog">
 	
     
-    	<meta name="twitter:image" content="/amp-dist/sample/sample-substituteTitleImage.png">
+    	<meta name="twitter:image" content="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png">
 	
 	
 	
@@ -54,13 +54,13 @@
 			    "@id":"http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/"
 			},
 			"datePublished": "2018-05-24T18:51:03.000Z",
-			"dateModified": "2018-05-24T18:51:03.392Z",
+			"dateModified": "2018-05-28T01:08:56.357Z",
 			
 			"image": {
 				"@type": "ImageObject",
-				"url": "/amp-dist/sample/sample-substituteTitleImage.png",
-				"width" : "1024",
-				"height" : "800"
+				"url": "http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png",
+				"width" : "768",
+				"height" : "384"
 			},
 			
 			"author": {
@@ -1795,7 +1795,7 @@ h6.categories {
 						
 			          	<div class="header-thumb flx">
 			          		<div class="thumbImg-w circle">
-			          			<amp-img class="thumbImg" layout="fixed" width="128" height="100" src="/amp-dist/sample/sample-substituteTitleImage.png">
+			          			<amp-img class="thumbImg" layout="fixed" width="200" height="100" src="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png">
 			          			</amp-img>
 			          		</div>
 			          	</div>
@@ -1832,7 +1832,7 @@ h6.categories {
 
 			    	<!-- content -->
 			  		<p>JavaScript Quiz:</p>
-<div class="amp-img-wrapper"><amp-img src="/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png" width="256" height="64" layout="responsive"></amp-img></div>
+<div class="amp-img-wrapper"><amp-img src="/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png" width="768" height="384" layout="responsive"></amp-img></div>
 <p>What would be the result of the above JavaScript code? You may expect <code>[2, 10, 456, 3548]</code> since the array seem to be an integer array and JavaScript would sort it in numeric order. But, the correct result is as follows:<br></p><figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">2</span>, <span class="number">3548</span>, <span class="number">456</span>]</span><br></pre></td></tr></tbody></table></figure>
 <p>It is because the default comparison function of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort" target="_blank" rel="noopener"><code>Array.prototype.sort()</code></a> is the <em>string comparison</em> after converting each element to string.</p>
 <p>Why the default sort function of JavaScript array as string comparison? I guess that the reason is the array type in JavaScript is for general types. For example, the following is a valid array of JavaScript.</p>
