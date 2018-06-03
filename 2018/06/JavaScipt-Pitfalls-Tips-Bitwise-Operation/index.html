@@ -18,18 +18,22 @@ ga('send', 'pageview');
 
 
   
-  <title>Archives: 2017 | Sanori&#39;s Blog</title>
+  <title>JavaScipt Pitfalls &amp; Tips: Bitwise Operation | Sanori&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Sanori&apos;s writings about software development and computer science.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sanori&#39;s Blog">
-<meta property="og:url" content="http://sanori.github.io/archives/2017/index.html">
+  <meta name="description" content="Bitwise left shift operator (&amp;lt;&amp;lt;) is used instead of power of 2 (2n) operator on integer variable. This idiom may lead to strange result in JavaScipt. Bitwise operators in JavaScript converts th">
+<meta name="keywords" content="node.js,JavaScript,bitwise">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScipt Pitfalls &amp; Tips: Bitwise Operation">
+<meta property="og:url" content="http://sanori.github.io/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
-<meta property="og:description" content="Sanori&apos;s writings about software development and computer science.">
+<meta property="og:description" content="Bitwise left shift operator (&amp;lt;&amp;lt;) is used instead of power of 2 (2n) operator on integer variable. This idiom may lead to strange result in JavaScipt. Bitwise operators in JavaScript converts th">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://sanori.github.io/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png">
+<meta property="og:updated_time" content="2018-06-03T08:22:18.203Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sanori&#39;s Blog">
-<meta name="twitter:description" content="Sanori&apos;s writings about software development and computer science.">
+<meta name="twitter:title" content="JavaScipt Pitfalls &amp; Tips: Bitwise Operation">
+<meta name="twitter:description" content="Bitwise left shift operator (&amp;lt;&amp;lt;) is used instead of power of 2 (2n) operator on integer variable. This idiom may lead to strange result in JavaScipt. Bitwise operators in JavaScript converts th">
+<meta name="twitter:image" content="http://sanori.github.io/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png">
   
     <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
   
@@ -40,6 +44,8 @@ ga('send', 'pageview');
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
   
+    <link rel="amphtml" href="http://sanori.github.io/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/amp/">
+
   <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -83,98 +89,74 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/10/Writing-Spark-batches-only-in-SQL/" class="archive-article-date">
-  <time datetime="2017-10-07T14:57:03.000Z" itemprop="datePublished">Oct 7</time>
+        <section id="main"><article id="post-JavaScipt-Pitfalls-Tips-Bitwise-Operation" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/" class="article-date">
+  <time datetime="2018-06-03T08:19:51.000Z" itemprop="datePublished">2018-06-03</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/Writing-Spark-batches-only-in-SQL/">Writing Spark batches only in SQL</a>
+    <h1 class="article-title" itemprop="name">
+      JavaScipt Pitfalls &amp; Tips: Bitwise Operation
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/07/Running-Spark-on-Scala-Worksheet/" class="archive-article-date">
-  <time datetime="2017-06-30T18:15:53.000Z" itemprop="datePublished">Jul 1</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/Running-Spark-on-Scala-Worksheet/">Running Spark on Scala Worksheet</a>
-    </h1>
-  
+        <img src="/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png" title="1 << 31 !== Math.pow(2, 31)">
+<p>Bitwise left shift operator (<code>&lt;&lt;</code>) is used instead of power of 2 (2<sup>n</sup>) operator on integer variable. This idiom may lead to strange result in JavaScipt.</p>
+<p>Bitwise operators in JavaScript converts their operands to <em>signed <strong>32</strong>-bit</em> integer, not 64-bit integer (also known as <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html" target="_blank" rel="noopener"><code>long</code></a> in Java, <a href="https://en.wikipedia.org/wiki/C_data_types#Basic_types" target="_blank" rel="noopener"><code>long long</code></a> in C language).<br>Therefore, <code>1 &lt;&lt; n</code> is not the same as <code>Math.pow(2, n)</code> if <code>n &gt; 31</code>.</p>
+<p>Not only the shift operator but also all the bitwise operators such as and(<code>&amp;</code>), or(<code>|</code>), not(<code>~</code>), XOR(<code>^</code>) limited to process only 32-bit operands.</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><h3 id="Mathematical-operations"><a href="#Mathematical-operations" class="headerlink" title="Mathematical operations"></a>Mathematical operations</h3><p>You would better to use <code>Math.pow()</code> or <code>**</code> (ECMAScript 2016) than <code>&lt;&lt;</code> if you concern calculation.</p>
+<p>Note that the safe integer range in JavaScript is -(2<sup>53</sup> - 1) inclusive to (2<sup>53</sup> - 1) inclusive since the <code>Number</code> type uses IEEE-754 64-bit floating point number representation.</p>
+<h3 id="64-bit-Long-long-js"><a href="#64-bit-Long-long-js" class="headerlink" title="64-bit Long (long.js)"></a>64-bit Long (long.js)</h3><p>You may use <a href="https://www.npmjs.com/package/long" target="_blank" rel="noopener">long</a> npm package if you concerned about only 64-bit wide integer.</p>
+<h3 id="Bitmap-array"><a href="#Bitmap-array" class="headerlink" title="Bitmap array"></a>Bitmap array</h3><p>If you want to handle bit array with size &gt; 64, you should consider bitmap array, also known as bit vector.</p>
+<p>There are several npm packages about bit array such as <a href="https://www.npmjs.com/package/bitwise" target="_blank" rel="noopener">bitwise</a>, <a href="https://www.npmjs.com/package/bitset" target="_blank" rel="noopener">bitset</a>, <a href="https://www.npmjs.com/package/fast-bitset" target="_blank" rel="noopener">fast-bitset</a>, <a href="https://www.npmjs.com/package/bit-vector" target="_blank" rel="noopener">bit-vector</a>. You may choose as you need.</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators" target="_blank" rel="noopener">Bitwise operators - JavaScipt|MDN</a></li>
+</ul>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/06/Using-sbt-instead-of-spark-shell/" class="archive-article-date">
-  <time datetime="2017-06-06T09:17:11.000Z" itemprop="datePublished">Jun 6</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/Using-sbt-instead-of-spark-shell/">Using sbt instead of spark-shell</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/02/Tensorflow-over-docker-with-GPU/" class="archive-article-date">
-  <time datetime="2017-02-26T11:14:17.000Z" itemprop="datePublished">Feb 26</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sanori.github.io/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/" data-id="cjhyk9cnt0000u9jdnbgalv5v" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/Tensorflow-over-docker-with-GPU/">TensorFlow over docker with GPU support</a>
-    </h1>
-  
+        <a href="http://sanori.github.io/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bitwise/">bitwise</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/05/JavaScript-Pitfalls-Tips-Sort/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript Pitfalls &amp; Tips: Sort</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -268,11 +250,13 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'sanoriblog';
   
+  var disqus_url = 'http://sanori.github.io/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
