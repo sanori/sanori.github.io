@@ -29,7 +29,7 @@ ga('send', 'pageview');
 <meta property="og:description" content="Bitwise left shift operator (&amp;lt;&amp;lt;) is used instead of power of 2 (2n) operator on integer variable. This idiom may lead to strange result in JavaScipt. Bitwise operators in JavaScript converts th">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://sanori.github.io/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png">
-<meta property="og:updated_time" content="2018-06-03T08:22:18.203Z">
+<meta property="og:updated_time" content="2018-06-03T17:36:05.313Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScipt Pitfalls &amp; Tips: Bitwise Operation">
 <meta name="twitter:description" content="Bitwise left shift operator (&amp;lt;&amp;lt;) is used instead of power of 2 (2n) operator on integer variable. This idiom may lead to strange result in JavaScipt. Bitwise operators in JavaScript converts th">
@@ -118,7 +118,7 @@ ga('send', 'pageview');
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><h3 id="Mathematical-operations"><a href="#Mathematical-operations" class="headerlink" title="Mathematical operations"></a>Mathematical operations</h3><p>You would better to use <code>Math.pow()</code> or <code>**</code> (ECMAScript 2016) than <code>&lt;&lt;</code> if you concern calculation.</p>
 <p>Note that the safe integer range in JavaScript is -(2<sup>53</sup> - 1) inclusive to (2<sup>53</sup> - 1) inclusive since the <code>Number</code> type uses IEEE-754 64-bit floating point number representation.</p>
 <h3 id="64-bit-Long-long-js"><a href="#64-bit-Long-long-js" class="headerlink" title="64-bit Long (long.js)"></a>64-bit Long (long.js)</h3><p>You may use <a href="https://www.npmjs.com/package/long" target="_blank" rel="noopener">long</a> npm package if you concerned about only 64-bit wide integer.</p>
-<h3 id="Bitmap-array"><a href="#Bitmap-array" class="headerlink" title="Bitmap array"></a>Bitmap array</h3><p>If you want to handle bit array with size &gt; 64, you should consider bitmap array, also known as bit vector.</p>
+<h3 id="Bitmap-array"><a href="#Bitmap-array" class="headerlink" title="Bitmap array"></a>Bitmap array</h3><p>If you want to handle bit array with size &gt; 64, you would better consider bitmap array, also known as bit vector.</p>
 <p>There are several npm packages about bit array such as <a href="https://www.npmjs.com/package/bitwise" target="_blank" rel="noopener">bitwise</a>, <a href="https://www.npmjs.com/package/bitset" target="_blank" rel="noopener">bitset</a>, <a href="https://www.npmjs.com/package/fast-bitset" target="_blank" rel="noopener">fast-bitset</a>, <a href="https://www.npmjs.com/package/bit-vector" target="_blank" rel="noopener">bit-vector</a>. You may choose as you need.</p>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators" target="_blank" rel="noopener">Bitwise operators - JavaScipt|MDN</a></li>
@@ -127,7 +127,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/" data-id="cjhyk9cnt0000u9jdnbgalv5v" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/" data-id="cjhyka4lx0000w2jduaqopulc" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/#disqus_thread" class="article-comment-link">Comments</a>
       
