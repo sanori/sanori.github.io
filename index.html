@@ -85,9 +85,9 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
-    <article id="post-JavaScipt-Pitfalls-Tips-Bitwise-Operation" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-JavaScript-Pitfalls-Tips-Bitwise-Operation" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/" class="article-date">
+    <a href="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/" class="article-date">
   <time datetime="2018-06-03T08:19:51.000Z" itemprop="datePublished">2018-06-03</time>
 </a>
     
@@ -99,7 +99,7 @@ ga('send', 'pageview');
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/">JavaScipt Pitfalls &amp; Tips: Bitwise Operation</a>
+      <a class="article-title" href="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/">JavaScript Pitfalls &amp; Tips: Bitwise Operation</a>
     </h1>
   
 
@@ -107,8 +107,8 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <img src="/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png" title="1 << 31 !== Math.pow(2, 31)">
-<p>Bitwise left shift operator (<code>&lt;&lt;</code>) is used instead of power of 2 (2<sup>n</sup>) operator on integer variable. This idiom may lead to strange result in JavaScipt.</p>
+        <img src="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png" title="1 << 31 !== Math.pow(2, 31)">
+<p>Bitwise left shift operator (<code>&lt;&lt;</code>) is used instead of power of 2 (2<sup>n</sup>) operator on integer variable. This idiom may lead to strange result in JavaScript.</p>
 <p>Bitwise operators in JavaScript converts their operands to <em>signed <strong>32</strong>-bit</em> integer, not 64-bit integer (also known as <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html" target="_blank" rel="noopener"><code>long</code></a> in Java, <a href="https://en.wikipedia.org/wiki/C_data_types#Basic_types" target="_blank" rel="noopener"><code>long long</code></a> in C language).<br>Therefore, <code>1 &lt;&lt; n</code> is not the same as <code>Math.pow(2, n)</code> if <code>n &gt; 31</code>.</p>
 <p>Not only the shift operator but also all the bitwise operators such as and(<code>&amp;</code>), or(<code>|</code>), not(<code>~</code>), XOR(<code>^</code>) limited to process only 32-bit operands.</p>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><h3 id="Mathematical-operations"><a href="#Mathematical-operations" class="headerlink" title="Mathematical operations"></a>Mathematical operations</h3><p>You would better to use <code>Math.pow()</code> or <code>**</code> (ECMAScript 2016) than <code>&lt;&lt;</code> if you concern calculation.</p>
@@ -117,15 +117,15 @@ ga('send', 'pageview');
 <h3 id="Bitmap-array"><a href="#Bitmap-array" class="headerlink" title="Bitmap array"></a>Bitmap array</h3><p>If you want to handle bit array with size &gt; 64, you would better consider bitmap array, also known as bit vector.</p>
 <p>There are several npm packages about bit array such as <a href="https://www.npmjs.com/package/bitwise" target="_blank" rel="noopener">bitwise</a>, <a href="https://www.npmjs.com/package/bitset" target="_blank" rel="noopener">bitset</a>, <a href="https://www.npmjs.com/package/fast-bitset" target="_blank" rel="noopener">fast-bitset</a>, <a href="https://www.npmjs.com/package/bit-vector" target="_blank" rel="noopener">bit-vector</a>. You may choose as you need.</p>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators" target="_blank" rel="noopener">Bitwise operators - JavaScipt|MDN</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators" target="_blank" rel="noopener">Bitwise operators - JavaScript|MDN</a></li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/" data-id="cjhyka4lx0000w2jduaqopulc" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/" data-id="cjmylv10n0000scjdrx97oiqv" class="article-share-link">Share</a>
       
-        <a href="http://sanori.github.io/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bitwise/">bitwise</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
@@ -176,7 +176,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/" data-id="cjhyka4m10002w2jdpdld98v2" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/" data-id="cjmylv10r0002scjdj4mm0dzv" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -252,7 +252,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/" data-id="cjhyka4m40004w2jdnpnufnsy" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/" data-id="cjmylv10u0004scjdvno6krde" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -369,7 +369,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/" data-id="cjhyka4mc000cw2jdcbv65mv3" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/" data-id="cjmylv112000cscjd5cqypftm" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -443,7 +443,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/" data-id="cjhyka4m60005w2jdvh6fiay8" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/" data-id="cjmylv10x0005scjdmjk7cafa" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -501,7 +501,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/" data-id="cjhyka4m90009w2jd4dm7cjgi" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/" data-id="cjmylv1100009scjdp2fkvkoh" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -574,7 +574,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/" data-id="cjhyka4m70006w2jdpdw1345e" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/" data-id="cjmylv10y0006scjdtsshpthr" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -629,7 +629,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/" data-id="cjhyka4mb000bw2jdyiztasif" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/" data-id="cjmylv111000bscjdf4gmflg8" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -671,7 +671,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2015/09/Test-posting/" data-id="cjhyka4m80008w2jdno246e4s" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2015/09/Test-posting/" data-id="cjmylv10z0008scjdt4kscvq1" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2015/09/Test-posting/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -728,7 +728,7 @@ ga('send', 'pageview');
       <ul>
         
           <li>
-            <a href="/2018/06/JavaScipt-Pitfalls-Tips-Bitwise-Operation/">JavaScipt Pitfalls &amp; Tips: Bitwise Operation</a>
+            <a href="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/">JavaScript Pitfalls &amp; Tips: Bitwise Operation</a>
           </li>
         
           <li>
