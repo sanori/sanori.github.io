@@ -2,22 +2,74 @@
 <html ⚡>
   <head>
     <meta charset="utf-8">
-    <link rel="canonical" href="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/" >
-    <title>Writing Command Line Scripts in Node.js - Sanori&#39;s Blog</title>
+    <link rel="canonical" href="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" >
+    <title>SQL Window Functions: Top-k Elements Example - Sanori&#39;s Blog</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 
-    <meta property="og:title" content="Writing Command Line Scripts in Node.js">
+    <meta property="og:title" content="SQL Window Functions: Top-k Elements Example">
 	<meta property="og:type" content="article">
-	<meta property="og:url" content="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/">
+	<meta property="og:url" content="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/">
 	
 		<meta property="og:image" content="/amp-dist/sample/sample-substituteTitleImage.png">
 	
 	<meta property="og:site_name" content="Sanori&#39;s Blog">
 	
+		<meta property="og:description" content="&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/SQL_window_function&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SQL Window functions&lt;/a&gt;
+are similar to aggregate functions, such as count(),
+sum() or average(), but has different usage.
+Window functions are related to ordering like rank(), row_number(),
+while aggregate functions are related to summary of set of values
+like count(), sum().
+SQL Window functions specification is
+&lt;a href=&#34;https://en.wikipedia.org/wiki/SQL:2003&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ISO/ANSI standard since 2003&lt;/a&gt;.
+You can use SQL window functions on HiveQL, MySQL, Transact-SQL
+as well as Spark SQL.&lt;/p&gt;
+&lt;p&gt;In processing data, there are several cases to split data into groups
+or partitions and get representative values for each group.
+Someone may solve this problem by classifying data by making keys first
+and compute values for each key.
+You may use map() and reduce() in MapReduce framework,
+or use map() and reduceByKey() or aggregate() in Spark RDD API.&lt;/p&gt;
+&lt;p&gt;If the argument function of a reduce() is the add (&lt;code&gt;_ + _&lt;/code&gt;),
+the query can be written as &lt;code&gt;sum()&lt;/code&gt; in SQL.
+If it is the increment(&lt;code&gt;++&lt;/code&gt;), it can be transformed to &lt;code&gt;count()&lt;/code&gt; in SQL.
+But, if the function of the reduce() is a something like ‘top-10 largest values’,
+it would be vague to find correspondent SQL statements or functions.
+And some data engineers or scientists may think this query cannot be written
+in SQL statements, and decide to code in MapReduce or Spark.&lt;/p&gt;
+&lt;p&gt;In this post, I will show an example to solve top-&lt;em&gt;k&lt;/em&gt; frequent elements problem
+using the rank() function which is one of SQL window functions.&lt;/p&gt;">
+	
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content="Sanori&#39;s Blog">
-	<meta name="twitter:url" content="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/">
-	<meta name="twitter:title" content="Writing Command Line Scripts in Node.js - Sanori&#39;s Blog">
+	<meta name="twitter:url" content="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/">
+	<meta name="twitter:title" content="SQL Window Functions: Top-k Elements Example - Sanori&#39;s Blog">
+	
+		<meta name="twitter:description" content="&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/SQL_window_function&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SQL Window functions&lt;/a&gt;
+are similar to aggregate functions, such as count(),
+sum() or average(), but has different usage.
+Window functions are related to ordering like rank(), row_number(),
+while aggregate functions are related to summary of set of values
+like count(), sum().
+SQL Window functions specification is
+&lt;a href=&#34;https://en.wikipedia.org/wiki/SQL:2003&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ISO/ANSI standard since 2003&lt;/a&gt;.
+You can use SQL window functions on HiveQL, MySQL, Transact-SQL
+as well as Spark SQL.&lt;/p&gt;
+&lt;p&gt;In processing data, there are several cases to split data into groups
+or partitions and get representative values for each group.
+Someone may solve this problem by classifying data by making keys first
+and compute values for each key.
+You may use map() and reduce() in MapReduce framework,
+or use map() and reduceByKey() or aggregate() in Spark RDD API.&lt;/p&gt;
+&lt;p&gt;If the argument function of a reduce() is the add (&lt;code&gt;_ + _&lt;/code&gt;),
+the query can be written as &lt;code&gt;sum()&lt;/code&gt; in SQL.
+If it is the increment(&lt;code&gt;++&lt;/code&gt;), it can be transformed to &lt;code&gt;count()&lt;/code&gt; in SQL.
+But, if the function of the reduce() is a something like ‘top-10 largest values’,
+it would be vague to find correspondent SQL statements or functions.
+And some data engineers or scientists may think this query cannot be written
+in SQL statements, and decide to code in MapReduce or Spark.&lt;/p&gt;
+&lt;p&gt;In this post, I will show an example to solve top-&lt;em&gt;k&lt;/em&gt; frequent elements problem
+using the rank() function which is one of SQL window functions.&lt;/p&gt;">
 	
     
     	<meta name="twitter:image" content="/amp-dist/sample/sample-substituteTitleImage.png">
@@ -47,14 +99,40 @@
 		{
 			"@context": "http://schema.org",
 			"@type": "BlogPosting",
-			"headline": "Writing Command Line Scripts in Node.js",
+			"headline": "SQL Window Functions: Top-k Elements Example",
+			
+			"description": "&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/SQL_window_function&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SQL Window functions&lt;/a&gt;
+are similar to aggregate functions, such as count(),
+sum() or average(), but has different usage.
+Window functions are related to ordering like rank(), row_number(),
+while aggregate functions are related to summary of set of values
+like count(), sum().
+SQL Window functions specification is
+&lt;a href=&#34;https://en.wikipedia.org/wiki/SQL:2003&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ISO/ANSI standard since 2003&lt;/a&gt;.
+You can use SQL window functions on HiveQL, MySQL, Transact-SQL
+as well as Spark SQL.&lt;/p&gt;
+&lt;p&gt;In processing data, there are several cases to split data into groups
+or partitions and get representative values for each group.
+Someone may solve this problem by classifying data by making keys first
+and compute values for each key.
+You may use map() and reduce() in MapReduce framework,
+or use map() and reduceByKey() or aggregate() in Spark RDD API.&lt;/p&gt;
+&lt;p&gt;If the argument function of a reduce() is the add (&lt;code&gt;_ + _&lt;/code&gt;),
+the query can be written as &lt;code&gt;sum()&lt;/code&gt; in SQL.
+If it is the increment(&lt;code&gt;++&lt;/code&gt;), it can be transformed to &lt;code&gt;count()&lt;/code&gt; in SQL.
+But, if the function of the reduce() is a something like ‘top-10 largest values’,
+it would be vague to find correspondent SQL statements or functions.
+And some data engineers or scientists may think this query cannot be written
+in SQL statements, and decide to code in MapReduce or Spark.&lt;/p&gt;
+&lt;p&gt;In this post, I will show an example to solve top-&lt;em&gt;k&lt;/em&gt; frequent elements problem
+using the rank() function which is one of SQL window functions.&lt;/p&gt;",
 			
 			"mainEntityOfPage":{
 			    "@type":"WebPage",
-			    "@id":"http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/"
+			    "@id":"http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/"
 			},
-			"datePublished": "2015-09-21T18:28:30.000Z",
-			"dateModified": "2017-06-06T08:14:33.639Z",
+			"datePublished": "2018-11-03T13:52:21.000Z",
+			"dateModified": "2018-11-03T13:59:59.507Z",
 			
 			"image": {
 				"@type": "ImageObject",
@@ -1782,7 +1860,7 @@ h6.categories {
   	<!-- container -->
   	<div id="container">
 	  	<div id="main">
-		    <article id="post-Writing-Command-Line-Scripts-in-Node-js" class="post">
+		    <article id="post-SQL-Window-Functions-Top-k-Elements-Example" class="post">
 
 		   		<!-- categories and bread crumb -->
 		    	
@@ -1804,7 +1882,7 @@ h6.categories {
 			            <div class="header-cap flx">
 							
 							  <h1 class="article-title entry-title" itemprop="name">
-							    <a href="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/" target="_blank" itemprop="url">Writing Command Line Scripts in Node.js</a>
+							    <a href="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" target="_blank" itemprop="url">SQL Window Functions: Top-k Elements Example</a>
 							  </h1>
 							
 						</div>
@@ -1814,7 +1892,7 @@ h6.categories {
 					<div class="entry-meta-header">
 						<span class="meta-elements date">
 							<span class="fa fa-fw fa-clock-o"></span>
-							<time datetime="2015-09-22" itemprop="datePublished">2015.09.21</time>
+							<time datetime="2018-11-03" itemprop="datePublished">2018.11.03</time>
 						</span>
 					</div>
 				</div>
@@ -1831,24 +1909,334 @@ h6.categories {
                     
 
 			    	<!-- content -->
-			  		<p>I was new to node.js 4 month ago and my main programming language was Python and C. I was motivated to try node.js by the <a href="http://benchmarksgame.alioth.debian.org/u64/performance.php?test=regexdna" target="_blank" rel="noopener">regex-dna benchmark</a> that shows JavaScript V8 is about 7 times faster than Python 3, and even faster than C implementation.</p>
-<p>Jack Franklin&#x2019;s article, <a href="http://javascriptplayground.com/blog/2015/03/node-command-line-tool/" target="_blank" rel="noopener">&#x201C;Writing Command Line Tools with Node&#x201D;</a> was very helpful for me. The article shows that <code>npm</code> and <code>package.json</code> play an important role in running environment independent of OS, the importance of first line, basic command line argument processing and the way to invoke other commands.</p>
-<p>In this post, I would like to share more tips to write scripts in node.js, JavaScript.</p>
-<h2 id="Arguments-with-options-and-values"><a href="#Arguments-with-options-and-values" class="headerlink" title="Arguments with options and values"></a>Arguments with options and values</h2><p>Although <code>process.argv</code> is enough to process command line arguments, sometimes command line argument parser, such as <code>getopt</code> in C, <a href="https://docs.python.org/2.7/library/argparse.html#module-argparse" target="_blank" rel="noopener">argparse</a> in Python is needed for productivity and usability, especially for processing options.</p>
-<p><a href="https://github.com/tj/commander.js" target="_blank" rel="noopener">commander.js</a> is perfect for this case. Just writing a help text for options as follows, make the parser works.
-</p><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> program = <span class="built_in">require</span>(<span class="string">&apos;commander&apos;</span>);</span><br><span class="line">program</span><br><span class="line">    .option(<span class="string">&apos;-b, --boolean&apos;</span>, <span class="string">&apos;Boolean option&apos;</span>)</span><br><span class="line">    .option(<span class="string">&apos;-k, --key [value]&apos;</span>, <span class="string">&apos;Key=value option&apos;</span>)</span><br><span class="line">    .parse(process.argv);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&apos;Boolean:&apos;</span>, program.boolean);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&apos;Key =&apos;</span>, program.key);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&apos;Rest arguments:&apos;</span>, program.args);</span><br></pre></td></tr></tbody></table></figure>
-<p>There are alternatives for command line argument parsing:</p>
-<ul>
-<li><a href="https://github.com/substack/minimist" target="_blank" rel="noopener">minimist</a>: Small module that returns compact JavaScript object as the result of argument parsing.</li>
-<li><a href="https://github.com/chriso/cli" target="_blank" rel="noopener">cli</a>: A toolkit for command line apps that contains several utilities including argument parser.</li>
+			  		<p><a href="https://en.wikipedia.org/wiki/SQL_window_function" target="_blank" rel="noopener">SQL Window functions</a>
+are similar to aggregate functions, such as count(),
+sum() or average(), but has different usage.
+Window functions are related to ordering like rank(), row_number(),
+while aggregate functions are related to summary of set of values
+like count(), sum().
+SQL Window functions specification is
+<a href="https://en.wikipedia.org/wiki/SQL:2003" target="_blank" rel="noopener">ISO/ANSI standard since 2003</a>.
+You can use SQL window functions on HiveQL, MySQL, Transact-SQL
+as well as Spark SQL.</p>
+<p>In processing data, there are several cases to split data into groups
+or partitions and get representative values for each group.
+Someone may solve this problem by classifying data by making keys first
+and compute values for each key.
+You may use map() and reduce() in MapReduce framework,
+or use map() and reduceByKey() or aggregate() in Spark RDD API.</p>
+<p>If the argument function of a reduce() is the add (<code>_ + _</code>),
+the query can be written as <code>sum()</code> in SQL.
+If it is the increment(<code>++</code>), it can be transformed to <code>count()</code> in SQL.
+But, if the function of the reduce() is a something like &#x2018;top-10 largest values&#x2019;,
+it would be vague to find correspondent SQL statements or functions.
+And some data engineers or scientists may think this query cannot be written
+in SQL statements, and decide to code in MapReduce or Spark.</p>
+<p>In this post, I will show an example to solve top-<em>k</em> frequent elements problem
+using the rank() function which is one of SQL window functions.</p>
+<a id="more"></a>
+<h2 id="Top-k-Frequent-Elements"><a href="#Top-k-Frequent-Elements" class="headerlink" title="Top-k Frequent Elements"></a>Top-<em>k</em> Frequent Elements</h2><p>Top-<em>k</em> frequent elements problem is
+finding the most frequently appearing elements from the given
+sequence or array of elements,
+not only the most frequent one, but also <em>k</em>-th frequent element.</p>
+<p>Assume that you are given web server log, <code>accessLog</code> in a table format like as follows:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>remoteAddr</th>
+<th>time</th>
+<th>request</th>
+<th class="table-align-right">status</th>
+<th class="table-align-right">bytes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>172.19.0.1</td>
+<td>2018-10-22T17:34:46Z</td>
+<td>GET / HTTP/1.1</td>
+<td class="table-align-right">200</td>
+<td class="table-align-right">820</td>
+</tr>
+<tr>
+<td>&#x2026;</td>
+<td>&#x2026;</td>
+<td>&#x2026;</td>
+<td class="table-align-right">&#x2026;</td>
+<td class="table-align-right">&#x2026;</td>
+</tr>
+</tbody>
+</table></div>
+<p>If your work is find the most frequently visited remoteAddr and its hits,
+that is count of logs, how do you make a SQL query for the log?</p>
+<h3 id="Top-k-most-frequent-remote-addresses"><a href="#Top-k-most-frequent-remote-addresses" class="headerlink" title="Top-k most frequent remote addresses"></a>Top-<em>k</em> most frequent remote addresses</h3><p>If the work requires the most 3-frequent remoteAddr&#x2019;s for the whole log,
+the following query may suffice:</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> remoteAddr, <span class="keyword">count</span>(*) <span class="keyword">AS</span> hits</span><br><span class="line"><span class="keyword">FROM</span> accessLog</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> remoteAddr</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> hits <span class="keyword">DESC</span></span><br><span class="line"><span class="keyword">LIMIT</span> <span class="number">3</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Top-k-most-frequent-IPs-for-each-days"><a href="#Top-k-most-frequent-IPs-for-each-days" class="headerlink" title="Top-k most frequent IPs for each days"></a>Top-<em>k</em> most frequent IPs for each days</h3><p>But, if you need top-3 remoteAddr&#x2019;s for each day,
+How do you query the log database?
+Here is the place where a window function make it.</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">date</span>, remoteAddr, hits</span><br><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="built_in">date</span>, remoteAddr, hits,</span><br><span class="line">    <span class="keyword">rank</span>() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="built_in">date</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> hits <span class="keyword">DESC</span>) <span class="keyword">AS</span> <span class="keyword">rank</span></span><br><span class="line">  <span class="keyword">FROM</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="keyword">cast</span>(<span class="keyword">time</span> <span class="keyword">AS</span> <span class="built_in">date</span>) <span class="keyword">AS</span> <span class="built_in">date</span>, remoteAddr, <span class="keyword">count</span>(*) <span class="keyword">AS</span> hits</span><br><span class="line">    <span class="keyword">FROM</span> accessLog</span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="built_in">date</span>, remoteAddr</span><br><span class="line">  )</span><br><span class="line">)</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">rank</span> &lt;= <span class="number">3</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="built_in">date</span>, hits <span class="keyword">DESC</span></span><br></pre></td></tr></tbody></table></figure>
+<p>How this works? Let&#x2019;s see step by step from the innermost SELECT statement.</p>
+<p>In line 6 ~ 8, the innermost SELECT counts hits for each date and remoteAddr,
+and generates an intermediate table like as following:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>date</th>
+<th>remoteAddr</th>
+<th>hits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2018-10-22</td>
+<td>172.19.0.1</td>
+<td>34867</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.20</td>
+<td>2334</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.21</td>
+<td>13223</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.23</td>
+<td>9385</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>172.19.0.1</td>
+<td>28762</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.20</td>
+<td>13534</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.21</td>
+<td>2331</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.22</td>
+<td>22937</td>
+</tr>
+</tbody>
+</table></div>
+<p>In line 3 ~ 4, rank() generates ranks by &#x2018;hits&#x2019; for each &#x2018;date&#x2019;
+from the above table,
+and the rank value is added as an column named &#x2018;rank&#x2019;.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>date</th>
+<th>remoteAddr</th>
+<th>hits</th>
+<th>rank</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2018-10-22</td>
+<td>172.19.0.1</td>
+<td>34867</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.20</td>
+<td>2334</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.21</td>
+<td>13223</td>
+<td>2</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.23</td>
+<td>9385</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>172.19.0.1</td>
+<td>28762</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.20</td>
+<td>13534</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.21</td>
+<td>2331</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.22</td>
+<td>22937</td>
+<td>2</td>
+</tr>
+</tbody>
+</table></div>
+<p>In line 11, the rows with rank over 3 are omitted.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>date</th>
+<th>remoteAddr</th>
+<th>hits</th>
+<th>rank</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2018-10-22</td>
+<td>172.19.0.1</td>
+<td>34867</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.21</td>
+<td>13223</td>
+<td>2</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.23</td>
+<td>9385</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>172.19.0.1</td>
+<td>28762</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.20</td>
+<td>13534</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.22</td>
+<td>22937</td>
+<td>2</td>
+</tr>
+</tbody>
+</table></div>
+<p>In line 1, rank columns are removed.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>date</th>
+<th>remoteAddr</th>
+<th>hits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2018-10-22</td>
+<td>172.19.0.1</td>
+<td>34867</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.21</td>
+<td>13223</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.23</td>
+<td>9385</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>172.19.0.1</td>
+<td>28762</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.20</td>
+<td>13534</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.22</td>
+<td>22937</td>
+</tr>
+</tbody>
+</table></div>
+<p>In line 12, the rows are ordered by date and hits.
+Then you can get only most 3 frequent remoteAddr&#x2019;s for each day.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>date</th>
+<th>remoteAddr</th>
+<th>hits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2018-10-22</td>
+<td>172.19.0.1</td>
+<td>34867</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.21</td>
+<td>13223</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.23</td>
+<td>9385</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>172.19.0.1</td>
+<td>28762</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.22</td>
+<td>22937</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.20</td>
+<td>13534</td>
+</tr>
+</tbody>
+</table></div>
+<p>The window function rank() generates rank of each days (date).
+And WHERE clause in outermost SELECT statement removes needless output.</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li>SQL window function: <a href="https://en.wikipedia.org/wiki/SQL_window_function" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/SQL_window_function</a></li>
+<li>Yin Huai and Michael Armbrust, &#x201C;<a href="https://databricks.com/blog/2015/07/15/introducing-window-functions-in-spark-sql.html" target="_blank" rel="noopener">Introducing Window Functions in Spark SQL</a>&#x201C;, <em>Databricks Engneering Blog</em>, July 15, 2015, <a href="https://databricks.com/blog/2015/07/15/introducing-window-functions-in-spark-sql.html" target="_blank" rel="noopener">https://databricks.com/blog/2015/07/15/introducing-window-functions-in-spark-sql.html</a></li>
+<li>Databricks Documentation &gt;
+<a href="https://docs.databricks.com/spark/latest/spark-sql/index.html" target="_blank" rel="noopener">SQL Guide</a> &gt;
+<a href="https://docs.databricks.com/spark/latest/spark-sql/language-manual/select.html" target="_blank" rel="noopener">Select</a> &gt;
+<a href="https://docs.databricks.com/spark/latest/spark-sql/language-manual/select.html#window-functions" target="_blank" rel="noopener">Window functions</a></li>
 </ul>
-<h2 id="Detecting-the-script-is-called-in-command-line"><a href="#Detecting-the-script-is-called-in-command-line" class="headerlink" title="Detecting the script is called in command line"></a>Detecting the script is called in command line</h2><p>A script can be used by another script. But, running another node.js script through <code>child_prcess.exec</code> is somewhat hilarious. The best soultion would be import the script through <code>require</code>. But, we want the script works as the command also.</p>
-<p>In Python, the folling idiom was used for a file that is used for both command to run and module to import. The <code>main</code> function will not be executed if it is imported as module.
-</p><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></tbody></table></figure>
-<p>For example, <a href="https://docs.python.org/2/library/simplehttpserver.html" target="_blank" rel="noopener">SimpleHTTPServer</a> module can be imported, but it can be run as simple http server by running <code>python &lt;path_to&gt;/SimpleHTTPServer.py</code> or <code>python -m SimpleHTTPServer</code>.</p>
-<p>Similar idiom can be applied to node.js as follows. This is <a href="https://nodejs.org/api/modules.html#modules_accessing_the_main_module" target="_blank" rel="noopener">a part of node.js specification</a> since <a href="https://nodejs.org/docs/v0.4.8/api/modules.html#accessing_the_main_module" target="_blank" rel="noopener">node.js 0.4.8</a>.
-</p><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">require</span>.main === <span class="built_in">module</span>) {</span><br><span class="line">    main();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="Synchronous-I-O"><a href="#Synchronous-I-O" class="headerlink" title="Synchronous I/O"></a>Synchronous I/O</h2><p>The most frustrating feature of node.js would be asynchronous, non-blocking I/O especially for script writers in shell, python, etc. Since node 0.12, there exists synchronous API such as <a href="https://nodejs.org/api/child_process.html#child_process_child_process_execsync_command_options" target="_blank" rel="noopener"><code>child_prcess.execSync</code></a> and <a href="https://nodejs.org/api/fs.html" target="_blank" rel="noopener"><code>fs.*Sync</code></a>. Therefore you may write the scripts as you did in shell or python. But, since the virtue of node.js is fast from asynchronous I/O, I recommend to try asynchronous features of node.js if you have enough time.</p>
 
 
 			  		<!-- google Adsense -->
@@ -1876,26 +2264,26 @@ h6.categories {
 						<ul class="article-tag-list">
 							
 					    		<li class="article-tag-list-item">
-					    			<a class="article-tag-list-link link-gaTrack" href="/tags/node-js/" data-linkType="link-tag">
-					    				node.js
+					    			<a class="article-tag-list-link link-gaTrack" href="/tags/Spark/" data-linkType="link-tag">
+					    				Spark
 					    			</a>
 					    		</li>
 							
 					    		<li class="article-tag-list-item">
-					    			<a class="article-tag-list-link link-gaTrack" href="/tags/javascript/" data-linkType="link-tag">
-					    				javascript
+					    			<a class="article-tag-list-link link-gaTrack" href="/tags/SQL/" data-linkType="link-tag">
+					    				SQL
 					    			</a>
 					    		</li>
 							
 					    		<li class="article-tag-list-item">
-					    			<a class="article-tag-list-link link-gaTrack" href="/tags/CommandLineInterface/" data-linkType="link-tag">
-					    				CommandLineInterface
+					    			<a class="article-tag-list-link link-gaTrack" href="/tags/SparkSQL/" data-linkType="link-tag">
+					    				SparkSQL
 					    			</a>
 					    		</li>
 							
 					    		<li class="article-tag-list-item">
-					    			<a class="article-tag-list-link link-gaTrack" href="/tags/CLI/" data-linkType="link-tag">
-					    				CLI
+					    			<a class="article-tag-list-link link-gaTrack" href="/tags/SqlWindowFunction/" data-linkType="link-tag">
+					    				SqlWindowFunction
 					    			</a>
 					    		</li>
 							
