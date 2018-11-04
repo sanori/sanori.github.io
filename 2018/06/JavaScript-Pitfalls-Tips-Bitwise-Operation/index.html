@@ -20,19 +20,19 @@ ga('send', 'pageview');
   
   <title>JavaScript Pitfalls &amp; Tips: Bitwise Operation | Sanori&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Bitwise left shift operator (&amp;lt;&amp;lt;) is used instead of power of 2 (2n) operator on integer variable. This idiom may lead to strange result in JavaScript. Bitwise operators in JavaScript converts t">
+  <meta name="description" content="Bitwise left shift operator (&amp;lt;&amp;lt;) is used instead of power of 2 (2n) operator on integer variable. This idiom may lead to strange result in JavaScript.">
 <meta name="keywords" content="node.js,JavaScript,bitwise">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript Pitfalls &amp; Tips: Bitwise Operation">
 <meta property="og:url" content="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
-<meta property="og:description" content="Bitwise left shift operator (&amp;lt;&amp;lt;) is used instead of power of 2 (2n) operator on integer variable. This idiom may lead to strange result in JavaScript. Bitwise operators in JavaScript converts t">
+<meta property="og:description" content="Bitwise left shift operator (&amp;lt;&amp;lt;) is used instead of power of 2 (2n) operator on integer variable. This idiom may lead to strange result in JavaScript.">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png">
-<meta property="og:updated_time" content="2018-10-07T17:11:35.307Z">
+<meta property="og:updated_time" content="2018-11-04T02:30:57.594Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript Pitfalls &amp; Tips: Bitwise Operation">
-<meta name="twitter:description" content="Bitwise left shift operator (&amp;lt;&amp;lt;) is used instead of power of 2 (2n) operator on integer variable. This idiom may lead to strange result in JavaScript. Bitwise operators in JavaScript converts t">
+<meta name="twitter:description" content="Bitwise left shift operator (&amp;lt;&amp;lt;) is used instead of power of 2 (2n) operator on integer variable. This idiom may lead to strange result in JavaScript.">
 <meta name="twitter:image" content="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png">
   
     <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
@@ -113,6 +113,7 @@ ga('send', 'pageview');
       
         <img src="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png" title="1 << 31 !== Math.pow(2, 31)">
 <p>Bitwise left shift operator (<code>&lt;&lt;</code>) is used instead of power of 2 (2<sup>n</sup>) operator on integer variable. This idiom may lead to strange result in JavaScript.</p>
+<a id="more"></a>
 <p>Bitwise operators in JavaScript converts their operands to <em>signed <strong>32</strong>-bit</em> integer, not 64-bit integer (also known as <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html" target="_blank" rel="noopener"><code>long</code></a> in Java, <a href="https://en.wikipedia.org/wiki/C_data_types#Basic_types" target="_blank" rel="noopener"><code>long long</code></a> in C language).
 Therefore, <code>1 &lt;&lt; n</code> is not the same as <code>Math.pow(2, n)</code> if <code>n &gt; 31</code>.</p>
 <p>Not only the shift operator but also all the bitwise operators such as and(<code>&amp;</code>), or(<code>|</code>), not(<code>~</code>), XOR(<code>^</code>) limited to process only 32-bit operands.</p>
@@ -128,7 +129,7 @@ Therefore, <code>1 &lt;&lt; n</code> is not the same as <code>Math.pow(2, n)</co
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/" data-id="cjo1iqpnh0002afjdcithpz3t" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/" data-id="cjo2afp9g0002k4jdulwtqb5p" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/#disqus_thread" class="article-comment-link">Comments</a>
       

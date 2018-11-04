@@ -28,7 +28,7 @@ ga('send', 'pageview');
 <meta property="og:site_name" content="Sanori&#39;s Blog">
 <meta property="og:description" content="I was new to node.js 4 month ago and my main programming language was Python and C. I was motivated to try node.js by the regex-dna benchmark that shows JavaScript V8 is about 7 times faster than Pyth">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-06-06T08:14:33.639Z">
+<meta property="og:updated_time" content="2018-11-04T02:30:57.618Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Writing Command Line Scripts in Node.js">
 <meta name="twitter:description" content="I was new to node.js 4 month ago and my main programming language was Python and C. I was motivated to try node.js by the regex-dna benchmark that shows JavaScript V8 is about 7 times faster than Pyth">
@@ -112,6 +112,7 @@ ga('send', 'pageview');
         <p>I was new to node.js 4 month ago and my main programming language was Python and C. I was motivated to try node.js by the <a href="http://benchmarksgame.alioth.debian.org/u64/performance.php?test=regexdna" target="_blank" rel="noopener">regex-dna benchmark</a> that shows JavaScript V8 is about 7 times faster than Python 3, and even faster than C implementation.</p>
 <p>Jack Franklin’s article, <a href="http://javascriptplayground.com/blog/2015/03/node-command-line-tool/" target="_blank" rel="noopener">“Writing Command Line Tools with Node”</a> was very helpful for me. The article shows that <code>npm</code> and <code>package.json</code> play an important role in running environment independent of OS, the importance of first line, basic command line argument processing and the way to invoke other commands.</p>
 <p>In this post, I would like to share more tips to write scripts in node.js, JavaScript.</p>
+<a id="more"></a>
 <h2 id="Arguments-with-options-and-values"><a href="#Arguments-with-options-and-values" class="headerlink" title="Arguments with options and values"></a>Arguments with options and values</h2><p>Although <code>process.argv</code> is enough to process command line arguments, sometimes command line argument parser, such as <code>getopt</code> in C, <a href="https://docs.python.org/2.7/library/argparse.html#module-argparse" target="_blank" rel="noopener">argparse</a> in Python is needed for productivity and usability, especially for processing options.</p>
 <p><a href="https://github.com/tj/commander.js" target="_blank" rel="noopener">commander.js</a> is perfect for this case. Just writing a help text for options as follows, make the parser works.
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> program = <span class="built_in">require</span>(<span class="string">'commander'</span>);</span><br><span class="line">program</span><br><span class="line">    .option(<span class="string">'-b, --boolean'</span>, <span class="string">'Boolean option'</span>)</span><br><span class="line">    .option(<span class="string">'-k, --key [value]'</span>, <span class="string">'Key=value option'</span>)</span><br><span class="line">    .parse(process.argv);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Boolean:'</span>, program.boolean);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Key ='</span>, program.key);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Rest arguments:'</span>, program.args);</span><br></pre></td></tr></table></figure></p>
@@ -131,7 +132,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/" data-id="cjo1iqpo0000dafjdtx35z6r4" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/" data-id="cjo2afp9x000ck4jduiuoyjq2" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -154,11 +155,6 @@ ga('send', 'pageview');
       </div>
     </a>
   
-  
-    <a href="/2015/09/Test-posting/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Test posting</div>
-    </a>
   
 </nav>
 

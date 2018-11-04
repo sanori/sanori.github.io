@@ -28,7 +28,7 @@ ga('send', 'pageview');
 <meta property="og:site_name" content="Sanori&#39;s Blog">
 <meta property="og:description" content="Keras is a high-level library/API for neural network, a.k.a. deep learning. You can write shorter, simpler code using Keras. At the time of writing, Keras can use one of TensorFlow, Theano, and CNTK a">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-03-17T19:09:01.850Z">
+<meta property="og:updated_time" content="2018-11-04T02:30:57.618Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Running Keras directly on TensorFlow">
 <meta name="twitter:description" content="Keras is a high-level library/API for neural network, a.k.a. deep learning. You can write shorter, simpler code using Keras. At the time of writing, Keras can use one of TensorFlow, Theano, and CNTK a">
@@ -112,6 +112,7 @@ ga('send', 'pageview');
         <p><a href="https://keras.io/" target="_blank" rel="noopener">Keras</a> is a high-level library/API for neural network, a.k.a. deep learning. You can write shorter, simpler code using Keras. At the time of writing, Keras can use one of <a href="https://www.tensorflow.org/" target="_blank" rel="noopener">TensorFlow</a>, <a href="http://deeplearning.net/software/theano/" target="_blank" rel="noopener">Theano</a>, and <a href="https://www.microsoft.com/en-us/cognitive-toolkit/" target="_blank" rel="noopener">CNTK</a> as a backend of deep learning process.</p>
 <p>From TensorFlow 1.4, <a href="https://github.com/tensorflow/tensorflow/releases/tag/v1.4.0" target="_blank" rel="noopener">Keras API became one of core APIs of TensorFlow</a>. Therefore, you don’t need to install both Keras and TensorFlow if you have a plan to use only TensorFlow backend in Keras. In other words, you can run Keras in simple way with full GPU support if you have got nvidia-docker environment which is mentioned in my last blog post, “<a href="/2017/02/Tensorflow-over-docker-with-GPU/">TensorFlow over docker with GPU support</a>“</p>
 <p>In this post, I’ll show you how to modify original Keras code to run on TensorFlow directly.</p>
+<a id="more"></a>
 <h2 id="How-to-run-Keras-code-in-TensorFlow"><a href="#How-to-run-Keras-code-in-TensorFlow" class="headerlink" title="How to run Keras code in TensorFlow"></a>How to run Keras code in TensorFlow</h2><h3 id="Modify-import"><a href="#Modify-import" class="headerlink" title="Modify import"></a>Modify <code>import</code></h3><p><strong>Summary</strong>: Replace <code>keras</code> to <code>tensorflow.python.keras</code> at every <code>import</code> directive.</p>
 <p>Since the Keras module in TensorFlow is <code>tf.keras</code>, some of you may try to convert the following code:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Dense</span><br></pre></td></tr></table></figure>
@@ -162,7 +163,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/" data-id="cjo1iqpns0005afjdmsextwr1" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/" data-id="cjo2afp9m0005k4jdcsv0shq7" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/#disqus_thread" class="article-comment-link">Comments</a>
       

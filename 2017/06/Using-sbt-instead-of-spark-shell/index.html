@@ -28,7 +28,7 @@ ga('send', 'pageview');
 <meta property="og:site_name" content="Sanori&#39;s Blog">
 <meta property="og:description" content="If you are familiar to sbt console, a convenient Scala REPL, and you are about to develop Spark using spark-shell, you don’t need to install spark-shell. In fact, you don’t need to install even Spark!">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2017-07-02T18:54:21.964Z">
+<meta property="og:updated_time" content="2018-11-04T02:30:57.618Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Using sbt instead of spark-shell">
 <meta name="twitter:description" content="If you are familiar to sbt console, a convenient Scala REPL, and you are about to develop Spark using spark-shell, you don’t need to install spark-shell. In fact, you don’t need to install even Spark!">
@@ -111,6 +111,7 @@ ga('send', 'pageview');
       
         <p>If you are familiar to <a href="http://www.scala-sbt.org/0.13/docs/Command-Line-Reference.html#Configuration-level+tasks" target="_blank" rel="noopener">sbt console</a>, a convenient Scala <a href="http://docs.scala-lang.org/overviews/repl/overview.html" target="_blank" rel="noopener">REPL</a>, and you are about to develop <a href="http://spark.apache.org/" target="_blank" rel="noopener">Spark</a> using <a href="http://spark.apache.org/docs/latest/quick-start.html#interactive-analysis-with-the-spark-shell" target="_blank" rel="noopener">spark-shell</a>, you don’t need to install spark-shell.</p>
 <p>In fact, you don’t need to install even Spark!</p>
+<a id="more"></a>
 <h3 id="Include-Spark-in-build-sbt"><a href="#Include-Spark-in-build-sbt" class="headerlink" title="Include Spark in build.sbt"></a>Include Spark in <code>build.sbt</code></h3><p>Instead of download and install Spark, you can use spark by adding the following lines in your <code>build.sbt</code>.
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">libraryDependencies += <span class="string">"org.apache.spark"</span> %% <span class="string">"spark-core"</span> % <span class="string">"2.1.1"</span>,</span><br><span class="line">libraryDependencies += <span class="string">"org.apache.spark"</span> %% <span class="string">"spark-sql"</span> % <span class="string">"2.1.1"</span>,</span><br></pre></td></tr></table></figure></p>
 <p>Note that the last revision number, 2.1.1, is the version of Spark.
@@ -138,7 +139,7 @@ Spark get exit signal of <code>sbt console</code> and shutdown gracefully.
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/" data-id="cjo1iqpnz000cafjdxploxl7n" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/" data-id="cjo2afp9w000ak4jdabutvx23" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/#disqus_thread" class="article-comment-link">Comments</a>
       

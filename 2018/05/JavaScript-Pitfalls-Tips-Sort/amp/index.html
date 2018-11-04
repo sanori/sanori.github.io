@@ -14,10 +14,20 @@
 	
 	<meta property="og:site_name" content="Sanori&#39;s Blog">
 	
+		<meta property="og:description" content="&lt;p&gt;JavaScript Quiz:&lt;/p&gt;
+&lt;img src=&#34;/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png&#34; title=&#34;[10, 2, 456, 3548].sort()&#34;&gt;
+&lt;p&gt;What would be the result of the above JavaScript code? You may expect &lt;code&gt;[2, 10, 456, 3548]&lt;/code&gt; since the array seem to be an integer array and JavaScript would sort it in numeric order. But, the correct result is as follows:
+&lt;figure class=&#34;highlight js&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;[&lt;span class=&#34;number&#34;&gt;10&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;3548&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;456&lt;/span&gt;]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;">
+	
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content="Sanori&#39;s Blog">
 	<meta name="twitter:url" content="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/">
 	<meta name="twitter:title" content="JavaScript Pitfalls &amp; Tips: Sort - Sanori&#39;s Blog">
+	
+		<meta name="twitter:description" content="&lt;p&gt;JavaScript Quiz:&lt;/p&gt;
+&lt;img src=&#34;/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png&#34; title=&#34;[10, 2, 456, 3548].sort()&#34;&gt;
+&lt;p&gt;What would be the result of the above JavaScript code? You may expect &lt;code&gt;[2, 10, 456, 3548]&lt;/code&gt; since the array seem to be an integer array and JavaScript would sort it in numeric order. But, the correct result is as follows:
+&lt;figure class=&#34;highlight js&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;[&lt;span class=&#34;number&#34;&gt;10&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;3548&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;456&lt;/span&gt;]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;">
 	
     
     	<meta name="twitter:image" content="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png">
@@ -49,12 +59,17 @@
 			"@type": "BlogPosting",
 			"headline": "JavaScript Pitfalls &amp; Tips: Sort",
 			
+			"description": "&lt;p&gt;JavaScript Quiz:&lt;/p&gt;
+&lt;img src=&#34;/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png&#34; title=&#34;[10, 2, 456, 3548].sort()&#34;&gt;
+&lt;p&gt;What would be the result of the above JavaScript code? You may expect &lt;code&gt;[2, 10, 456, 3548]&lt;/code&gt; since the array seem to be an integer array and JavaScript would sort it in numeric order. But, the correct result is as follows:
+&lt;figure class=&#34;highlight js&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;[&lt;span class=&#34;number&#34;&gt;10&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;3548&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;456&lt;/span&gt;]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;",
+			
 			"mainEntityOfPage":{
 			    "@type":"WebPage",
 			    "@id":"http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/"
 			},
 			"datePublished": "2018-05-24T18:51:03.000Z",
-			"dateModified": "2018-05-28T01:08:56.357Z",
+			"dateModified": "2018-11-04T02:30:57.594Z",
 			
 			"image": {
 				"@type": "ImageObject",
@@ -1835,6 +1850,7 @@ h6.categories {
 <div class="amp-img-wrapper"><amp-img src="/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png" width="768" height="384" layout="responsive"></amp-img></div>
 <p>What would be the result of the above JavaScript code? You may expect <code>[2, 10, 456, 3548]</code> since the array seem to be an integer array and JavaScript would sort it in numeric order. But, the correct result is as follows:
 </p><figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">2</span>, <span class="number">3548</span>, <span class="number">456</span>]</span><br></pre></td></tr></tbody></table></figure>
+<a id="more"></a>
 <p>It is because the default comparison function of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort" target="_blank" rel="noopener"><code>Array.prototype.sort()</code></a> is the <em>string comparison</em> after converting each element to string.</p>
 <p>Why the default sort function of JavaScript array as string comparison? I guess that the reason is the array type in JavaScript is for general types. For example, the following is a valid array of JavaScript.</p>
 <figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [ <span class="string">&apos;13&apos;</span>, <span class="string">&apos;Bob&apos;</span>, <span class="number">20</span>, <span class="literal">NaN</span>, <span class="literal">Infinity</span> ];</span><br></pre></td></tr></tbody></table></figure>

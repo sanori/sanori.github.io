@@ -14,10 +14,18 @@
 	
 	<meta property="og:site_name" content="Sanori&#39;s Blog">
 	
+		<meta property="og:description" content="&lt;p&gt;In developing with Spark, you would want to try some queries or instructions and get results immediately to check if your idea is working or not. Sometimes, just trying to run the code would be faster than look through the reference manual.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/scala-ide/scala-worksheet/wiki/Getting-Started&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Scala Worksheet&lt;/a&gt; is a REPL(&lt;a href=&#34;https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Read-Eval-Print Loop&lt;/a&gt;) on text editor in an IDE(integrated development environment) such as &lt;a href=&#34;http://scala-ide.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Scala IDE&lt;/a&gt; (on Eclipse) and &lt;a href=&#34;https://www.jetbrains.com/idea/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;IntelliJ IDEA&lt;/a&gt;. You can try commands, functions, object definitions, and methods on Scala Worksheet(&lt;code&gt;.sc&lt;/code&gt;) file, and you will get the results when you save that file. Since Scala worksheet runs on IDE, you can get help such as code completion.&lt;/p&gt;
+&lt;p&gt;In this post, a template to run Spark on Scala Worksheet is presented. The template was made to be general as possible.&lt;/p&gt;">
+	
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content="Sanori&#39;s Blog">
 	<meta name="twitter:url" content="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/">
 	<meta name="twitter:title" content="Running Spark on Scala Worksheet - Sanori&#39;s Blog">
+	
+		<meta name="twitter:description" content="&lt;p&gt;In developing with Spark, you would want to try some queries or instructions and get results immediately to check if your idea is working or not. Sometimes, just trying to run the code would be faster than look through the reference manual.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/scala-ide/scala-worksheet/wiki/Getting-Started&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Scala Worksheet&lt;/a&gt; is a REPL(&lt;a href=&#34;https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Read-Eval-Print Loop&lt;/a&gt;) on text editor in an IDE(integrated development environment) such as &lt;a href=&#34;http://scala-ide.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Scala IDE&lt;/a&gt; (on Eclipse) and &lt;a href=&#34;https://www.jetbrains.com/idea/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;IntelliJ IDEA&lt;/a&gt;. You can try commands, functions, object definitions, and methods on Scala Worksheet(&lt;code&gt;.sc&lt;/code&gt;) file, and you will get the results when you save that file. Since Scala worksheet runs on IDE, you can get help such as code completion.&lt;/p&gt;
+&lt;p&gt;In this post, a template to run Spark on Scala Worksheet is presented. The template was made to be general as possible.&lt;/p&gt;">
 	
     
     	<meta name="twitter:image" content="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/spark-on-scala-worksheet.png">
@@ -49,12 +57,16 @@
 			"@type": "BlogPosting",
 			"headline": "Running Spark on Scala Worksheet",
 			
+			"description": "&lt;p&gt;In developing with Spark, you would want to try some queries or instructions and get results immediately to check if your idea is working or not. Sometimes, just trying to run the code would be faster than look through the reference manual.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/scala-ide/scala-worksheet/wiki/Getting-Started&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Scala Worksheet&lt;/a&gt; is a REPL(&lt;a href=&#34;https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Read-Eval-Print Loop&lt;/a&gt;) on text editor in an IDE(integrated development environment) such as &lt;a href=&#34;http://scala-ide.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Scala IDE&lt;/a&gt; (on Eclipse) and &lt;a href=&#34;https://www.jetbrains.com/idea/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;IntelliJ IDEA&lt;/a&gt;. You can try commands, functions, object definitions, and methods on Scala Worksheet(&lt;code&gt;.sc&lt;/code&gt;) file, and you will get the results when you save that file. Since Scala worksheet runs on IDE, you can get help such as code completion.&lt;/p&gt;
+&lt;p&gt;In this post, a template to run Spark on Scala Worksheet is presented. The template was made to be general as possible.&lt;/p&gt;",
+			
 			"mainEntityOfPage":{
 			    "@type":"WebPage",
 			    "@id":"http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/"
 			},
 			"datePublished": "2017-06-30T18:15:53.000Z",
-			"dateModified": "2017-07-02T18:54:31.264Z",
+			"dateModified": "2018-11-04T02:30:57.618Z",
 			
 			"image": {
 				"@type": "ImageObject",
@@ -1834,6 +1846,7 @@ h6.categories {
 			  		<p>In developing with Spark, you would want to try some queries or instructions and get results immediately to check if your idea is working or not. Sometimes, just trying to run the code would be faster than look through the reference manual.</p>
 <p><a href="https://github.com/scala-ide/scala-worksheet/wiki/Getting-Started" target="_blank" rel="noopener">Scala Worksheet</a> is a REPL(<a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop" target="_blank" rel="noopener">Read-Eval-Print Loop</a>) on text editor in an IDE(integrated development environment) such as <a href="http://scala-ide.org/" target="_blank" rel="noopener">Scala IDE</a> (on Eclipse) and <a href="https://www.jetbrains.com/idea/" target="_blank" rel="noopener">IntelliJ IDEA</a>. You can try commands, functions, object definitions, and methods on Scala Worksheet(<code>.sc</code>) file, and you will get the results when you save that file. Since Scala worksheet runs on IDE, you can get help such as code completion.</p>
 <p>In this post, a template to run Spark on Scala Worksheet is presented. The template was made to be general as possible.</p>
+<a id="more"></a>
 <div class="amp-img-wrapper"><amp-img src="/2017/07/Running-Spark-on-Scala-Worksheet/spark-on-scala-worksheet.png" width="1208" height="657" layout="responsive"></amp-img></div>
 <h2 id="Worksheet-Template"><a href="#Worksheet-Template" class="headerlink" title="Worksheet Template"></a>Worksheet Template</h2><p>If you copy-and-paste the following code to your Scala worksheet,
 you can interact with local Spark system immediately.

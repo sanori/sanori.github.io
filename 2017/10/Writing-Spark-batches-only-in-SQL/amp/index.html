@@ -14,10 +14,18 @@
 	
 	<meta property="og:site_name" content="Sanori&#39;s Blog">
 	
+		<meta property="og:description" content="&lt;p&gt;&lt;a href=&#34;http://spark.apache.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Apache Spark&lt;sup&gt;TM&lt;/sup&gt;&lt;/a&gt; is known as popular big data framework which is faster than Hadoop MapReduce, easy-to-use, and fault-tolerant. Most of the Spark tutorials require readers to understand Scala, Java, or Python as base programming language. But, in my opinion, SQL is enough to write a spark batch script.&lt;/p&gt;
+&lt;p&gt;In this article, I will show that &lt;strong&gt;you can write Spark batches only in SQL if your input data is ready as structured dataset&lt;/strong&gt;. This means that you don’t need to learn Scala or Python, RDD, DataFrame if your job can be expressed in SQL. Moreover, the expression power of SparkSQL may be stronger than you think.&lt;/p&gt;
+&lt;p&gt;The SQL scripts as follows can be found at &lt;a href=&#34;https://github.com/sanori/spark-sql-example&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/sanori/spark-sql-example&lt;/a&gt;. You can test them yourself.&lt;/p&gt;">
+	
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content="Sanori&#39;s Blog">
 	<meta name="twitter:url" content="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/">
 	<meta name="twitter:title" content="Writing Spark batches only in SQL - Sanori&#39;s Blog">
+	
+		<meta name="twitter:description" content="&lt;p&gt;&lt;a href=&#34;http://spark.apache.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Apache Spark&lt;sup&gt;TM&lt;/sup&gt;&lt;/a&gt; is known as popular big data framework which is faster than Hadoop MapReduce, easy-to-use, and fault-tolerant. Most of the Spark tutorials require readers to understand Scala, Java, or Python as base programming language. But, in my opinion, SQL is enough to write a spark batch script.&lt;/p&gt;
+&lt;p&gt;In this article, I will show that &lt;strong&gt;you can write Spark batches only in SQL if your input data is ready as structured dataset&lt;/strong&gt;. This means that you don’t need to learn Scala or Python, RDD, DataFrame if your job can be expressed in SQL. Moreover, the expression power of SparkSQL may be stronger than you think.&lt;/p&gt;
+&lt;p&gt;The SQL scripts as follows can be found at &lt;a href=&#34;https://github.com/sanori/spark-sql-example&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/sanori/spark-sql-example&lt;/a&gt;. You can test them yourself.&lt;/p&gt;">
 	
     
     	<meta name="twitter:image" content="/amp-dist/sample/sample-substituteTitleImage.png">
@@ -49,12 +57,16 @@
 			"@type": "BlogPosting",
 			"headline": "Writing Spark batches only in SQL",
 			
+			"description": "&lt;p&gt;&lt;a href=&#34;http://spark.apache.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Apache Spark&lt;sup&gt;TM&lt;/sup&gt;&lt;/a&gt; is known as popular big data framework which is faster than Hadoop MapReduce, easy-to-use, and fault-tolerant. Most of the Spark tutorials require readers to understand Scala, Java, or Python as base programming language. But, in my opinion, SQL is enough to write a spark batch script.&lt;/p&gt;
+&lt;p&gt;In this article, I will show that &lt;strong&gt;you can write Spark batches only in SQL if your input data is ready as structured dataset&lt;/strong&gt;. This means that you don’t need to learn Scala or Python, RDD, DataFrame if your job can be expressed in SQL. Moreover, the expression power of SparkSQL may be stronger than you think.&lt;/p&gt;
+&lt;p&gt;The SQL scripts as follows can be found at &lt;a href=&#34;https://github.com/sanori/spark-sql-example&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/sanori/spark-sql-example&lt;/a&gt;. You can test them yourself.&lt;/p&gt;",
+			
 			"mainEntityOfPage":{
 			    "@type":"WebPage",
 			    "@id":"http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/"
 			},
 			"datePublished": "2017-10-07T14:57:03.000Z",
-			"dateModified": "2017-10-07T15:03:51.955Z",
+			"dateModified": "2018-11-04T02:30:57.618Z",
 			
 			"image": {
 				"@type": "ImageObject",
@@ -1834,6 +1846,7 @@ h6.categories {
 			  		<p><a href="http://spark.apache.org/" target="_blank" rel="noopener">Apache Spark<sup>TM</sup></a> is known as popular big data framework which is faster than Hadoop MapReduce, easy-to-use, and fault-tolerant. Most of the Spark tutorials require readers to understand Scala, Java, or Python as base programming language. But, in my opinion, SQL is enough to write a spark batch script.</p>
 <p>In this article, I will show that <strong>you can write Spark batches only in SQL if your input data is ready as structured dataset</strong>. This means that you don&#x2019;t need to learn Scala or Python, RDD, DataFrame if your job can be expressed in SQL. Moreover, the expression power of SparkSQL may be stronger than you think.</p>
 <p>The SQL scripts as follows can be found at <a href="https://github.com/sanori/spark-sql-example" target="_blank" rel="noopener">https://github.com/sanori/spark-sql-example</a>. You can test them yourself.</p>
+<a id="more"></a>
 <h2 id="Spark-batches"><a href="#Spark-batches" class="headerlink" title="Spark batches"></a>Spark batches</h2><p>Typical Spark batches are a program that</p>
 <ol>
 <li>read data from data sources,</li>
