@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sanori.github.io/"/>
-  <updated>2018-12-17T16:58:02.114Z</updated>
+  <updated>2018-12-17T17:09:15.965Z</updated>
   <id>http://sanori.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://sanori.github.io/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/"/>
     <id>http://sanori.github.io/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/</id>
     <published>2018-12-17T16:54:39.000Z</published>
-    <updated>2018-12-17T16:58:02.114Z</updated>
+    <updated>2018-12-17T17:09:15.965Z</updated>
     
     <content type="html"><![CDATA[<p>SQL Window functions are the functions related to the ordering of elementsin each given partition.In <a href="/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" title="the last post">the last post</a>,I have introduced an example of getting top-3 elementsfor each partition using the <code>rank()</code> function.</p><p><code>row_number()</code>, <code>rank()</code> and <code>dense_rank()</code> are SQL Window functionsthat number each element in ordering. They look similar.In fact, the results of the functions are the sameif all the values of the ordering column are unique.But, the results of each function become different if there are the tie values,that is, the same elements in order.</p><a id="more"></a><p>By definition, <code>row_number()</code> just numbers each row through the ordering.Therefore, the result of <code>row_number()</code> is differenteven if the value of the ordering column is the same. <code>rank()</code> and <code>dense_rank()</code> return the rank of the ordering.Therefore, the resulting number of <code>rank()</code> is the samewhen the value of the ordering column is the same.But the next rank number is different.Assume that there are two top elements and the third one.<code>rank()</code> returns 3 for the third element but <code>dense_rank()</code> returns 2since the previous rank was 1.</p><p>Let’s see the differences by the examples. Assume that the contents of <code>rankEx</code> are as follows:</p><table><thead><tr><th>part</th><th>value</th></tr></thead><tbody><tr><td>1</td><td>aaa</td></tr><tr><td>1</td><td>aa</td></tr><tr><td>1</td><td>aab</td></tr><tr><td>1</td><td>aaa</td></tr><tr><td>2</td><td>aaa</td></tr><tr><td>2</td><td>bbb</td></tr><tr><td>2</td><td>bbb</td></tr><tr><td>2</td><td>cc</td></tr><tr><td>2</td><td>cc</td></tr></tbody></table><p>The result of <code>row_number()</code> is as follows:<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> *,</span><br><span class="line">  row_number() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> part <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">value</span>) <span class="keyword">AS</span> <span class="keyword">num</span></span><br><span class="line"><span class="keyword">FROM</span> rankEx</span><br></pre></td></tr></table></figure></p><table><thead><tr><th>part</th><th>value</th><th>num</th></tr></thead><tbody><tr><td>1</td><td>aa</td><td>1</td></tr><tr><td>1</td><td>aaa</td><td>2</td></tr><tr><td>1</td><td>aaa</td><td>3</td></tr><tr><td>1</td><td>aab</td><td>4</td></tr><tr><td>2</td><td>aaa</td><td>1</td></tr><tr><td>2</td><td>bbb</td><td>2</td></tr><tr><td>2</td><td>bbb</td><td>3</td></tr><tr><td>2</td><td>cc</td><td>4</td></tr><tr><td>2</td><td>cc</td><td>5</td></tr></tbody></table><p>The result of <code>rank()</code> is as follows:<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> *,</span><br><span class="line">  <span class="keyword">rank</span>() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> part <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">value</span>) <span class="keyword">AS</span> <span class="keyword">num</span></span><br><span class="line"><span class="keyword">FROM</span> rankEx</span><br></pre></td></tr></table></figure></p><table><thead><tr><th>part</th><th>value</th><th>num</th></tr></thead><tbody><tr><td>1</td><td>aa</td><td>1</td></tr><tr><td>1</td><td>aaa</td><td>2</td></tr><tr><td>1</td><td>aaa</td><td>2</td></tr><tr><td>1</td><td>aab</td><td>4</td></tr><tr><td>2</td><td>aaa</td><td>1</td></tr><tr><td>2</td><td>bbb</td><td>2</td></tr><tr><td>2</td><td>bbb</td><td>2</td></tr><tr><td>2</td><td>cc</td><td>4</td></tr><tr><td>2</td><td>cc</td><td>4</td></tr></tbody></table><p>The result of <code>dense_rank()</code> is as follows:<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> *,</span><br><span class="line">  <span class="keyword">dense_rank</span>() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> part <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">value</span>) <span class="keyword">AS</span> <span class="keyword">num</span></span><br><span class="line"><span class="keyword">FROM</span> rankEx</span><br></pre></td></tr></table></figure></p><table><thead><tr><th>part</th><th>value</th><th>num</th></tr></thead><tbody><tr><td>1</td><td>aa</td><td>1</td></tr><tr><td>1</td><td>aaa</td><td>2</td></tr><tr><td>1</td><td>aaa</td><td>2</td></tr><tr><td>1</td><td>aab</td><td>3</td></tr><tr><td>2</td><td>aaa</td><td>1</td></tr><tr><td>2</td><td>bbb</td><td>2</td></tr><tr><td>2</td><td>bbb</td><td>2</td></tr><tr><td>2</td><td>cc</td><td>3</td></tr><tr><td>2</td><td>cc</td><td>3</td></tr></tbody></table><p><code>row_number()</code> is used instead of <code>rank()</code> or <code>dense_rank()</code> when the size of the results must be fixed. The statement <code>WHERE rank = 1</code> does not guarantee the number of results is 1 for each partition if the <code>rank</code> column is generated from <code>rank()</code> function.</p><p><code>row_number()</code> can be used to generate the sequence number of each row.</p>]]></content>
     
@@ -90,9 +90,9 @@ using the rank() function which is one of SQL window functions.&lt;/p&gt;
     </summary>
     
     
-      <category term="SQL" scheme="http://sanori.github.io/tags/SQL/"/>
-    
       <category term="Spark" scheme="http://sanori.github.io/tags/Spark/"/>
+    
+      <category term="SQL" scheme="http://sanori.github.io/tags/SQL/"/>
     
       <category term="SparkSQL" scheme="http://sanori.github.io/tags/SparkSQL/"/>
     
@@ -196,9 +196,9 @@ using the rank() function which is one of SQL window functions.&lt;/p&gt;
     </summary>
     
     
-      <category term="SQL" scheme="http://sanori.github.io/tags/SQL/"/>
-    
       <category term="Spark" scheme="http://sanori.github.io/tags/Spark/"/>
+    
+      <category term="SQL" scheme="http://sanori.github.io/tags/SQL/"/>
     
       <category term="SparkSQL" scheme="http://sanori.github.io/tags/SparkSQL/"/>
     
