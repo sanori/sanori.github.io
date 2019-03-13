@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-65624001-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>Line-by-line Processing in node.js | Sanori&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Suppose that you have to count the number of accesses for each IP address in the access.log file. And list the IP addresses which accessed more than 100,000 times. You want to do it with JavaScript or">
+<meta name="keywords" content="node.js,JavaScript,CommandLineInterface">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Line-by-line Processing in node.js">
+<meta property="og:url" content="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/index.html">
+<meta property="og:site_name" content="Sanori&#39;s Blog">
+<meta property="og:description" content="Suppose that you have to count the number of accesses for each IP address in the access.log file. And list the IP addresses which accessed more than 100,000 times. You want to do it with JavaScript or">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-13T18:14:39.762Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Line-by-line Processing in node.js">
+<meta name="twitter:description" content="Suppose that you have to count the number of accesses for each IP address in the access.log file. And list the IP addresses which accessed more than 100,000 times. You want to do it with JavaScript or">
+  
+    <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+    <link rel="amphtml" href="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/amp/">
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sanori&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">The world that sanori perceives</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/links">Links</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sanori.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Line-by-line-Processing-in-node-js" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/Line-by-line-Processing-in-node-js/" class="article-date">
+  <time datetime="2019-03-13T18:06:19.000Z" itemprop="datePublished">2019-03-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Line-by-line Processing in node.js
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Suppose that you have to count the number of accesses for each IP address in the <code>access.log</code> file. And list the IP addresses which accessed more than 100,000 times.
+You want to do it with JavaScript or node.js. How can you do that?
+<a id="more"></a></p>
+<p>You may write a script like as follows:
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> lines = fs.readFileSync(<span class="string">'access.log'</span>).toString().split(<span class="string">'\n'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> freq = &#123;&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> line <span class="keyword">of</span> lines) &#123;</span><br><span class="line">  <span class="keyword">const</span> ip = line.split(<span class="string">' '</span>)[<span class="number">0</span>];</span><br><span class="line">  freq[ip] = (freq[ip] + <span class="number">1</span>) || <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> list = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> ip <span class="keyword">in</span> freq) &#123;</span><br><span class="line">  <span class="keyword">if</span> (freq[ip] &gt;= <span class="number">100000</span>) &#123;</span><br><span class="line">    list.push([ip, freq[ip]]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">list.sort(<span class="function">(<span class="params">a,b</span>) =&gt;</span> b[<span class="number">1</span>] - a[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(list);</span><br></pre></td></tr></table></figure></p>
+<p>This code works great for a small file.
+But, it would not work for a large file.
+It takes so much memory as the size of the <code>access.log</code> file since <code>readFileSync</code> returns the <code>lines</code> variable after reading all the file contents.
+Therefore, if the file is too large to fit in memory, the script does not work with the following error.
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error: Cannot create a string longer than 0x3fffffe7 characters</span><br><span class="line">    at Buffer.toString (buffer.js:645:17)</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure></p>
+<p>Using <code>readFile()</code>, which is the asynchronous version of <code>readFileSync()</code>, would be a solution to the memory problem.
+But, the callback function would be called more than once and the passed <code>data</code> through callback function is not guaranteed to be passed line by line.</p>
+<p>You need the way to read a file line by line, if it is possible, asynchronously.
+In this article, some ways to process text line by line are presented.</p>
+<h2 id="readline-Standard-node-js-Module"><a href="#readline-Standard-node-js-Module" class="headerlink" title="readline: Standard node.js Module"></a><code>readline</code>: Standard node.js Module</h2><p>The standard node.js way to process text line by line is using the <a href="https://nodejs.org/api/readline.html" target="_blank" rel="noopener">readline</a> module.</p>
+<p>It seems that the major purpose of <code>readline</code> module is to make interactive text environment easily.
+But, we can make use of the feature to split the input stream by one line at a time.
+The rewritten script is as follows:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> readline = <span class="built_in">require</span>(<span class="string">'readline'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rl = readline.createInterface(&#123;</span><br><span class="line">  input: fs.createReadStream(<span class="string">'access.log'</span>),</span><br><span class="line">  crlfDelay: <span class="literal">Infinity</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> freq = &#123;&#125;;</span><br><span class="line">rl.on(<span class="string">'line'</span>, (line) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> ip = line.split(<span class="string">' '</span>)[<span class="number">0</span>];</span><br><span class="line">  freq[ip] = (freq[ip] + <span class="number">1</span>) || <span class="number">1</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">rl.on(<span class="string">'close'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> list = <span class="built_in">Object</span>.entries(freq)</span><br><span class="line">    .filter(<span class="function"><span class="params">x</span> =&gt;</span> x[<span class="number">1</span>] &gt;= <span class="number">100000</span>)</span><br><span class="line">    .sort(<span class="function">(<span class="params">a,b</span>) =&gt;</span> b[<span class="number">1</span>] - a[<span class="number">1</span>]);</span><br><span class="line">  <span class="built_in">console</span>.log(list);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Note that the line processing part, which was in the for-loop, is in the ‘line’ event handler.
+And, since it is asynchronous, the post-processing part should be in the ‘close’ event handler.</p>
+<h2 id="split-Transform-Stream"><a href="#split-Transform-Stream" class="headerlink" title="split Transform Stream"></a><code>split</code> Transform Stream</h2><p>You may notice the event name of the ‘readline’ module is different from the standard event name if you are familiar to node.js stream.</p>
+<p>If you just want to supply a line at a time to stream handler, you may use ‘<a href="https://www.npmjs.com/package/split" target="_blank" rel="noopener"><code>split</code></a>‘ module.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> split = <span class="built_in">require</span>(<span class="string">'split'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> freq = &#123;&#125;;</span><br><span class="line">fs.createReadStream(<span class="string">'access.log'</span>)</span><br><span class="line">  .pipe(split())</span><br><span class="line">  .on(<span class="string">'data'</span>, (line) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> ip = line.split(<span class="string">' '</span>)[<span class="number">0</span>];</span><br><span class="line">    freq[ip] = (freq[ip] + <span class="number">1</span>) || <span class="number">1</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">  .on(<span class="string">'end'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> list = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> ip <span class="keyword">of</span> <span class="built_in">Object</span>.keys(freq)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (freq[ip] &gt;= <span class="number">100000</span>) &#123;</span><br><span class="line">            list.push([ip, freq[ip]]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    list.sort(<span class="function">(<span class="params">a,b</span>) =&gt;</span> b[<span class="number">1</span>] - a[<span class="number">1</span>]);</span><br><span class="line">    <span class="built_in">console</span>.log(list);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="readline-for-async-await"><a href="#readline-for-async-await" class="headerlink" title="readline for async/await"></a><code>readline</code> for async/await</h2><p>For who loves async/await or Generator function,
+<a href="https://nodejs.org/dist/latest-v11.x/docs/api/readline.html#readline_rl_symbol_asynciterator" target="_blank" rel="noopener">asyncIterator interface of ‘readline’</a>
+was experimentally added to node.js since v11.4.0.
+Using this feature, we can rewrite the script as follows:
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> readline = <span class="built_in">require</span>(<span class="string">'readline'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> rl = readline.createInterface(&#123;</span><br><span class="line">    input: fs.createReadStream(<span class="string">'access.log'</span>),</span><br><span class="line">    crlfDelay: <span class="literal">Infinity</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> freq = &#123;&#125;;</span><br><span class="line">  <span class="keyword">for</span> <span class="keyword">await</span> (<span class="keyword">const</span> line <span class="keyword">of</span> rl) &#123;</span><br><span class="line">    <span class="keyword">const</span> ip = line.split(<span class="string">' '</span>)[<span class="number">0</span>];</span><br><span class="line">    freq[ip] = (freq[ip] + <span class="number">1</span>) || <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> list = <span class="built_in">Object</span>.entries(freq)</span><br><span class="line">    .filter(<span class="function"><span class="params">x</span> =&gt;</span> x[<span class="number">1</span>] &gt;= <span class="number">100000</span>)</span><br><span class="line">    .sort(<span class="function">(<span class="params">a,b</span>) =&gt;</span> b[<span class="number">1</span>] - a[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(list);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">require</span>.main === <span class="built_in">module</span>) &#123;</span><br><span class="line">  main();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/" data-id="cjt7j2b990005ucjdbhwv59hk" class="article-share-link">Share</a>
+      
+        <a href="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CommandLineInterface/">CommandLineInterface</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SQL Window Functions: row_number, rank, dense_rank</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/CUDA/" style="font-size: 10px;">CUDA</a> <a href="/tags/CommandLineInterface/" style="font-size: 13.33px;">CommandLineInterface</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/JavaScript/" style="font-size: 13.33px;">JavaScript</a> <a href="/tags/Keras/" style="font-size: 10px;">Keras</a> <a href="/tags/REPL/" style="font-size: 10px;">REPL</a> <a href="/tags/SQL/" style="font-size: 16.67px;">SQL</a> <a href="/tags/Scala/" style="font-size: 13.33px;">Scala</a> <a href="/tags/Scala-Worksheet/" style="font-size: 10px;">Scala Worksheet</a> <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/SparkSQL/" style="font-size: 16.67px;">SparkSQL</a> <a href="/tags/SqlWindowFunction/" style="font-size: 13.33px;">SqlWindowFunction</a> <a href="/tags/TensorFlow/" style="font-size: 13.33px;">TensorFlow</a> <a href="/tags/bitwise/" style="font-size: 10px;">bitwise</a> <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/interactive-development/" style="font-size: 10px;">interactive development</a> <a href="/tags/javascript/" style="font-size: 13.33px;">javascript</a> <a href="/tags/nVidia/" style="font-size: 10px;">nVidia</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/nvidia-docker/" style="font-size: 13.33px;">nvidia-docker</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/spark-shell/" style="font-size: 10px;">spark-shell</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/Line-by-line-Processing-in-node-js/">Line-by-line Processing in node.js</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/">SQL Window Functions: row_number, rank, dense_rank</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/SQL-Window-Functions-Top-k-Elements-Example/">SQL Window Functions: Top-k Elements Example</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/">JavaScript Pitfalls &amp; Tips: Bitwise Operation</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/JavaScript-Pitfalls-Tips-Sort/">JavaScript Pitfalls &amp; Tips: Sort</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Joo-Won Jung<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/links" class="mobile-nav-link">Links</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'sanoriblog';
+  
+  var disqus_url = 'http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

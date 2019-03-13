@@ -2,31 +2,31 @@
 <html ⚡>
   <head>
     <meta charset="utf-8">
-    <link rel="canonical" href="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/" >
-    <title>Using sbt instead of spark-shell - Sanori&#39;s Blog</title>
+    <link rel="canonical" href="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/" >
+    <title>Line-by-line Processing in node.js - Sanori&#39;s Blog</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 
-    <meta property="og:title" content="Using sbt instead of spark-shell">
+    <meta property="og:title" content="Line-by-line Processing in node.js">
 	<meta property="og:type" content="article">
-	<meta property="og:url" content="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/">
+	<meta property="og:url" content="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/">
 	
-		<meta property="og:image" content="http://sanori.github.io/images/Apache_Spark_logo.png">
+		<meta property="og:image" content="http://sanori.github.io/images/Nodejs_logo.png">
 	
 	<meta property="og:site_name" content="Sanori&#39;s Blog">
 	
-		<meta property="og:description" content="&lt;p&gt;If you are familiar to &lt;a href=&#34;http://www.scala-sbt.org/0.13/docs/Command-Line-Reference.html#Configuration-level+tasks&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;sbt console&lt;/a&gt;, a convenient Scala &lt;a href=&#34;http://docs.scala-lang.org/overviews/repl/overview.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;REPL&lt;/a&gt;, and you are about to develop &lt;a href=&#34;http://spark.apache.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Spark&lt;/a&gt; using &lt;a href=&#34;http://spark.apache.org/docs/latest/quick-start.html#interactive-analysis-with-the-spark-shell&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;spark-shell&lt;/a&gt;, you don’t need to install spark-shell.&lt;/p&gt;
-&lt;p&gt;In fact, you don’t need to install even Spark!&lt;/p&gt;">
+		<meta property="og:description" content="&lt;p&gt;Suppose that you have to count the number of accesses for each IP address in the &lt;code&gt;access.log&lt;/code&gt; file. And list the IP addresses which accessed more than 100,000 times.
+You want to do it with JavaScript or node.js. How can you do that?">
 	
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content="Sanori&#39;s Blog">
-	<meta name="twitter:url" content="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/">
-	<meta name="twitter:title" content="Using sbt instead of spark-shell - Sanori&#39;s Blog">
+	<meta name="twitter:url" content="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/">
+	<meta name="twitter:title" content="Line-by-line Processing in node.js - Sanori&#39;s Blog">
 	
-		<meta name="twitter:description" content="&lt;p&gt;If you are familiar to &lt;a href=&#34;http://www.scala-sbt.org/0.13/docs/Command-Line-Reference.html#Configuration-level+tasks&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;sbt console&lt;/a&gt;, a convenient Scala &lt;a href=&#34;http://docs.scala-lang.org/overviews/repl/overview.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;REPL&lt;/a&gt;, and you are about to develop &lt;a href=&#34;http://spark.apache.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Spark&lt;/a&gt; using &lt;a href=&#34;http://spark.apache.org/docs/latest/quick-start.html#interactive-analysis-with-the-spark-shell&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;spark-shell&lt;/a&gt;, you don’t need to install spark-shell.&lt;/p&gt;
-&lt;p&gt;In fact, you don’t need to install even Spark!&lt;/p&gt;">
+		<meta name="twitter:description" content="&lt;p&gt;Suppose that you have to count the number of accesses for each IP address in the &lt;code&gt;access.log&lt;/code&gt; file. And list the IP addresses which accessed more than 100,000 times.
+You want to do it with JavaScript or node.js. How can you do that?">
 	
     
-    	<meta name="twitter:image" content="http://sanori.github.io/images/Apache_Spark_logo.png">
+    	<meta name="twitter:image" content="http://sanori.github.io/images/Nodejs_logo.png">
 	
 	
 	
@@ -53,23 +53,23 @@
 		{
 			"@context": "http://schema.org",
 			"@type": "BlogPosting",
-			"headline": "Using sbt instead of spark-shell",
+			"headline": "Line-by-line Processing in node.js",
 			
-			"description": "&lt;p&gt;If you are familiar to &lt;a href=&#34;http://www.scala-sbt.org/0.13/docs/Command-Line-Reference.html#Configuration-level+tasks&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;sbt console&lt;/a&gt;, a convenient Scala &lt;a href=&#34;http://docs.scala-lang.org/overviews/repl/overview.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;REPL&lt;/a&gt;, and you are about to develop &lt;a href=&#34;http://spark.apache.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Spark&lt;/a&gt; using &lt;a href=&#34;http://spark.apache.org/docs/latest/quick-start.html#interactive-analysis-with-the-spark-shell&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;spark-shell&lt;/a&gt;, you don’t need to install spark-shell.&lt;/p&gt;
-&lt;p&gt;In fact, you don’t need to install even Spark!&lt;/p&gt;",
+			"description": "&lt;p&gt;Suppose that you have to count the number of accesses for each IP address in the &lt;code&gt;access.log&lt;/code&gt; file. And list the IP addresses which accessed more than 100,000 times.
+You want to do it with JavaScript or node.js. How can you do that?",
 			
 			"mainEntityOfPage":{
 			    "@type":"WebPage",
-			    "@id":"http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/"
+			    "@id":"http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/"
 			},
-			"datePublished": "2017-06-06T09:17:11.000Z",
-			"dateModified": "2018-11-26T17:19:27.924Z",
+			"datePublished": "2019-03-13T18:06:19.000Z",
+			"dateModified": "2019-03-13T18:14:39.762Z",
 			
 			"image": {
 				"@type": "ImageObject",
-				"url": "http://sanori.github.io/images/Apache_Spark_logo.png",
+				"url": "http://sanori.github.io/images/Nodejs_logo.png",
 				"width" : "1280",
-				"height" : "666"
+				"height" : "783"
 			},
 			
 			"author": {
@@ -1726,7 +1726,7 @@ h6.categories {
   	<!-- container -->
   	<div id="container">
 	  	<div id="main">
-		    <article id="post-Using-sbt-instead-of-spark-shell" class="post">
+		    <article id="post-Line-by-line-Processing-in-node-js" class="post">
 
 		   		<!-- categories and bread crumb -->
 		    	
@@ -1739,7 +1739,7 @@ h6.categories {
 						
 			          	<div class="header-thumb flx">
 			          		<div class="thumbImg-w circle">
-			          			<amp-img class="thumbImg" layout="fixed" width="192" height="100" src="http://sanori.github.io/images/Apache_Spark_logo.png">
+			          			<amp-img class="thumbImg" layout="fixed" width="163" height="100" src="http://sanori.github.io/images/Nodejs_logo.png">
 			          			</amp-img>
 			          		</div>
 			          	</div>
@@ -1748,7 +1748,7 @@ h6.categories {
 			            <div class="header-cap flx">
 							
 							  <h1 class="article-title entry-title" itemprop="name">
-							    <a href="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/" target="_blank" itemprop="url">Using sbt instead of spark-shell</a>
+							    <a href="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/" target="_blank" itemprop="url">Line-by-line Processing in node.js</a>
 							  </h1>
 							
 						</div>
@@ -1758,7 +1758,7 @@ h6.categories {
 					<div class="entry-meta-header">
 						<span class="meta-elements date">
 							<span class="fa fa-fw fa-clock-o"></span>
-							<time datetime="2017-06-06" itemprop="datePublished">2017.06.06</time>
+							<time datetime="2019-03-14" itemprop="datePublished">2019.03.13</time>
 						</span>
 					</div>
 				</div>
@@ -1775,32 +1775,35 @@ h6.categories {
                     
 
 			    	<!-- content -->
-			  		<p>If you are familiar to <a href="http://www.scala-sbt.org/0.13/docs/Command-Line-Reference.html#Configuration-level+tasks" target="_blank" rel="noopener">sbt console</a>, a convenient Scala <a href="http://docs.scala-lang.org/overviews/repl/overview.html" target="_blank" rel="noopener">REPL</a>, and you are about to develop <a href="http://spark.apache.org/" target="_blank" rel="noopener">Spark</a> using <a href="http://spark.apache.org/docs/latest/quick-start.html#interactive-analysis-with-the-spark-shell" target="_blank" rel="noopener">spark-shell</a>, you don&#x2019;t need to install spark-shell.</p>
-<p>In fact, you don&#x2019;t need to install even Spark!</p>
-<a id="more"></a>
-<h3 id="Include-Spark-in-build-sbt"><a href="#Include-Spark-in-build-sbt" class="headerlink" title="Include Spark in build.sbt"></a>Include Spark in <code>build.sbt</code></h3><p>Instead of download and install Spark, you can use spark by adding the following lines in your <code>build.sbt</code>.
-</p><figure class="highlight scala"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">libraryDependencies += <span class="string">&quot;org.apache.spark&quot;</span> %% <span class="string">&quot;spark-core&quot;</span> % <span class="string">&quot;2.1.1&quot;</span>,</span><br><span class="line">libraryDependencies += <span class="string">&quot;org.apache.spark&quot;</span> %% <span class="string">&quot;spark-sql&quot;</span> % <span class="string">&quot;2.1.1&quot;</span>,</span><br></pre></td></tr></tbody></table></figure>
-<p>Note that the last revision number, 2.1.1, is the version of Spark.
-You can check available spark modules at Maven repository.</p>
-<ul>
-<li><a href="https://mvnrepository.com/artifact/org.apache.spark" target="_blank" rel="noopener">https://mvnrepository.com/artifact/org.apache.spark</a></li>
-<li><a href="https://mvnrepository.com/artifact/org.apache.spark/spark-core_2.11" target="_blank" rel="noopener">https://mvnrepository.com/artifact/org.apache.spark/spark-core_2.11</a></li>
-</ul>
-<h3 id="Generate-spark-and-sc-in-sbt-console"><a href="#Generate-spark-and-sc-in-sbt-console" class="headerlink" title="Generate spark and sc in sbt console"></a>Generate <code>spark</code> and <code>sc</code> in <code>sbt console</code></h3><p><code>spark-shell</code> provides <code>spark</code> (Spark 2.x) and <code>sc</code> object as the entry point of the Spark API. We can generate the API objects in sbt console as follows.
-</p><figure class="highlight scala"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.functions._</span><br><span class="line"><span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder().master(<span class="string">&quot;local&quot;</span>).appName(<span class="string">&quot;spark-shell&quot;</span>).getOrCreate()</span><br><span class="line"><span class="keyword">import</span> spark.implicits._</span><br><span class="line"><span class="keyword">val</span> sc = spark.sparkContext</span><br></pre></td></tr></tbody></table></figure>
-<p>If you enter the above code in <code>sbt console</code>, you would get the Spark start messages. Note that the start message introduces the URI of SparkUI like as follows.
-</p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">17/06/07 04:18:48 INFO Utils: Successfully started service &apos;SparkUI&apos; on port 4040.</span><br><span class="line">17/06/07 04:18:48 INFO SparkUI: Bound SparkUI to 0.0.0.0, and started at http://192.168.0.2:4040</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="Automate-the-creation-of-Spark-API"><a href="#Automate-the-creation-of-Spark-API" class="headerlink" title="Automate the creation of Spark API"></a>Automate the creation of Spark API</h3><p>Instead of entering the above code every time when Scala REPL starts, you can automate the Spark API object creation by <a href="http://www.scala-sbt.org/0.13/docs/Howto-Scala.html#Define+the+initial+commands+evaluated+when+entering+the+Scala+REPL" target="_blank" rel="noopener"><code>initialCommands</code> keyword in <code>build.sbt</code></a>.</p>
-<p>By adding the following code in <code>build.sbt</code>, you can access <code>spark</code> and <code>sc</code> API object when <code>sbt console</code> starts.
-</p><figure class="highlight scala"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">initialCommands in console := <span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">  import org.apache.spark.sql.SparkSession</span></span><br><span class="line"><span class="string">  import org.apache.spark.sql.functions._</span></span><br><span class="line"><span class="string">  val spark = SparkSession.builder()</span></span><br><span class="line"><span class="string">    .master(&quot;</span><span class="string">local&quot;)</span></span><br><span class="line"><span class="string">    .appName(&quot;</span>spark-<span class="string">shell&quot;)</span></span><br><span class="line"><span class="string">    .getOrCreate()</span></span><br><span class="line"><span class="string">  import spark.implicits._</span></span><br><span class="line"><span class="string">  val sc = spark.sparkContext</span></span><br><span class="line"><span class="string">&quot;</span><span class="string">&quot;&quot;</span></span><br></pre></td></tr></tbody></table></figure>
-<p>Since the creation of <code>spark</code> object implies start of Spark system, it is needed to send shutdown signal to Spark when console is closed.</p>
-<p>By adding the following code in <code>build.sbt</code>,
-Spark get exit signal of <code>sbt console</code> and shutdown gracefully.
-</p><figure class="highlight scala"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cleanupCommands in console := <span class="string">&quot;spark.stop()&quot;</span></span><br></pre></td></tr></tbody></table></figure>
-<h2 id="Get-Things-Together-Spark-SBT-template"><a href="#Get-Things-Together-Spark-SBT-template" class="headerlink" title="Get Things Together: Spark SBT template"></a>Get Things Together: Spark SBT template</h2><p>(Update: 2016-06-13)</p>
-<p>Get the above comments altogether, I have created a SBT project template form spark.</p>
-<p><a href="https://github.com/sanori/spark-sbt" target="_blank" rel="noopener">https://github.com/sanori/spark-sbt</a></p>
-<p>Hope this helps your work.</p>
+			  		<p>Suppose that you have to count the number of accesses for each IP address in the <code>access.log</code> file. And list the IP addresses which accessed more than 100,000 times.
+You want to do it with JavaScript or node.js. How can you do that?
+<a id="more"></a></p>
+<p>You may write a script like as follows:
+</p><figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&apos;fs&apos;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> lines = fs.readFileSync(<span class="string">&apos;access.log&apos;</span>).toString().split(<span class="string">&apos;\n&apos;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> freq = {};</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> line <span class="keyword">of</span> lines) {</span><br><span class="line">  <span class="keyword">const</span> ip = line.split(<span class="string">&apos; &apos;</span>)[<span class="number">0</span>];</span><br><span class="line">  freq[ip] = (freq[ip] + <span class="number">1</span>) || <span class="number">1</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> list = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> ip <span class="keyword">in</span> freq) {</span><br><span class="line">  <span class="keyword">if</span> (freq[ip] &gt;= <span class="number">100000</span>) {</span><br><span class="line">    list.push([ip, freq[ip]]);</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line">list.sort(<span class="function">(<span class="params">a,b</span>) =&gt;</span> b[<span class="number">1</span>] - a[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(list);</span><br></pre></td></tr></tbody></table></figure>
+<p>This code works great for a small file.
+But, it would not work for a large file.
+It takes so much memory as the size of the <code>access.log</code> file since <code>readFileSync</code> returns the <code>lines</code> variable after reading all the file contents.
+Therefore, if the file is too large to fit in memory, the script does not work with the following error.
+</p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error: Cannot create a string longer than 0x3fffffe7 characters</span><br><span class="line">    at Buffer.toString (buffer.js:645:17)</span><br><span class="line">    ...</span><br></pre></td></tr></tbody></table></figure>
+<p>Using <code>readFile()</code>, which is the asynchronous version of <code>readFileSync()</code>, would be a solution to the memory problem.
+But, the callback function would be called more than once and the passed <code>data</code> through callback function is not guaranteed to be passed line by line.</p>
+<p>You need the way to read a file line by line, if it is possible, asynchronously.
+In this article, some ways to process text line by line are presented.</p>
+<h2 id="readline-Standard-node-js-Module"><a href="#readline-Standard-node-js-Module" class="headerlink" title="readline: Standard node.js Module"></a><code>readline</code>: Standard node.js Module</h2><p>The standard node.js way to process text line by line is using the <a href="https://nodejs.org/api/readline.html" target="_blank" rel="noopener">readline</a> module.</p>
+<p>It seems that the major purpose of <code>readline</code> module is to make interactive text environment easily.
+But, we can make use of the feature to split the input stream by one line at a time.
+The rewritten script is as follows:</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&apos;fs&apos;</span>);</span><br><span class="line"><span class="keyword">const</span> readline = <span class="built_in">require</span>(<span class="string">&apos;readline&apos;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rl = readline.createInterface({</span><br><span class="line">  input: fs.createReadStream(<span class="string">&apos;access.log&apos;</span>),</span><br><span class="line">  crlfDelay: <span class="literal">Infinity</span></span><br><span class="line">});</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> freq = {};</span><br><span class="line">rl.on(<span class="string">&apos;line&apos;</span>, (line) =&gt; {</span><br><span class="line">  <span class="keyword">const</span> ip = line.split(<span class="string">&apos; &apos;</span>)[<span class="number">0</span>];</span><br><span class="line">  freq[ip] = (freq[ip] + <span class="number">1</span>) || <span class="number">1</span>;</span><br><span class="line">});</span><br><span class="line"></span><br><span class="line">rl.on(<span class="string">&apos;close&apos;</span>, () =&gt; {</span><br><span class="line">  <span class="keyword">const</span> list = <span class="built_in">Object</span>.entries(freq)</span><br><span class="line">    .filter(<span class="function"><span class="params">x</span> =&gt;</span> x[<span class="number">1</span>] &gt;= <span class="number">100000</span>)</span><br><span class="line">    .sort(<span class="function">(<span class="params">a,b</span>) =&gt;</span> b[<span class="number">1</span>] - a[<span class="number">1</span>]);</span><br><span class="line">  <span class="built_in">console</span>.log(list);</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+<p>Note that the line processing part, which was in the for-loop, is in the &#x2018;line&#x2019; event handler.
+And, since it is asynchronous, the post-processing part should be in the &#x2018;close&#x2019; event handler.</p>
+<h2 id="split-Transform-Stream"><a href="#split-Transform-Stream" class="headerlink" title="split Transform Stream"></a><code>split</code> Transform Stream</h2><p>You may notice the event name of the &#x2018;readline&#x2019; module is different from the standard event name if you are familiar to node.js stream.</p>
+<p>If you just want to supply a line at a time to stream handler, you may use &#x2018;<a href="https://www.npmjs.com/package/split" target="_blank" rel="noopener"><code>split</code></a>&#x2018; module.</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&apos;fs&apos;</span>);</span><br><span class="line"><span class="keyword">const</span> split = <span class="built_in">require</span>(<span class="string">&apos;split&apos;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> freq = {};</span><br><span class="line">fs.createReadStream(<span class="string">&apos;access.log&apos;</span>)</span><br><span class="line">  .pipe(split())</span><br><span class="line">  .on(<span class="string">&apos;data&apos;</span>, (line) =&gt; {</span><br><span class="line">    <span class="keyword">const</span> ip = line.split(<span class="string">&apos; &apos;</span>)[<span class="number">0</span>];</span><br><span class="line">    freq[ip] = (freq[ip] + <span class="number">1</span>) || <span class="number">1</span>;</span><br><span class="line">  })</span><br><span class="line">  .on(<span class="string">&apos;end&apos;</span>, () =&gt; {</span><br><span class="line">    <span class="keyword">const</span> list = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> ip <span class="keyword">of</span> <span class="built_in">Object</span>.keys(freq)) {</span><br><span class="line">        <span class="keyword">if</span> (freq[ip] &gt;= <span class="number">100000</span>) {</span><br><span class="line">            list.push([ip, freq[ip]]);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    list.sort(<span class="function">(<span class="params">a,b</span>) =&gt;</span> b[<span class="number">1</span>] - a[<span class="number">1</span>]);</span><br><span class="line">    <span class="built_in">console</span>.log(list);</span><br><span class="line">  });</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="readline-for-async-await"><a href="#readline-for-async-await" class="headerlink" title="readline for async/await"></a><code>readline</code> for async/await</h2><p>For who loves async/await or Generator function,
+<a href="https://nodejs.org/dist/latest-v11.x/docs/api/readline.html#readline_rl_symbol_asynciterator" target="_blank" rel="noopener">asyncIterator interface of &#x2018;readline&#x2019;</a>
+was experimentally added to node.js since v11.4.0.
+Using this feature, we can rewrite the script as follows:
+</p><figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&apos;fs&apos;</span>);</span><br><span class="line"><span class="keyword">const</span> readline = <span class="built_in">require</span>(<span class="string">&apos;readline&apos;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>) </span>{</span><br><span class="line">  <span class="keyword">const</span> rl = readline.createInterface({</span><br><span class="line">    input: fs.createReadStream(<span class="string">&apos;access.log&apos;</span>),</span><br><span class="line">    crlfDelay: <span class="literal">Infinity</span></span><br><span class="line">  });</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> freq = {};</span><br><span class="line">  <span class="keyword">for</span> <span class="keyword">await</span> (<span class="keyword">const</span> line <span class="keyword">of</span> rl) {</span><br><span class="line">    <span class="keyword">const</span> ip = line.split(<span class="string">&apos; &apos;</span>)[<span class="number">0</span>];</span><br><span class="line">    freq[ip] = (freq[ip] + <span class="number">1</span>) || <span class="number">1</span>;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> list = <span class="built_in">Object</span>.entries(freq)</span><br><span class="line">    .filter(<span class="function"><span class="params">x</span> =&gt;</span> x[<span class="number">1</span>] &gt;= <span class="number">100000</span>)</span><br><span class="line">    .sort(<span class="function">(<span class="params">a,b</span>) =&gt;</span> b[<span class="number">1</span>] - a[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(list);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">require</span>.main === <span class="built_in">module</span>) {</span><br><span class="line">  main();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 
 			  		<!-- google Adsense -->
@@ -1828,26 +1831,20 @@ Spark get exit signal of <code>sbt console</code> and shutdown gracefully.
 						<ul class="article-tag-list">
 							
 					    		<li class="article-tag-list-item">
-					    			<a class="article-tag-list-link link-gaTrack" href="/tags/Spark/" data-linkType="link-tag">
-					    				Spark
+					    			<a class="article-tag-list-link link-gaTrack" href="/tags/node-js/" data-linkType="link-tag">
+					    				node.js
 					    			</a>
 					    		</li>
 							
 					    		<li class="article-tag-list-item">
-					    			<a class="article-tag-list-link link-gaTrack" href="/tags/Scala/" data-linkType="link-tag">
-					    				Scala
+					    			<a class="article-tag-list-link link-gaTrack" href="/tags/JavaScript/" data-linkType="link-tag">
+					    				JavaScript
 					    			</a>
 					    		</li>
 							
 					    		<li class="article-tag-list-item">
-					    			<a class="article-tag-list-link link-gaTrack" href="/tags/sbt/" data-linkType="link-tag">
-					    				sbt
-					    			</a>
-					    		</li>
-							
-					    		<li class="article-tag-list-item">
-					    			<a class="article-tag-list-link link-gaTrack" href="/tags/spark-shell/" data-linkType="link-tag">
-					    				spark-shell
+					    			<a class="article-tag-list-link link-gaTrack" href="/tags/CommandLineInterface/" data-linkType="link-tag">
+					    				CommandLineInterface
 					    			</a>
 					    		</li>
 							
