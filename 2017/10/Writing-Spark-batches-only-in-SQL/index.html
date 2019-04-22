@@ -3,25 +3,22 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-65624001-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-65624001-1', 'auto');
-ga('send', 'pageview');
-
+  gtag('config', 'UA-65624001-1');
 </script>
 <!-- End Google Analytics -->
-
 
   
   <title>Writing Spark batches only in SQL | Sanori&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Apache SparkTM is known as popular big data framework which is faster than Hadoop MapReduce, easy-to-use, and fault-tolerant. Most of the Spark tutorials require readers to understand Scala, Java, or">
-<meta name="keywords" content="Spark,SQL,SparkSQL,DataFrame,Dataset">
+<meta name="keywords" content="SQL,Spark,SparkSQL,DataFrame,Dataset">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Writing Spark batches only in SQL">
 <meta property="og:url" content="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/index.html">
@@ -48,7 +45,7 @@ ga('send', 'pageview');
 
   <link rel="stylesheet" href="/css/style.css">
 </head>
-</html>
+
 <body>
   <div id="container">
     <div id="wrap">
@@ -203,7 +200,7 @@ You may create, append, or delete data, but you cannot change existing data.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/" data-id="cjt7j9j2z002c54jdcuyygea1" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/" data-id="cjushcje2002c6njdcvql1tnx" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -309,10 +306,11 @@ You may create, append, or delete data, but you cannot change existing data.</p>
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2019 Joo-Won Jung<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
+
     </div>
     <nav id="mobile-nav">
   
