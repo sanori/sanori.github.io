@@ -2,77 +2,31 @@
 <html ⚡>
   <head>
     <meta charset="utf-8">
-    <link rel="canonical" href="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" >
-    <title>SQL Window Functions: Top-k Elements Example - Sanori&#39;s Blog</title>
+    <link rel="canonical" href="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/" >
+    <title>JavaScript Pitfalls &amp; Tips: toFixed - Sanori&#39;s Blog</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 
-    <meta property="og:title" content="SQL Window Functions: Top-k Elements Example">
+    <meta property="og:title" content="JavaScript Pitfalls &amp; Tips: toFixed">
 	<meta property="og:type" content="article">
-	<meta property="og:url" content="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/">
+	<meta property="og:url" content="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/">
 	
-		<meta property="og:image" content="http://sanori.github.io/images/Apache_Spark_logo.png">
+		<meta property="og:image" content="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/js-toFixed-title.png">
 	
 	<meta property="og:site_name" content="Sanori&#39;s Blog">
 	
-		<meta property="og:description" content="&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/SQL_window_function&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SQL Window functions&lt;/a&gt;
-are similar to aggregate functions, such as count(),
-sum() or average(), but has different usage.
-Window functions are related to ordering like rank(), row_number(),
-while aggregate functions are related to summary of set of values
-like count(), sum().
-SQL Window functions specification is
-&lt;a href=&#34;https://en.wikipedia.org/wiki/SQL:2003&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ISO/ANSI standard since 2003&lt;/a&gt;.
-You can use SQL window functions on HiveQL, MySQL, Transact-SQL
-as well as Spark SQL.&lt;/p&gt;
-&lt;p&gt;In processing data, there are several cases to split data into groups
-or partitions and get representative values for each group.
-Someone may solve this problem by classifying data by making keys first
-and compute values for each key.
-You may use map() and reduce() in MapReduce framework,
-or use map() and reduceByKey() or aggregate() in Spark RDD API.&lt;/p&gt;
-&lt;p&gt;If the argument function of a reduce() is the add (&lt;code&gt;_ + _&lt;/code&gt;),
-the query can be written as &lt;code&gt;sum()&lt;/code&gt; in SQL.
-If it is the increment(&lt;code&gt;++&lt;/code&gt;), it can be transformed to &lt;code&gt;count()&lt;/code&gt; in SQL.
-But, if the function of the reduce() is a something like ‘top-10 largest values’,
-it would be vague to find correspondent SQL statements or functions.
-And some data engineers or scientists may think this query cannot be written
-in SQL statements, and decide to code in MapReduce or Spark.&lt;/p&gt;
-&lt;p&gt;In this post, I will show an example to solve top-&lt;em&gt;k&lt;/em&gt; frequent elements problem
-using the rank() function which is one of SQL window functions.&lt;/p&gt;">
+		<meta property="og:description" content="&lt;img src=&#34;/2019/04/JavaScript-Pitfalls-Tips-toFixed/js-toFixed-title.png&#34; title=&#34;2.55.toFixed(1) !== 2.6&#34;&gt;
+&lt;p&gt;&lt;code&gt;Number.prototype.toFixed(n)&lt;/code&gt; is a number formatting method that shows n-th digits after the decimal point. It seems to rounds (n+1)-th digits. But, sometimes, it does not round up. For example, the value of &lt;code&gt;2.55.toFixed(1)&lt;/code&gt; is &lt;code&gt;2.5&lt;/code&gt;, not &lt;code&gt;2.6&lt;/code&gt; which is correct. &lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed#Using_toFixed&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;This example is even in MDN documents&lt;/a&gt;.">
 	
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content="Sanori&#39;s Blog">
-	<meta name="twitter:url" content="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/">
-	<meta name="twitter:title" content="SQL Window Functions: Top-k Elements Example - Sanori&#39;s Blog">
+	<meta name="twitter:url" content="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/">
+	<meta name="twitter:title" content="JavaScript Pitfalls &amp; Tips: toFixed - Sanori&#39;s Blog">
 	
-		<meta name="twitter:description" content="&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/SQL_window_function&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SQL Window functions&lt;/a&gt;
-are similar to aggregate functions, such as count(),
-sum() or average(), but has different usage.
-Window functions are related to ordering like rank(), row_number(),
-while aggregate functions are related to summary of set of values
-like count(), sum().
-SQL Window functions specification is
-&lt;a href=&#34;https://en.wikipedia.org/wiki/SQL:2003&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ISO/ANSI standard since 2003&lt;/a&gt;.
-You can use SQL window functions on HiveQL, MySQL, Transact-SQL
-as well as Spark SQL.&lt;/p&gt;
-&lt;p&gt;In processing data, there are several cases to split data into groups
-or partitions and get representative values for each group.
-Someone may solve this problem by classifying data by making keys first
-and compute values for each key.
-You may use map() and reduce() in MapReduce framework,
-or use map() and reduceByKey() or aggregate() in Spark RDD API.&lt;/p&gt;
-&lt;p&gt;If the argument function of a reduce() is the add (&lt;code&gt;_ + _&lt;/code&gt;),
-the query can be written as &lt;code&gt;sum()&lt;/code&gt; in SQL.
-If it is the increment(&lt;code&gt;++&lt;/code&gt;), it can be transformed to &lt;code&gt;count()&lt;/code&gt; in SQL.
-But, if the function of the reduce() is a something like ‘top-10 largest values’,
-it would be vague to find correspondent SQL statements or functions.
-And some data engineers or scientists may think this query cannot be written
-in SQL statements, and decide to code in MapReduce or Spark.&lt;/p&gt;
-&lt;p&gt;In this post, I will show an example to solve top-&lt;em&gt;k&lt;/em&gt; frequent elements problem
-using the rank() function which is one of SQL window functions.&lt;/p&gt;">
+		<meta name="twitter:description" content="&lt;img src=&#34;/2019/04/JavaScript-Pitfalls-Tips-toFixed/js-toFixed-title.png&#34; title=&#34;2.55.toFixed(1) !== 2.6&#34;&gt;
+&lt;p&gt;&lt;code&gt;Number.prototype.toFixed(n)&lt;/code&gt; is a number formatting method that shows n-th digits after the decimal point. It seems to rounds (n+1)-th digits. But, sometimes, it does not round up. For example, the value of &lt;code&gt;2.55.toFixed(1)&lt;/code&gt; is &lt;code&gt;2.5&lt;/code&gt;, not &lt;code&gt;2.6&lt;/code&gt; which is correct. &lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed#Using_toFixed&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;This example is even in MDN documents&lt;/a&gt;.">
 	
     
-    	<meta name="twitter:image" content="http://sanori.github.io/images/Apache_Spark_logo.png">
+    	<meta name="twitter:image" content="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/js-toFixed-title.png">
 	
 	
 	
@@ -99,46 +53,23 @@ using the rank() function which is one of SQL window functions.&lt;/p&gt;">
 		{
 			"@context": "http://schema.org",
 			"@type": "BlogPosting",
-			"headline": "SQL Window Functions: Top-k Elements Example",
+			"headline": "JavaScript Pitfalls &amp; Tips: toFixed",
 			
-			"description": "&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/SQL_window_function&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SQL Window functions&lt;/a&gt;
-are similar to aggregate functions, such as count(),
-sum() or average(), but has different usage.
-Window functions are related to ordering like rank(), row_number(),
-while aggregate functions are related to summary of set of values
-like count(), sum().
-SQL Window functions specification is
-&lt;a href=&#34;https://en.wikipedia.org/wiki/SQL:2003&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ISO/ANSI standard since 2003&lt;/a&gt;.
-You can use SQL window functions on HiveQL, MySQL, Transact-SQL
-as well as Spark SQL.&lt;/p&gt;
-&lt;p&gt;In processing data, there are several cases to split data into groups
-or partitions and get representative values for each group.
-Someone may solve this problem by classifying data by making keys first
-and compute values for each key.
-You may use map() and reduce() in MapReduce framework,
-or use map() and reduceByKey() or aggregate() in Spark RDD API.&lt;/p&gt;
-&lt;p&gt;If the argument function of a reduce() is the add (&lt;code&gt;_ + _&lt;/code&gt;),
-the query can be written as &lt;code&gt;sum()&lt;/code&gt; in SQL.
-If it is the increment(&lt;code&gt;++&lt;/code&gt;), it can be transformed to &lt;code&gt;count()&lt;/code&gt; in SQL.
-But, if the function of the reduce() is a something like ‘top-10 largest values’,
-it would be vague to find correspondent SQL statements or functions.
-And some data engineers or scientists may think this query cannot be written
-in SQL statements, and decide to code in MapReduce or Spark.&lt;/p&gt;
-&lt;p&gt;In this post, I will show an example to solve top-&lt;em&gt;k&lt;/em&gt; frequent elements problem
-using the rank() function which is one of SQL window functions.&lt;/p&gt;",
+			"description": "&lt;img src=&#34;/2019/04/JavaScript-Pitfalls-Tips-toFixed/js-toFixed-title.png&#34; title=&#34;2.55.toFixed(1) !== 2.6&#34;&gt;
+&lt;p&gt;&lt;code&gt;Number.prototype.toFixed(n)&lt;/code&gt; is a number formatting method that shows n-th digits after the decimal point. It seems to rounds (n+1)-th digits. But, sometimes, it does not round up. For example, the value of &lt;code&gt;2.55.toFixed(1)&lt;/code&gt; is &lt;code&gt;2.5&lt;/code&gt;, not &lt;code&gt;2.6&lt;/code&gt; which is correct. &lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed#Using_toFixed&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;This example is even in MDN documents&lt;/a&gt;.",
 			
 			"mainEntityOfPage":{
 			    "@type":"WebPage",
-			    "@id":"http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/"
+			    "@id":"http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/"
 			},
-			"datePublished": "2018-11-03T13:52:21.000Z",
-			"dateModified": "2019-03-13T18:08:32.274Z",
+			"datePublished": "2019-04-27T15:19:00.000Z",
+			"dateModified": "2019-04-27T15:25:03.792Z",
 			
 			"image": {
 				"@type": "ImageObject",
-				"url": "http://sanori.github.io/images/Apache_Spark_logo.png",
-				"width" : "1280",
-				"height" : "666"
+				"url": "http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/js-toFixed-title.png",
+				"width" : "1220",
+				"height" : "530"
 			},
 			
 			"author": {
@@ -1795,7 +1726,7 @@ h6.categories {
   	<!-- container -->
   	<div id="container">
 	  	<div id="main">
-		    <article id="post-SQL-Window-Functions-Top-k-Elements-Example" class="post">
+		    <article id="post-JavaScript-Pitfalls-Tips-toFixed" class="post">
 
 		   		<!-- categories and bread crumb -->
 		    	
@@ -1808,7 +1739,7 @@ h6.categories {
 						
 			          	<div class="header-thumb flx">
 			          		<div class="thumbImg-w circle">
-			          			<amp-img class="thumbImg" layout="fixed" width="192" height="100" src="http://sanori.github.io/images/Apache_Spark_logo.png">
+			          			<amp-img class="thumbImg" layout="fixed" width="230" height="100" src="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/js-toFixed-title.png">
 			          			</amp-img>
 			          		</div>
 			          	</div>
@@ -1817,7 +1748,7 @@ h6.categories {
 			            <div class="header-cap flx">
 							
 							  <h1 class="article-title entry-title" itemprop="name">
-							    <a href="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" target="_blank" itemprop="url">SQL Window Functions: Top-k Elements Example</a>
+							    <a href="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/" target="_blank" itemprop="url">JavaScript Pitfalls &amp; Tips: toFixed</a>
 							  </h1>
 							
 						</div>
@@ -1827,7 +1758,7 @@ h6.categories {
 					<div class="entry-meta-header">
 						<span class="meta-elements date">
 							<span class="fa fa-fw fa-clock-o"></span>
-							<time datetime="2018-11-03" itemprop="datePublished">2018.11.03</time>
+							<time datetime="2019-04-28" itemprop="datePublished">2019.04.27</time>
 						</span>
 					</div>
 				</div>
@@ -1844,333 +1775,23 @@ h6.categories {
                     
 
 			    	<!-- content -->
-			  		<p><a href="https://en.wikipedia.org/wiki/SQL_window_function" target="_blank" rel="noopener">SQL Window functions</a>
-are similar to aggregate functions, such as count(),
-sum() or average(), but has different usage.
-Window functions are related to ordering like rank(), row_number(),
-while aggregate functions are related to summary of set of values
-like count(), sum().
-SQL Window functions specification is
-<a href="https://en.wikipedia.org/wiki/SQL:2003" target="_blank" rel="noopener">ISO/ANSI standard since 2003</a>.
-You can use SQL window functions on HiveQL, MySQL, Transact-SQL
-as well as Spark SQL.</p>
-<p>In processing data, there are several cases to split data into groups
-or partitions and get representative values for each group.
-Someone may solve this problem by classifying data by making keys first
-and compute values for each key.
-You may use map() and reduce() in MapReduce framework,
-or use map() and reduceByKey() or aggregate() in Spark RDD API.</p>
-<p>If the argument function of a reduce() is the add (<code>_ + _</code>),
-the query can be written as <code>sum()</code> in SQL.
-If it is the increment(<code>++</code>), it can be transformed to <code>count()</code> in SQL.
-But, if the function of the reduce() is a something like &#x2018;top-10 largest values&#x2019;,
-it would be vague to find correspondent SQL statements or functions.
-And some data engineers or scientists may think this query cannot be written
-in SQL statements, and decide to code in MapReduce or Spark.</p>
-<p>In this post, I will show an example to solve top-<em>k</em> frequent elements problem
-using the rank() function which is one of SQL window functions.</p>
-<a id="more"></a>
-<h2 id="Top-k-Frequent-Elements"><a href="#Top-k-Frequent-Elements" class="headerlink" title="Top-k Frequent Elements"></a>Top-<em>k</em> Frequent Elements</h2><p>Top-<em>k</em> frequent elements problem is
-finding the most frequently appearing elements from the given
-sequence or array of elements,
-not only the most frequent one, but also <em>k</em>-th frequent element.</p>
-<p>Assume that you are given web server log, <code>accessLog</code> in a table format like as follows:</p>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>remoteAddr</th>
-<th>time</th>
-<th>request</th>
-<th class="table-align-right">status</th>
-<th class="table-align-right">bytes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>172.19.0.1</td>
-<td>2018-10-22T17:34:46Z</td>
-<td>GET / HTTP/1.1</td>
-<td class="table-align-right">200</td>
-<td class="table-align-right">820</td>
-</tr>
-<tr>
-<td>&#x2026;</td>
-<td>&#x2026;</td>
-<td>&#x2026;</td>
-<td class="table-align-right">&#x2026;</td>
-<td class="table-align-right">&#x2026;</td>
-</tr>
-</tbody>
-</table></div>
-<p>If your work is find the most frequently visited remoteAddr and its hits,
-that is count of logs, how do you make a SQL query for the log?</p>
-<h3 id="Top-k-most-frequent-remote-addresses"><a href="#Top-k-most-frequent-remote-addresses" class="headerlink" title="Top-k most frequent remote addresses"></a>Top-<em>k</em> most frequent remote addresses</h3><p>If the work requires the most 3-frequent remoteAddr&#x2019;s for the whole log,
-the following query may suffice:</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> remoteAddr, <span class="keyword">count</span>(*) <span class="keyword">AS</span> hits</span><br><span class="line"><span class="keyword">FROM</span> accessLog</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> remoteAddr</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> hits <span class="keyword">DESC</span></span><br><span class="line"><span class="keyword">LIMIT</span> <span class="number">3</span></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="Top-k-most-frequent-IPs-for-each-days"><a href="#Top-k-most-frequent-IPs-for-each-days" class="headerlink" title="Top-k most frequent IPs for each days"></a>Top-<em>k</em> most frequent IPs for each days</h3><p>But, if you need top-3 remoteAddr&#x2019;s for each day,
-How do you query the log database?
-Here is the place where a window function make it.</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">date</span>, remoteAddr, hits</span><br><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="built_in">date</span>, remoteAddr, hits,</span><br><span class="line">    <span class="keyword">rank</span>() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="built_in">date</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> hits <span class="keyword">DESC</span>) <span class="keyword">AS</span> <span class="keyword">rank</span></span><br><span class="line">  <span class="keyword">FROM</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="keyword">cast</span>(<span class="keyword">time</span> <span class="keyword">AS</span> <span class="built_in">date</span>) <span class="keyword">AS</span> <span class="built_in">date</span>, remoteAddr, <span class="keyword">count</span>(*) <span class="keyword">AS</span> hits</span><br><span class="line">    <span class="keyword">FROM</span> accessLog</span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="built_in">date</span>, remoteAddr</span><br><span class="line">  )</span><br><span class="line">)</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">rank</span> &lt;= <span class="number">3</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="built_in">date</span>, hits <span class="keyword">DESC</span></span><br></pre></td></tr></tbody></table></figure>
-<p>How this works? Let&#x2019;s see step by step from the innermost SELECT statement.</p>
-<p>In line 6 ~ 8, the innermost SELECT counts hits for each date and remoteAddr,
-and generates an intermediate table like as following:</p>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>date</th>
-<th>remoteAddr</th>
-<th>hits</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2018-10-22</td>
-<td>172.19.0.1</td>
-<td>34867</td>
-</tr>
-<tr>
-<td>2018-10-22</td>
-<td>192.168.0.20</td>
-<td>2334</td>
-</tr>
-<tr>
-<td>2018-10-22</td>
-<td>192.168.0.21</td>
-<td>13223</td>
-</tr>
-<tr>
-<td>2018-10-22</td>
-<td>192.168.0.23</td>
-<td>9385</td>
-</tr>
-<tr>
-<td>2018-10-23</td>
-<td>172.19.0.1</td>
-<td>28762</td>
-</tr>
-<tr>
-<td>2018-10-23</td>
-<td>192.168.0.20</td>
-<td>13534</td>
-</tr>
-<tr>
-<td>2018-10-23</td>
-<td>192.168.0.21</td>
-<td>2331</td>
-</tr>
-<tr>
-<td>2018-10-23</td>
-<td>192.168.0.22</td>
-<td>22937</td>
-</tr>
-</tbody>
-</table></div>
-<p>In line 3 ~ 4, rank() generates ranks by &#x2018;hits&#x2019; for each &#x2018;date&#x2019;
-from the above table,
-and the rank value is added as an column named &#x2018;rank&#x2019;.</p>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>date</th>
-<th>remoteAddr</th>
-<th>hits</th>
-<th>rank</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2018-10-22</td>
-<td>172.19.0.1</td>
-<td>34867</td>
-<td>1</td>
-</tr>
-<tr>
-<td>2018-10-22</td>
-<td>192.168.0.20</td>
-<td>2334</td>
-<td>4</td>
-</tr>
-<tr>
-<td>2018-10-22</td>
-<td>192.168.0.21</td>
-<td>13223</td>
-<td>2</td>
-</tr>
-<tr>
-<td>2018-10-22</td>
-<td>192.168.0.23</td>
-<td>9385</td>
-<td>3</td>
-</tr>
-<tr>
-<td>2018-10-23</td>
-<td>172.19.0.1</td>
-<td>28762</td>
-<td>1</td>
-</tr>
-<tr>
-<td>2018-10-23</td>
-<td>192.168.0.20</td>
-<td>13534</td>
-<td>3</td>
-</tr>
-<tr>
-<td>2018-10-23</td>
-<td>192.168.0.21</td>
-<td>2331</td>
-<td>4</td>
-</tr>
-<tr>
-<td>2018-10-23</td>
-<td>192.168.0.22</td>
-<td>22937</td>
-<td>2</td>
-</tr>
-</tbody>
-</table></div>
-<p>In line 11, the rows with rank over 3 are omitted.</p>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>date</th>
-<th>remoteAddr</th>
-<th>hits</th>
-<th>rank</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2018-10-22</td>
-<td>172.19.0.1</td>
-<td>34867</td>
-<td>1</td>
-</tr>
-<tr>
-<td>2018-10-22</td>
-<td>192.168.0.21</td>
-<td>13223</td>
-<td>2</td>
-</tr>
-<tr>
-<td>2018-10-22</td>
-<td>192.168.0.23</td>
-<td>9385</td>
-<td>3</td>
-</tr>
-<tr>
-<td>2018-10-23</td>
-<td>172.19.0.1</td>
-<td>28762</td>
-<td>1</td>
-</tr>
-<tr>
-<td>2018-10-23</td>
-<td>192.168.0.20</td>
-<td>13534</td>
-<td>3</td>
-</tr>
-<tr>
-<td>2018-10-23</td>
-<td>192.168.0.22</td>
-<td>22937</td>
-<td>2</td>
-</tr>
-</tbody>
-</table></div>
-<p>In line 1, rank columns are removed.</p>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>date</th>
-<th>remoteAddr</th>
-<th>hits</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2018-10-22</td>
-<td>172.19.0.1</td>
-<td>34867</td>
-</tr>
-<tr>
-<td>2018-10-22</td>
-<td>192.168.0.21</td>
-<td>13223</td>
-</tr>
-<tr>
-<td>2018-10-22</td>
-<td>192.168.0.23</td>
-<td>9385</td>
-</tr>
-<tr>
-<td>2018-10-23</td>
-<td>172.19.0.1</td>
-<td>28762</td>
-</tr>
-<tr>
-<td>2018-10-23</td>
-<td>192.168.0.20</td>
-<td>13534</td>
-</tr>
-<tr>
-<td>2018-10-23</td>
-<td>192.168.0.22</td>
-<td>22937</td>
-</tr>
-</tbody>
-</table></div>
-<p>In line 12, the rows are ordered by date and hits.
-Then you can get only most 3 frequent remoteAddr&#x2019;s for each day.</p>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>date</th>
-<th>remoteAddr</th>
-<th>hits</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2018-10-22</td>
-<td>172.19.0.1</td>
-<td>34867</td>
-</tr>
-<tr>
-<td>2018-10-22</td>
-<td>192.168.0.21</td>
-<td>13223</td>
-</tr>
-<tr>
-<td>2018-10-22</td>
-<td>192.168.0.23</td>
-<td>9385</td>
-</tr>
-<tr>
-<td>2018-10-23</td>
-<td>172.19.0.1</td>
-<td>28762</td>
-</tr>
-<tr>
-<td>2018-10-23</td>
-<td>192.168.0.22</td>
-<td>22937</td>
-</tr>
-<tr>
-<td>2018-10-23</td>
-<td>192.168.0.20</td>
-<td>13534</td>
-</tr>
-</tbody>
-</table></div>
-<p>The window function rank() generates rank of each days (date).
-And WHERE clause in outermost SELECT statement removes needless output.</p>
+			  		<div class="amp-img-wrapper"><amp-img src="/2019/04/JavaScript-Pitfalls-Tips-toFixed/js-toFixed-title.png" width="1220" height="530" layout="responsive"></amp-img></div>
+<p><code>Number.prototype.toFixed(n)</code> is a number formatting method that shows n-th digits after the decimal point. It seems to rounds (n+1)-th digits. But, sometimes, it does not round up. For example, the value of <code>2.55.toFixed(1)</code> is <code>2.5</code>, not <code>2.6</code> which is correct. <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed#Using_toFixed" target="_blank" rel="noopener">This example is even in MDN documents</a>.
+<a id="more"></a></p>
+<p>This strange phenomenon is due to the inaccuracy of floating points notation. What you get if you add 0.05 to 2.55? You must get a 2.6. But, in 64-bit floating points notation, the answer is as follows:
+</p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; 2.55 + 0.05</span><br><span class="line">2.5999999999999996</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>If we want to round the digit correctly, we should not use <code>toFixed(n)</code>. There are the following alternatives.</p>
+<h3 id="Do-it-in-Integer"><a href="#Do-it-in-Integer" class="headerlink" title="Do it in Integer"></a>Do it in Integer</h3><p>The first alternative is not using floating points, but using integer. For example, set all the currency unit to cents, not dollars.</p>
+<p>Adding 0.5 and get the integer part in 64-bit floating points notation does no harm. Using this feature we can write another toFixed function as follows:</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Return the fixed point notation.</span></span><br><span class="line"><span class="comment"> * @param {number} n - the number to be fixed notation </span></span><br><span class="line"><span class="comment"> * @param {number} d - the number of digits after decimal points</span></span><br><span class="line"><span class="comment"> * @returns {string}</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toFixed</span>(<span class="params">n, d</span>) </span>{</span><br><span class="line">  <span class="keyword">const</span> tenToD = <span class="built_in">Math</span>.pow(<span class="number">10</span>, d);</span><br><span class="line">  <span class="keyword">return</span> (<span class="built_in">Math</span>.floor(n * tenToD + <span class="number">0.5</span>) / tenToD).toFixed(d);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>You may use <code>Math.round</code> instead of <code>Math.floor</code> and <code>+ 0.5</code>.
+</p><figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toFixed</span>(<span class="params">n, d</span>) </span>{</span><br><span class="line">  <span class="keyword">const</span> tenToD = <span class="built_in">Math</span>.pow(<span class="number">10</span>, d);</span><br><span class="line">  <span class="keyword">return</span> (<span class="built_in">Math</span>.round(n * tenToD) / tenToD).toFixed(d);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Arbitrary-precision-libraries"><a href="#Arbitrary-precision-libraries" class="headerlink" title="Arbitrary precision libraries"></a>Arbitrary precision libraries</h3><p>If you need to calculate more precisely than 64-bit floating points notation, you would better use one of the arbitrary precision libraries. Most arbitrary precision libraries can designate precision in decimal places. Moreover, most of the libraries support <code>toFixed</code>.</p>
+<p>For example, you can see the <code>toFixed</code> of <a href="http://mikemcl.github.io/big.js/" target="_blank" rel="noopener">big.js</a> works correctly as follows:
+</p><figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Big = <span class="built_in">require</span>(<span class="string">&apos;big.js&apos;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> test = Big(<span class="string">&apos;2.55&apos;</span>).toFixed(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(test);            <span class="comment">// 2.6</span></span><br><span class="line"><span class="built_in">console</span>.log(test === <span class="string">&apos;2.6&apos;</span>);  <span class="comment">// true</span></span><br></pre></td></tr></tbody></table></figure>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
-<li>SQL window function: <a href="https://en.wikipedia.org/wiki/SQL_window_function" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/SQL_window_function</a></li>
-<li>Yin Huai and Michael Armbrust, &#x201C;<a href="https://databricks.com/blog/2015/07/15/introducing-window-functions-in-spark-sql.html" target="_blank" rel="noopener">Introducing Window Functions in Spark SQL</a>&#x201C;, <em>Databricks Engneering Blog</em>, July 15, 2015, <a href="https://databricks.com/blog/2015/07/15/introducing-window-functions-in-spark-sql.html" target="_blank" rel="noopener">https://databricks.com/blog/2015/07/15/introducing-window-functions-in-spark-sql.html</a></li>
-<li>Databricks Documentation &gt;
-<a href="https://docs.databricks.com/spark/latest/spark-sql/index.html" target="_blank" rel="noopener">SQL Guide</a> &gt;
-<a href="https://docs.databricks.com/spark/latest/spark-sql/language-manual/select.html" target="_blank" rel="noopener">Select</a> &gt;
-<a href="https://docs.databricks.com/spark/latest/spark-sql/language-manual/select.html#window-functions" target="_blank" rel="noopener">Window functions</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed" target="_blank" rel="noopener">Number.prototype.toFixed() - JavaScript | MDN</a></li>
+<li><a href="https://github.com/MikeMcl/big.js/wiki" target="_blank" rel="noopener">What is the difference between big.js, bignumber.js and decimal.js?</a></li>
 </ul>
 
 
@@ -2199,26 +1820,20 @@ And WHERE clause in outermost SELECT statement removes needless output.</p>
 						<ul class="article-tag-list">
 							
 					    		<li class="article-tag-list-item">
-					    			<a class="article-tag-list-link link-gaTrack" href="/tags/Spark/" data-linkType="link-tag">
-					    				Spark
+					    			<a class="article-tag-list-link link-gaTrack" href="/tags/node-js/" data-linkType="link-tag">
+					    				node.js
 					    			</a>
 					    		</li>
 							
 					    		<li class="article-tag-list-item">
-					    			<a class="article-tag-list-link link-gaTrack" href="/tags/SQL/" data-linkType="link-tag">
-					    				SQL
+					    			<a class="article-tag-list-link link-gaTrack" href="/tags/JavaScript/" data-linkType="link-tag">
+					    				JavaScript
 					    			</a>
 					    		</li>
 							
 					    		<li class="article-tag-list-item">
-					    			<a class="article-tag-list-link link-gaTrack" href="/tags/SparkSQL/" data-linkType="link-tag">
-					    				SparkSQL
-					    			</a>
-					    		</li>
-							
-					    		<li class="article-tag-list-item">
-					    			<a class="article-tag-list-link link-gaTrack" href="/tags/SqlWindowFunction/" data-linkType="link-tag">
-					    				SqlWindowFunction
+					    			<a class="article-tag-list-link link-gaTrack" href="/tags/toFixed/" data-linkType="link-tag">
+					    				toFixed
 					    			</a>
 					    		</li>
 							
