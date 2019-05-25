@@ -110,6 +110,7 @@
       
         <p>I have succeeded to run TensorFlow on my desktop which runs Ubuntu 16.04 LTS with nVidia GeForce GTX 1050. I want to share the easy and fast way to install TensorFlow, so I write this down. This does <strong>NOT</strong> require to download and install CUDA toolkit nor cuDNN, but you can get GPU acceleration.</p>
 <a id="more"></a>
+
 <h2 id="Prerequisite"><a href="#Prerequisite" class="headerlink" title="Prerequisite"></a>Prerequisite</h2><ul>
 <li>nVidia graphics card (CUDA Compute Capability &gt;= 3.0)<ul>
 <li>You can check at <a href="https://developer.nvidia.com/cuda-gpus" target="_blank" rel="noopener">nVidia documentation</a>.</li>
@@ -122,12 +123,14 @@
 <li><a href="https://docs.docker.com/engine/installation/" target="_blank" rel="noopener">Docker engine</a></li>
 </ul>
 <h2 id="Quick-start"><a href="#Quick-start" class="headerlink" title="Quick start"></a>Quick start</h2><ol>
-<li>install <a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="noopener">nvidia-docker</a>.</li>
+<li><p>install <a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="noopener">nvidia-docker</a>.</p>
+</li>
 <li><p>run TensorFlow using nvidia-docker.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nvidia-docker run -it --rm -p 8888:8888 gcr.io/tensorflow/tensorflow:latest-gpu</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>&lt;ctrl&gt;-click or copy &amp; paste the URI looks like <code>http://localhost:8888/?token=&lt;hex_string&gt;</code> that appears on your terminal. Then you can get Jupyter notebook on your browser.</p>
 <img src="/2017/02/Tensorflow-over-docker-with-GPU/TensorFlow-jupyter.png" title="Jupyter Notebook of TensorFlow">
+
 </li>
 </ol>
 <h2 id="Why-this-works"><a href="#Why-this-works" class="headerlink" title="Why this works"></a>Why this works</h2><p><a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="noopener">nvidia-docker</a> provides CUDA toolkit and cuDNN and tensorflow docker images utilizes it. All the installation procedures are abstracted by Docker images.</p>
@@ -140,13 +143,14 @@
 </li>
 <li><p>Verify CUDA toolkit in <code>nvidia-docker</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nvidia-docker run --rm nvidia/cuda nvidia-smi</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/" data-id="cjuzqllpq000d8tjdmwdpzu37" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/" data-id="cjw3m02tb000gpyjdkea583ay" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -198,7 +202,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/CUDA/" style="font-size: 10px;">CUDA</a> <a href="/tags/CommandLineInterface/" style="font-size: 12.5px;">CommandLineInterface</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Keras/" style="font-size: 10px;">Keras</a> <a href="/tags/REPL/" style="font-size: 10px;">REPL</a> <a href="/tags/SQL/" style="font-size: 15px;">SQL</a> <a href="/tags/Scala/" style="font-size: 12.5px;">Scala</a> <a href="/tags/Scala-Worksheet/" style="font-size: 10px;">Scala Worksheet</a> <a href="/tags/Spark/" style="font-size: 17.5px;">Spark</a> <a href="/tags/SparkSQL/" style="font-size: 15px;">SparkSQL</a> <a href="/tags/SqlWindowFunction/" style="font-size: 12.5px;">SqlWindowFunction</a> <a href="/tags/TensorFlow/" style="font-size: 12.5px;">TensorFlow</a> <a href="/tags/bitwise/" style="font-size: 10px;">bitwise</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/interactive-development/" style="font-size: 10px;">interactive development</a> <a href="/tags/nVidia/" style="font-size: 10px;">nVidia</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/nvidia-docker/" style="font-size: 12.5px;">nvidia-docker</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/spark-shell/" style="font-size: 10px;">spark-shell</a> <a href="/tags/toFixed/" style="font-size: 10px;">toFixed</a>
+      <a href="/tags/2DArray/" style="font-size: 10px;">2DArray</a> <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/CUDA/" style="font-size: 10px;">CUDA</a> <a href="/tags/CommandLineInterface/" style="font-size: 12.5px;">CommandLineInterface</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Keras/" style="font-size: 10px;">Keras</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/REPL/" style="font-size: 10px;">REPL</a> <a href="/tags/SQL/" style="font-size: 15px;">SQL</a> <a href="/tags/Scala/" style="font-size: 12.5px;">Scala</a> <a href="/tags/Scala-Worksheet/" style="font-size: 10px;">Scala Worksheet</a> <a href="/tags/Spark/" style="font-size: 17.5px;">Spark</a> <a href="/tags/SparkSQL/" style="font-size: 15px;">SparkSQL</a> <a href="/tags/SqlWindowFunction/" style="font-size: 12.5px;">SqlWindowFunction</a> <a href="/tags/TensorFlow/" style="font-size: 12.5px;">TensorFlow</a> <a href="/tags/bitwise/" style="font-size: 10px;">bitwise</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/interactive-development/" style="font-size: 10px;">interactive development</a> <a href="/tags/nVidia/" style="font-size: 10px;">nVidia</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/nvidia-docker/" style="font-size: 12.5px;">nvidia-docker</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/spark-shell/" style="font-size: 10px;">spark-shell</a> <a href="/tags/toFixed/" style="font-size: 10px;">toFixed</a>
     </div>
   </div>
 
@@ -207,7 +211,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li></ul>
     </div>
   </div>
 
@@ -218,6 +222,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/">JavaScript Pitfalls &amp; Tips: 2D Array, Matrix</a>
+          </li>
         
           <li>
             <a href="/2019/04/JavaScript-Pitfalls-Tips-toFixed/">JavaScript Pitfalls &amp; Tips: toFixed</a>
@@ -233,10 +241,6 @@
         
           <li>
             <a href="/2018/11/SQL-Window-Functions-Top-k-Elements-Example/">SQL Window Functions: Top-k Elements Example</a>
-          </li>
-        
-          <li>
-            <a href="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/">JavaScript Pitfalls &amp; Tips: Bitwise Operation</a>
           </li>
         
       </ul>

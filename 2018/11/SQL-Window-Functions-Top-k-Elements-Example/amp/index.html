@@ -1870,6 +1870,7 @@ in SQL statements, and decide to code in MapReduce or Spark.</p>
 <p>In this post, I will show an example to solve top-<em>k</em> frequent elements problem
 using the rank() function which is one of SQL window functions.</p>
 <a id="more"></a>
+
 <h2 id="Top-k-Frequent-Elements"><a href="#Top-k-Frequent-Elements" class="headerlink" title="Top-k Frequent Elements"></a>Top-<em>k</em> Frequent Elements</h2><p>Top-<em>k</em> frequent elements problem is
 finding the most frequently appearing elements from the given
 sequence or array of elements,
@@ -1881,36 +1882,36 @@ not only the most frequent one, but also <em>k</em>-th frequent element.</p>
 <th>remoteAddr</th>
 <th>time</th>
 <th>request</th>
-<th class="table-align-right">status</th>
-<th class="table-align-right">bytes</th>
+<th align="right">status</th>
+<th align="right">bytes</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>172.19.0.1</td>
 <td>2018-10-22T17:34:46Z</td>
 <td>GET / HTTP/1.1</td>
-<td class="table-align-right">200</td>
-<td class="table-align-right">820</td>
+<td align="right">200</td>
+<td align="right">820</td>
 </tr>
 <tr>
 <td>&#x2026;</td>
 <td>&#x2026;</td>
 <td>&#x2026;</td>
-<td class="table-align-right">&#x2026;</td>
-<td class="table-align-right">&#x2026;</td>
+<td align="right">&#x2026;</td>
+<td align="right">&#x2026;</td>
 </tr>
-</tbody>
-</table></div>
+</tbody></table></div>
 <p>If your work is find the most frequently visited remoteAddr and its hits,
 that is count of logs, how do you make a SQL query for the log?</p>
 <h3 id="Top-k-most-frequent-remote-addresses"><a href="#Top-k-most-frequent-remote-addresses" class="headerlink" title="Top-k most frequent remote addresses"></a>Top-<em>k</em> most frequent remote addresses</h3><p>If the work requires the most 3-frequent remoteAddr&#x2019;s for the whole log,
 the following query may suffice:</p>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> remoteAddr, <span class="keyword">count</span>(*) <span class="keyword">AS</span> hits</span><br><span class="line"><span class="keyword">FROM</span> accessLog</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> remoteAddr</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> hits <span class="keyword">DESC</span></span><br><span class="line"><span class="keyword">LIMIT</span> <span class="number">3</span></span><br></pre></td></tr></tbody></table></figure>
+
 <h3 id="Top-k-most-frequent-IPs-for-each-days"><a href="#Top-k-most-frequent-IPs-for-each-days" class="headerlink" title="Top-k most frequent IPs for each days"></a>Top-<em>k</em> most frequent IPs for each days</h3><p>But, if you need top-3 remoteAddr&#x2019;s for each day,
 How do you query the log database?
 Here is the place where a window function make it.</p>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">date</span>, remoteAddr, hits</span><br><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="built_in">date</span>, remoteAddr, hits,</span><br><span class="line">    <span class="keyword">rank</span>() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="built_in">date</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> hits <span class="keyword">DESC</span>) <span class="keyword">AS</span> <span class="keyword">rank</span></span><br><span class="line">  <span class="keyword">FROM</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="keyword">cast</span>(<span class="keyword">time</span> <span class="keyword">AS</span> <span class="built_in">date</span>) <span class="keyword">AS</span> <span class="built_in">date</span>, remoteAddr, <span class="keyword">count</span>(*) <span class="keyword">AS</span> hits</span><br><span class="line">    <span class="keyword">FROM</span> accessLog</span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="built_in">date</span>, remoteAddr</span><br><span class="line">  )</span><br><span class="line">)</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">rank</span> &lt;= <span class="number">3</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="built_in">date</span>, hits <span class="keyword">DESC</span></span><br></pre></td></tr></tbody></table></figure>
+
 <p>How this works? Let&#x2019;s see step by step from the innermost SELECT statement.</p>
 <p>In line 6 ~ 8, the innermost SELECT counts hits for each date and remoteAddr,
 and generates an intermediate table like as following:</p>
@@ -1922,8 +1923,7 @@ and generates an intermediate table like as following:</p>
 <th>hits</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>2018-10-22</td>
 <td>172.19.0.1</td>
 <td>34867</td>
@@ -1963,8 +1963,7 @@ and generates an intermediate table like as following:</p>
 <td>192.168.0.22</td>
 <td>22937</td>
 </tr>
-</tbody>
-</table></div>
+</tbody></table></div>
 <p>In line 3 ~ 4, rank() generates ranks by &#x2018;hits&#x2019; for each &#x2018;date&#x2019;
 from the above table,
 and the rank value is added as an column named &#x2018;rank&#x2019;.</p>
@@ -1977,8 +1976,7 @@ and the rank value is added as an column named &#x2018;rank&#x2019;.</p>
 <th>rank</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>2018-10-22</td>
 <td>172.19.0.1</td>
 <td>34867</td>
@@ -2026,8 +2024,7 @@ and the rank value is added as an column named &#x2018;rank&#x2019;.</p>
 <td>22937</td>
 <td>2</td>
 </tr>
-</tbody>
-</table></div>
+</tbody></table></div>
 <p>In line 11, the rows with rank over 3 are omitted.</p>
 <div class="table-wrapper"><table>
 <thead>
@@ -2038,8 +2035,7 @@ and the rank value is added as an column named &#x2018;rank&#x2019;.</p>
 <th>rank</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>2018-10-22</td>
 <td>172.19.0.1</td>
 <td>34867</td>
@@ -2075,8 +2071,7 @@ and the rank value is added as an column named &#x2018;rank&#x2019;.</p>
 <td>22937</td>
 <td>2</td>
 </tr>
-</tbody>
-</table></div>
+</tbody></table></div>
 <p>In line 1, rank columns are removed.</p>
 <div class="table-wrapper"><table>
 <thead>
@@ -2086,8 +2081,7 @@ and the rank value is added as an column named &#x2018;rank&#x2019;.</p>
 <th>hits</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>2018-10-22</td>
 <td>172.19.0.1</td>
 <td>34867</td>
@@ -2117,8 +2111,7 @@ and the rank value is added as an column named &#x2018;rank&#x2019;.</p>
 <td>192.168.0.22</td>
 <td>22937</td>
 </tr>
-</tbody>
-</table></div>
+</tbody></table></div>
 <p>In line 12, the rows are ordered by date and hits.
 Then you can get only most 3 frequent remoteAddr&#x2019;s for each day.</p>
 <div class="table-wrapper"><table>
@@ -2129,8 +2122,7 @@ Then you can get only most 3 frequent remoteAddr&#x2019;s for each day.</p>
 <th>hits</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>2018-10-22</td>
 <td>172.19.0.1</td>
 <td>34867</td>
@@ -2160,8 +2152,7 @@ Then you can get only most 3 frequent remoteAddr&#x2019;s for each day.</p>
 <td>192.168.0.20</td>
 <td>13534</td>
 </tr>
-</tbody>
-</table></div>
+</tbody></table></div>
 <p>The window function rank() generates rank of each days (date).
 And WHERE clause in outermost SELECT statement removes needless output.</p>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>

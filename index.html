@@ -82,6 +82,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JavaScript-Pitfalls-Tips-2D-Array-Matrix" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/" class="article-date">
+  <time datetime="2019-05-25T13:51:10.000Z" itemprop="datePublished">2019-05-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/">JavaScript Pitfalls &amp; Tips: 2D Array, Matrix</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/js-2d-array-title.png" title="const A = Array(4).fill(Array(4).fill(0));">
+
+<p>Sometimes, you need to create and manipulate a two-dimensional (2D) array or a matrix. In JavaScript, an array of arrays can be used as a 2D array. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mat = [</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">  [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>],</span><br><span class="line">  [<span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>],</span><br><span class="line">  [<span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>]</span><br><span class="line">];</span><br><span class="line"><span class="built_in">console</span>.log(mat[<span class="number">1</span>][<span class="number">2</span>]);    <span class="comment">// gives 6</span></span><br></pre></td></tr></table></figure>
+
+<p>How do you implement if you initialize m x n matrix with zeros?
+If you know about <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill" target="_blank" rel="noopener"><code>Array.prototype.fill()</code></a>, you may be tempted to initialize m x n array like <code>Array(m).fill(Array(n).fill(0))</code>, but this does not work properly.
+Since the <code>Array(n).fill(0)</code> creates just <strong>one</strong> array of size <em>n</em> and all the elements of the first array, that represents rows, point to the same, the second array as follows:</p>
+<p>When you got to know <code>Array.prototype.fill()</code> method, you may be tempted to initialize m x n array like <code>Array(m).fill(Array(n).fill(0))</code>, but this does not work properly. Since the <code>Array(n).fill(0)</code> creates just <strong>one</strong> array of size <em>n</em> and all the elements of the first array, that represents rows, point to the same, second array as follows:</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/" data-id="cjw3m02so0002pyjd35rzvnxu" class="article-share-link">Share</a>
+      
+        <a href="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/2DArray/">2DArray</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix/">Matrix</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-JavaScript-Pitfalls-Tips-toFixed" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/04/JavaScript-Pitfalls-Tips-toFixed/" class="article-date">
@@ -105,16 +160,17 @@
     <div class="article-entry" itemprop="articleBody">
       
         <img src="/2019/04/JavaScript-Pitfalls-Tips-toFixed/js-toFixed-title.png" title="2.55.toFixed(1) !== 2.6">
-<p><code>Number.prototype.toFixed(n)</code> is a number formatting method that shows n-th digits after the decimal point. It seems to rounds (n+1)-th digits. But, sometimes, it does not round up. For example, the value of <code>2.55.toFixed(1)</code> is <code>2.5</code>, not <code>2.6</code> which is correct. <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed#Using_toFixed" target="_blank" rel="noopener">This example is even in MDN documents</a>.
+
+<p><code>Number.prototype.toFixed(n)</code> is a number formatting method that shows n-th digits after the decimal point. It seems to rounds (n+1)-th digits. But, sometimes, it does not round up. For example, the value of <code>2.55.toFixed(1)</code> is <code>2.5</code>, not <code>2.6</code> which is correct. <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed#Using_toFixed" target="_blank" rel="noopener">This example is even in MDN documents</a>.</p>
         
-          </p><p class="article-more-link">
+          <p class="article-more-link">
             <a href="/2019/04/JavaScript-Pitfalls-Tips-toFixed/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/" data-id="cjuzqllpd00058tjdl9wg9tqg" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/" data-id="cjw3m02t50006pyjd86t3dbsa" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -153,16 +209,16 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Suppose that you have to count the number of accesses for each IP address in the <code>access.log</code> file. And list the IP addresses which accessed more than 100,000 times.
-You want to do it with JavaScript or node.js. How can you do that?
+You want to do it with JavaScript or node.js. How can you do that?</p>
         
-          </p><p class="article-more-link">
+          <p class="article-more-link">
             <a href="/2019/03/Line-by-line-Processing-in-node-js/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/" data-id="cjuzqllph00068tjdbis843zw" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/" data-id="cjw3m02t60007pyjd4sbc9m0r" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -219,7 +275,7 @@ that is, the same elements in order.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/" data-id="cjuzqllpp000c8tjdcmt8mhuf" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/" data-id="cjw3m02ta000dpyjdf7befq4d" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -290,7 +346,7 @@ using the rank() function which is one of SQL window functions.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" data-id="cjuzqllpo000a8tjdrpzwbuxw" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" data-id="cjw3m02t9000cpyjdbkcfhbus" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -329,6 +385,7 @@ using the rank() function which is one of SQL window functions.</p>
     <div class="article-entry" itemprop="articleBody">
       
         <img src="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png" title="1 << 31 !== Math.pow(2, 31)">
+
 <p>Bitwise left shift operator (<code>&lt;&lt;</code>) is used instead of power of 2 (2<sup>n</sup>) operator on integer variable. This idiom may lead to strange result in JavaScript.</p>
         
           <p class="article-more-link">
@@ -338,7 +395,7 @@ using the rank() function which is one of SQL window functions.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/" data-id="cjuzqllp900028tjd9cgv0mif" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/" data-id="cjw3m02sp0003pyjd64thjlzv" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -378,8 +435,9 @@ using the rank() function which is one of SQL window functions.</p>
       
         <p>JavaScript Quiz:</p>
 <img src="/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png" title="[10, 2, 456, 3548].sort()">
-<p>What would be the result of the above JavaScript code? You may expect <code>[2, 10, 456, 3548]</code> since the array seem to be an integer array and JavaScript would sort it in numeric order. But, the correct result is as follows:
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">2</span>, <span class="number">3548</span>, <span class="number">456</span>]</span><br></pre></td></tr></table></figure></p>
+
+<p>What would be the result of the above JavaScript code? You may expect <code>[2, 10, 456, 3548]</code> since the array seem to be an integer array and JavaScript would sort it in numeric order. But, the correct result is as follows:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">2</span>, <span class="number">3548</span>, <span class="number">456</span>]</span><br></pre></td></tr></table></figure>
         
           <p class="article-more-link">
             <a href="/2018/05/JavaScript-Pitfalls-Tips-Sort/#more">Read More</a>
@@ -388,7 +446,7 @@ using the rank() function which is one of SQL window functions.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/" data-id="cjuzqllpa00038tjdy1r60xn1" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/" data-id="cjw3m02sw0005pyjd6xg0o3d4" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -437,7 +495,7 @@ using the rank() function which is one of SQL window functions.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/" data-id="cjuzqllph00078tjda5za7qpl" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/" data-id="cjw3m02t70009pyjdzf23ud8p" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -486,7 +544,7 @@ using the rank() function which is one of SQL window functions.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/" data-id="cjuzqllqt002i8tjdvzc5ndgn" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/" data-id="cjw3m02tx002qpyjd9azm875j" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -535,61 +593,13 @@ using the rank() function which is one of SQL window functions.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/" data-id="cjuzqllpj00098tjd1mbqxmqz" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/" data-id="cjw3m02t8000apyjduf2ualu4" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/#disqus_thread" class="article-comment-link">Comments</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/REPL/">REPL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala-Worksheet/">Scala Worksheet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark/">Spark</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/interactive-development/">interactive development</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Using-sbt-instead-of-spark-shell" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/Using-sbt-instead-of-spark-shell/" class="article-date">
-  <time datetime="2017-06-06T09:17:11.000Z" itemprop="datePublished">2017-06-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/Using-sbt-instead-of-spark-shell/">Using sbt instead of spark-shell</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>If you are familiar to <a href="http://www.scala-sbt.org/0.13/docs/Command-Line-Reference.html#Configuration-level+tasks" target="_blank" rel="noopener">sbt console</a>, a convenient Scala <a href="http://docs.scala-lang.org/overviews/repl/overview.html" target="_blank" rel="noopener">REPL</a>, and you are about to develop <a href="http://spark.apache.org/" target="_blank" rel="noopener">Spark</a> using <a href="http://spark.apache.org/docs/latest/quick-start.html#interactive-analysis-with-the-spark-shell" target="_blank" rel="noopener">spark-shell</a>, you don’t need to install spark-shell.</p>
-<p>In fact, you don’t need to install even Spark!</p>
-        
-          <p class="article-more-link">
-            <a href="/2017/06/Using-sbt-instead-of-spark-shell/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/" data-id="cjuzqllpt000f8tjdc5z64wmx" class="article-share-link">Share</a>
-      
-        <a href="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark/">Spark</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sbt/">sbt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark-shell/">spark-shell</a></li></ul>
 
     </footer>
   </div>
@@ -617,7 +627,7 @@ using the rank() function which is one of SQL window functions.</p>
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/CUDA/" style="font-size: 10px;">CUDA</a> <a href="/tags/CommandLineInterface/" style="font-size: 12.5px;">CommandLineInterface</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Keras/" style="font-size: 10px;">Keras</a> <a href="/tags/REPL/" style="font-size: 10px;">REPL</a> <a href="/tags/SQL/" style="font-size: 15px;">SQL</a> <a href="/tags/Scala/" style="font-size: 12.5px;">Scala</a> <a href="/tags/Scala-Worksheet/" style="font-size: 10px;">Scala Worksheet</a> <a href="/tags/Spark/" style="font-size: 17.5px;">Spark</a> <a href="/tags/SparkSQL/" style="font-size: 15px;">SparkSQL</a> <a href="/tags/SqlWindowFunction/" style="font-size: 12.5px;">SqlWindowFunction</a> <a href="/tags/TensorFlow/" style="font-size: 12.5px;">TensorFlow</a> <a href="/tags/bitwise/" style="font-size: 10px;">bitwise</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/interactive-development/" style="font-size: 10px;">interactive development</a> <a href="/tags/nVidia/" style="font-size: 10px;">nVidia</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/nvidia-docker/" style="font-size: 12.5px;">nvidia-docker</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/spark-shell/" style="font-size: 10px;">spark-shell</a> <a href="/tags/toFixed/" style="font-size: 10px;">toFixed</a>
+      <a href="/tags/2DArray/" style="font-size: 10px;">2DArray</a> <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/CUDA/" style="font-size: 10px;">CUDA</a> <a href="/tags/CommandLineInterface/" style="font-size: 12.5px;">CommandLineInterface</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Keras/" style="font-size: 10px;">Keras</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/REPL/" style="font-size: 10px;">REPL</a> <a href="/tags/SQL/" style="font-size: 15px;">SQL</a> <a href="/tags/Scala/" style="font-size: 12.5px;">Scala</a> <a href="/tags/Scala-Worksheet/" style="font-size: 10px;">Scala Worksheet</a> <a href="/tags/Spark/" style="font-size: 17.5px;">Spark</a> <a href="/tags/SparkSQL/" style="font-size: 15px;">SparkSQL</a> <a href="/tags/SqlWindowFunction/" style="font-size: 12.5px;">SqlWindowFunction</a> <a href="/tags/TensorFlow/" style="font-size: 12.5px;">TensorFlow</a> <a href="/tags/bitwise/" style="font-size: 10px;">bitwise</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/interactive-development/" style="font-size: 10px;">interactive development</a> <a href="/tags/nVidia/" style="font-size: 10px;">nVidia</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/nvidia-docker/" style="font-size: 12.5px;">nvidia-docker</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/spark-shell/" style="font-size: 10px;">spark-shell</a> <a href="/tags/toFixed/" style="font-size: 10px;">toFixed</a>
     </div>
   </div>
 
@@ -626,7 +636,7 @@ using the rank() function which is one of SQL window functions.</p>
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li></ul>
     </div>
   </div>
 
@@ -637,6 +647,10 @@ using the rank() function which is one of SQL window functions.</p>
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/">JavaScript Pitfalls &amp; Tips: 2D Array, Matrix</a>
+          </li>
         
           <li>
             <a href="/2019/04/JavaScript-Pitfalls-Tips-toFixed/">JavaScript Pitfalls &amp; Tips: toFixed</a>
@@ -652,10 +666,6 @@ using the rank() function which is one of SQL window functions.</p>
         
           <li>
             <a href="/2018/11/SQL-Window-Functions-Top-k-Elements-Example/">SQL Window Functions: Top-k Elements Example</a>
-          </li>
-        
-          <li>
-            <a href="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/">JavaScript Pitfalls &amp; Tips: Bitwise Operation</a>
           </li>
         
       </ul>

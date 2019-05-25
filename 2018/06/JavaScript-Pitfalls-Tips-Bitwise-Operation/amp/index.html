@@ -15,6 +15,7 @@
 	<meta property="og:site_name" content="Sanori&#39;s Blog">
 	
 		<meta property="og:description" content="&lt;img src=&#34;/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png&#34; title=&#34;1 &lt;&lt; 31 !== Math.pow(2, 31)&#34;&gt;
+
 &lt;p&gt;Bitwise left shift operator (&lt;code&gt;&amp;lt;&amp;lt;&lt;/code&gt;) is used instead of power of 2 (2&lt;sup&gt;n&lt;/sup&gt;) operator on integer variable. This idiom may lead to strange result in JavaScript.&lt;/p&gt;">
 	
 	<meta name="twitter:card" content="summary_large_image" />
@@ -23,6 +24,7 @@
 	<meta name="twitter:title" content="JavaScript Pitfalls &amp; Tips: Bitwise Operation - Sanori&#39;s Blog">
 	
 		<meta name="twitter:description" content="&lt;img src=&#34;/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png&#34; title=&#34;1 &lt;&lt; 31 !== Math.pow(2, 31)&#34;&gt;
+
 &lt;p&gt;Bitwise left shift operator (&lt;code&gt;&amp;lt;&amp;lt;&lt;/code&gt;) is used instead of power of 2 (2&lt;sup&gt;n&lt;/sup&gt;) operator on integer variable. This idiom may lead to strange result in JavaScript.&lt;/p&gt;">
 	
     
@@ -56,6 +58,7 @@
 			"headline": "JavaScript Pitfalls &amp; Tips: Bitwise Operation",
 			
 			"description": "&lt;img src=&#34;/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png&#34; title=&#34;1 &lt;&lt; 31 !== Math.pow(2, 31)&#34;&gt;
+
 &lt;p&gt;Bitwise left shift operator (&lt;code&gt;&amp;lt;&amp;lt;&lt;/code&gt;) is used instead of power of 2 (2&lt;sup&gt;n&lt;/sup&gt;) operator on integer variable. This idiom may lead to strange result in JavaScript.&lt;/p&gt;",
 			
 			"mainEntityOfPage":{
@@ -1776,8 +1779,10 @@ h6.categories {
 
 			    	<!-- content -->
 			  		<div class="amp-img-wrapper"><amp-img src="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png" width="1200" height="675" layout="responsive"></amp-img></div>
+
 <p>Bitwise left shift operator (<code>&lt;&lt;</code>) is used instead of power of 2 (2<sup>n</sup>) operator on integer variable. This idiom may lead to strange result in JavaScript.</p>
 <a id="more"></a>
+
 <p>Bitwise operators in JavaScript converts their operands to <em>signed <strong>32</strong>-bit</em> integer, not 64-bit integer (also known as <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html" target="_blank" rel="noopener"><code>long</code></a> in Java, <a href="https://en.wikipedia.org/wiki/C_data_types#Basic_types" target="_blank" rel="noopener"><code>long long</code></a> in C language).
 Therefore, <code>1 &lt;&lt; n</code> is not the same as <code>Math.pow(2, n)</code> if <code>n &gt; 31</code>.</p>
 <p>Not only the shift operator but also all the bitwise operators such as and(<code>&amp;</code>), or(<code>|</code>), not(<code>~</code>), XOR(<code>^</code>) limited to process only 32-bit operands.</p>

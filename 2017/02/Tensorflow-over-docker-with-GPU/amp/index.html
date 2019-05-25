@@ -1774,6 +1774,7 @@ h6.categories {
 			    	<!-- content -->
 			  		<p>I have succeeded to run TensorFlow on my desktop which runs Ubuntu 16.04 LTS with nVidia GeForce GTX 1050. I want to share the easy and fast way to install TensorFlow, so I write this down. This does <strong>NOT</strong> require to download and install CUDA toolkit nor cuDNN, but you can get GPU acceleration.</p>
 <a id="more"></a>
+
 <h2 id="Prerequisite"><a href="#Prerequisite" class="headerlink" title="Prerequisite"></a>Prerequisite</h2><ul>
 <li>nVidia graphics card (CUDA Compute Capability &gt;= 3.0)<ul>
 <li>You can check at <a href="https://developer.nvidia.com/cuda-gpus" target="_blank" rel="noopener">nVidia documentation</a>.</li>
@@ -1786,12 +1787,14 @@ h6.categories {
 <li><a href="https://docs.docker.com/engine/installation/" target="_blank" rel="noopener">Docker engine</a></li>
 </ul>
 <h2 id="Quick-start"><a href="#Quick-start" class="headerlink" title="Quick start"></a>Quick start</h2><ol>
-<li>install <a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="noopener">nvidia-docker</a>.</li>
+<li><p>install <a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="noopener">nvidia-docker</a>.</p>
+</li>
 <li><p>run TensorFlow using nvidia-docker.</p>
 <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nvidia-docker run -it --rm -p 8888:8888 gcr.io/tensorflow/tensorflow:latest-gpu</span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><p>&lt;ctrl&gt;-click or copy &amp; paste the URI looks like <code>http://localhost:8888/?token=&lt;hex_string&gt;</code> that appears on your terminal. Then you can get Jupyter notebook on your browser.</p>
 <div class="amp-img-wrapper"><amp-img src="/2017/02/Tensorflow-over-docker-with-GPU/TensorFlow-jupyter.png" width="773" height="405" layout="responsive"></amp-img></div>
+
 </li>
 </ol>
 <h2 id="Why-this-works"><a href="#Why-this-works" class="headerlink" title="Why this works"></a>Why this works</h2><p><a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="noopener">nvidia-docker</a> provides CUDA toolkit and cuDNN and tensorflow docker images utilizes it. All the installation procedures are abstracted by Docker images.</p>
@@ -1804,6 +1807,7 @@ h6.categories {
 </li>
 <li><p>Verify CUDA toolkit in <code>nvidia-docker</code></p>
 <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nvidia-docker run --rm nvidia/cuda nvidia-smi</span><br></pre></td></tr></tbody></table></figure>
+
 </li>
 </ol>
 
