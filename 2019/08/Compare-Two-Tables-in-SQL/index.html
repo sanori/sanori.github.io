@@ -15,18 +15,22 @@
 <!-- End Google Analytics -->
 
   
-  <title>Archives: 2015 | Sanori&#39;s Blog</title>
+  <title>Compare Two Tables in SQL | Sanori&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Sanori&apos;s writings about software development and computer science.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sanori&#39;s Blog">
-<meta property="og:url" content="http://sanori.github.io/archives/2015/index.html">
+  <meta name="description" content="You may want to compare the results processed while you develop and enhance data processing tasks. For example, you might want to see if the table from improved query are the same as the one of the ex">
+<meta name="keywords" content="SQL,SparkSQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Compare Two Tables in SQL">
+<meta property="og:url" content="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
-<meta property="og:description" content="Sanori&apos;s writings about software development and computer science.">
+<meta property="og:description" content="You may want to compare the results processed while you develop and enhance data processing tasks. For example, you might want to see if the table from improved query are the same as the one of the ex">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/except-intersect-SQL.png">
+<meta property="og:updated_time" content="2019-08-05T17:52:51.124Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sanori&#39;s Blog">
-<meta name="twitter:description" content="Sanori&apos;s writings about software development and computer science.">
+<meta name="twitter:title" content="Compare Two Tables in SQL">
+<meta name="twitter:description" content="You may want to compare the results processed while you develop and enhance data processing tasks. For example, you might want to see if the table from improved query are the same as the one of the ex">
+<meta name="twitter:image" content="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/except-intersect-SQL.png">
   
     <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
   
@@ -37,6 +41,8 @@
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
   
+    <link rel="amphtml" href="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/amp/">
+
   <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -80,40 +86,87 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/09/Writing-Command-Line-Scripts-in-Node-js/" class="archive-article-date">
-  <time datetime="2015-09-21T18:28:30.000Z" itemprop="datePublished">Sep 22</time>
+        <section id="main"><article id="post-Compare-Two-Tables-in-SQL" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/Compare-Two-Tables-in-SQL/" class="article-date">
+  <time datetime="2019-08-05T17:50:59.000Z" itemprop="datePublished">2019-08-06</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/09/Writing-Command-Line-Scripts-in-Node-js/">Writing Command Line Scripts in Node.js</a>
+    <h1 class="article-title" itemprop="name">
+      Compare Two Tables in SQL
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>You may want to compare the results processed while you develop and enhance data processing tasks.
+For example, you might want to see if the table from improved query are the same as the one of the existing query.
+If the tables are different, you might want to know how many rows are different and which field is different.
+In other words, you might want to compare two tables, such as the Linux <code>diff</code> command.</p>
+<p>You might hesitate to compare two tables row by row if you feel the table is so big.
+But, don’t worry. You can make the cluster of servers compare the tables by simple SQL statement.</p>
+<a id="more"></a>
 
+<h2 id="Set-operators-in-SQL"><a href="#Set-operators-in-SQL" class="headerlink" title="Set operators in SQL"></a>Set operators in SQL</h2><p>You can use the SQL set operator to compare tables.
+For SQL set operators, the elements of a set are the rows.
+You may know the <code>UNION</code> operator which is frequently used to concatenate tables with the same schema. The SQL statement <code>A UNION B</code> returns the set union of the set <code>A</code> and <code>B</code>.
+Since the union operator is in SQL, it is natural that there are intersection and difference set operators in SQL.
+The former is <code>INTERSECT</code> and the latter is <code>EXCEPT</code>.
+The Venn diagram of SQL set operators are depicted as follows:</p>
+<img src="/2019/08/Compare-Two-Tables-in-SQL/except-intersect-SQL.png" title="EXCEPT, INTERSECT operator in SQL">
+
+<h2 id="EXCEPT-operator"><a href="#EXCEPT-operator" class="headerlink" title="EXCEPT operator"></a><code>EXCEPT</code> operator</h2><p>We can get the difference between the two tables using the <code>EXCEPT</code> operator.
+Note that <code>A EXCEPT B</code> returns only the rows that are in A but not in B.
+This statement does not return rows that are in A but not in B.
+Rows that are in A but not in B can be obtained with the statement ‘B EXCEPT A’.
+That is, you must combine the result of <code>EXCEPT B</code> with the result of<code>B EXCEPT A</code>.</p>
+<p>As a result, you can get the difference between the two tables in the same way as the following SQL statement:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">(</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="string">"A"</span> <span class="keyword">AS</span> TBL, *</span><br><span class="line">    <span class="keyword">FROM</span> (</span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A)</span><br><span class="line">        <span class="keyword">EXCEPT</span></span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> B)</span><br><span class="line">    )</span><br><span class="line">) <span class="keyword">UNION</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="string">"B"</span> <span class="keyword">AS</span> TBL, *</span><br><span class="line">    <span class="keyword">FROM</span> (</span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> B)</span><br><span class="line">        <span class="keyword">EXCEPT</span></span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A)</span><br><span class="line">    )</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/" data-id="cjyyp1wqi00021djddsetp9r0" class="article-share-link">Share</a>
+      
+        <a href="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL/">SQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SparkSQL/">SparkSQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript Pitfalls &amp; Tips: 2D Array, Matrix</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 
 </section>
         
@@ -199,11 +252,13 @@
 <script>
   var disqus_shortname = 'sanoriblog';
   
+  var disqus_url = 'http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

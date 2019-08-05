@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sanori.github.io/"/>
-  <updated>2019-05-25T14:19:54.536Z</updated>
+  <updated>2019-08-05T17:52:51.124Z</updated>
   <id>http://sanori.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Compare Two Tables in SQL</title>
+    <link href="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/"/>
+    <id>http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/</id>
+    <published>2019-08-05T17:50:59.000Z</published>
+    <updated>2019-08-05T17:52:51.124Z</updated>
+    
+    <content type="html"><![CDATA[<p>You may want to compare the results processed while you develop and enhance data processing tasks.For example, you might want to see if the table from improved query are the same as the one of the existing query.If the tables are different, you might want to know how many rows are different and which field is different.In other words, you might want to compare two tables, such as the Linux <code>diff</code> command.</p><p>You might hesitate to compare two tables row by row if you feel the table is so big.But, don’t worry. You can make the cluster of servers compare the tables by simple SQL statement.</p><a id="more"></a><h2 id="Set-operators-in-SQL"><a href="#Set-operators-in-SQL" class="headerlink" title="Set operators in SQL"></a>Set operators in SQL</h2><p>You can use the SQL set operator to compare tables.For SQL set operators, the elements of a set are the rows.You may know the <code>UNION</code> operator which is frequently used to concatenate tables with the same schema. The SQL statement <code>A UNION B</code> returns the set union of the set <code>A</code> and <code>B</code>.Since the union operator is in SQL, it is natural that there are intersection and difference set operators in SQL.The former is <code>INTERSECT</code> and the latter is <code>EXCEPT</code>.The Venn diagram of SQL set operators are depicted as follows:</p><img src="/2019/08/Compare-Two-Tables-in-SQL/except-intersect-SQL.png" title="EXCEPT, INTERSECT operator in SQL"><h2 id="EXCEPT-operator"><a href="#EXCEPT-operator" class="headerlink" title="EXCEPT operator"></a><code>EXCEPT</code> operator</h2><p>We can get the difference between the two tables using the <code>EXCEPT</code> operator.Note that <code>A EXCEPT B</code> returns only the rows that are in A but not in B.This statement does not return rows that are in A but not in B.Rows that are in A but not in B can be obtained with the statement ‘B EXCEPT A’.That is, you must combine the result of <code>EXCEPT B</code> with the result of<code>B EXCEPT A</code>.</p><p>As a result, you can get the difference between the two tables in the same way as the following SQL statement:</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">(</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="string">"A"</span> <span class="keyword">AS</span> TBL, *</span><br><span class="line">    <span class="keyword">FROM</span> (</span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A)</span><br><span class="line">        <span class="keyword">EXCEPT</span></span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> B)</span><br><span class="line">    )</span><br><span class="line">) <span class="keyword">UNION</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="string">"B"</span> <span class="keyword">AS</span> TBL, *</span><br><span class="line">    <span class="keyword">FROM</span> (</span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> B)</span><br><span class="line">        <span class="keyword">EXCEPT</span></span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A)</span><br><span class="line">    )</span><br><span class="line">)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;You may want to compare the results processed while you develop and enhance data processing tasks.
+For example, you might want to see if the table from improved query are the same as the one of the existing query.
+If the tables are different, you might want to know how many rows are different and which field is different.
+In other words, you might want to compare two tables, such as the Linux &lt;code&gt;diff&lt;/code&gt; command.&lt;/p&gt;
+&lt;p&gt;You might hesitate to compare two tables row by row if you feel the table is so big.
+But, don’t worry. You can make the cluster of servers compare the tables by simple SQL statement.&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="SQL" scheme="http://sanori.github.io/tags/SQL/"/>
+    
+      <category term="SparkSQL" scheme="http://sanori.github.io/tags/SparkSQL/"/>
+    
+  </entry>
   
   <entry>
     <title>JavaScript Pitfalls &amp; Tips: 2D Array, Matrix</title>
@@ -175,11 +202,11 @@ using the rank() function which is one of SQL window functions.&lt;/p&gt;
     </summary>
     
     
-      <category term="Spark" scheme="http://sanori.github.io/tags/Spark/"/>
-    
       <category term="SQL" scheme="http://sanori.github.io/tags/SQL/"/>
     
       <category term="SparkSQL" scheme="http://sanori.github.io/tags/SparkSQL/"/>
+    
+      <category term="Spark" scheme="http://sanori.github.io/tags/Spark/"/>
     
       <category term="SqlWindowFunction" scheme="http://sanori.github.io/tags/SqlWindowFunction/"/>
     
@@ -283,11 +310,11 @@ using the rank() function which is one of SQL window functions.&lt;/p&gt;
     </summary>
     
     
-      <category term="Spark" scheme="http://sanori.github.io/tags/Spark/"/>
-    
       <category term="SQL" scheme="http://sanori.github.io/tags/SQL/"/>
     
       <category term="SparkSQL" scheme="http://sanori.github.io/tags/SparkSQL/"/>
+    
+      <category term="Spark" scheme="http://sanori.github.io/tags/Spark/"/>
     
       <category term="DataFrame" scheme="http://sanori.github.io/tags/DataFrame/"/>
     

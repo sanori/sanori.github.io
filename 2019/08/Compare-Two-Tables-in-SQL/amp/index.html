@@ -2,30 +2,36 @@
 <html ⚡>
   <head>
     <meta charset="utf-8">
-    <link rel="canonical" href="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/" >
-    <title>Writing Spark batches only in SQL - Sanori&#39;s Blog</title>
+    <link rel="canonical" href="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/" >
+    <title>Compare Two Tables in SQL - Sanori&#39;s Blog</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 
-    <meta property="og:title" content="Writing Spark batches only in SQL">
+    <meta property="og:title" content="Compare Two Tables in SQL">
 	<meta property="og:type" content="article">
-	<meta property="og:url" content="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/">
+	<meta property="og:url" content="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/">
 	
 		<meta property="og:image" content="http://sanori.github.io/images/Apache_Spark_logo.png">
 	
 	<meta property="og:site_name" content="Sanori&#39;s Blog">
 	
-		<meta property="og:description" content="&lt;p&gt;&lt;a href=&#34;http://spark.apache.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Apache Spark&lt;sup&gt;TM&lt;/sup&gt;&lt;/a&gt; is known as popular big data framework which is faster than Hadoop MapReduce, easy-to-use, and fault-tolerant. Most of the Spark tutorials require readers to understand Scala, Java, or Python as base programming language. But, in my opinion, SQL is enough to write a spark batch script.&lt;/p&gt;
-&lt;p&gt;In this article, I will show that &lt;strong&gt;you can write Spark batches only in SQL if your input data is ready as structured dataset&lt;/strong&gt;. This means that you don’t need to learn Scala or Python, RDD, DataFrame if your job can be expressed in SQL. Moreover, the expression power of SparkSQL may be stronger than you think.&lt;/p&gt;
-&lt;p&gt;The SQL scripts as follows can be found at &lt;a href=&#34;https://github.com/sanori/spark-sql-example&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/sanori/spark-sql-example&lt;/a&gt;. You can test them yourself.&lt;/p&gt;">
+		<meta property="og:description" content="&lt;p&gt;You may want to compare the results processed while you develop and enhance data processing tasks.
+For example, you might want to see if the table from improved query are the same as the one of the existing query.
+If the tables are different, you might want to know how many rows are different and which field is different.
+In other words, you might want to compare two tables, such as the Linux &lt;code&gt;diff&lt;/code&gt; command.&lt;/p&gt;
+&lt;p&gt;You might hesitate to compare two tables row by row if you feel the table is so big.
+But, don’t worry. You can make the cluster of servers compare the tables by simple SQL statement.&lt;/p&gt;">
 	
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content="Sanori&#39;s Blog">
-	<meta name="twitter:url" content="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/">
-	<meta name="twitter:title" content="Writing Spark batches only in SQL - Sanori&#39;s Blog">
+	<meta name="twitter:url" content="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/">
+	<meta name="twitter:title" content="Compare Two Tables in SQL - Sanori&#39;s Blog">
 	
-		<meta name="twitter:description" content="&lt;p&gt;&lt;a href=&#34;http://spark.apache.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Apache Spark&lt;sup&gt;TM&lt;/sup&gt;&lt;/a&gt; is known as popular big data framework which is faster than Hadoop MapReduce, easy-to-use, and fault-tolerant. Most of the Spark tutorials require readers to understand Scala, Java, or Python as base programming language. But, in my opinion, SQL is enough to write a spark batch script.&lt;/p&gt;
-&lt;p&gt;In this article, I will show that &lt;strong&gt;you can write Spark batches only in SQL if your input data is ready as structured dataset&lt;/strong&gt;. This means that you don’t need to learn Scala or Python, RDD, DataFrame if your job can be expressed in SQL. Moreover, the expression power of SparkSQL may be stronger than you think.&lt;/p&gt;
-&lt;p&gt;The SQL scripts as follows can be found at &lt;a href=&#34;https://github.com/sanori/spark-sql-example&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/sanori/spark-sql-example&lt;/a&gt;. You can test them yourself.&lt;/p&gt;">
+		<meta name="twitter:description" content="&lt;p&gt;You may want to compare the results processed while you develop and enhance data processing tasks.
+For example, you might want to see if the table from improved query are the same as the one of the existing query.
+If the tables are different, you might want to know how many rows are different and which field is different.
+In other words, you might want to compare two tables, such as the Linux &lt;code&gt;diff&lt;/code&gt; command.&lt;/p&gt;
+&lt;p&gt;You might hesitate to compare two tables row by row if you feel the table is so big.
+But, don’t worry. You can make the cluster of servers compare the tables by simple SQL statement.&lt;/p&gt;">
 	
     
     	<meta name="twitter:image" content="http://sanori.github.io/images/Apache_Spark_logo.png">
@@ -55,18 +61,21 @@
 		{
 			"@context": "http://schema.org",
 			"@type": "BlogPosting",
-			"headline": "Writing Spark batches only in SQL",
+			"headline": "Compare Two Tables in SQL",
 			
-			"description": "&lt;p&gt;&lt;a href=&#34;http://spark.apache.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Apache Spark&lt;sup&gt;TM&lt;/sup&gt;&lt;/a&gt; is known as popular big data framework which is faster than Hadoop MapReduce, easy-to-use, and fault-tolerant. Most of the Spark tutorials require readers to understand Scala, Java, or Python as base programming language. But, in my opinion, SQL is enough to write a spark batch script.&lt;/p&gt;
-&lt;p&gt;In this article, I will show that &lt;strong&gt;you can write Spark batches only in SQL if your input data is ready as structured dataset&lt;/strong&gt;. This means that you don’t need to learn Scala or Python, RDD, DataFrame if your job can be expressed in SQL. Moreover, the expression power of SparkSQL may be stronger than you think.&lt;/p&gt;
-&lt;p&gt;The SQL scripts as follows can be found at &lt;a href=&#34;https://github.com/sanori/spark-sql-example&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/sanori/spark-sql-example&lt;/a&gt;. You can test them yourself.&lt;/p&gt;",
+			"description": "&lt;p&gt;You may want to compare the results processed while you develop and enhance data processing tasks.
+For example, you might want to see if the table from improved query are the same as the one of the existing query.
+If the tables are different, you might want to know how many rows are different and which field is different.
+In other words, you might want to compare two tables, such as the Linux &lt;code&gt;diff&lt;/code&gt; command.&lt;/p&gt;
+&lt;p&gt;You might hesitate to compare two tables row by row if you feel the table is so big.
+But, don’t worry. You can make the cluster of servers compare the tables by simple SQL statement.&lt;/p&gt;",
 			
 			"mainEntityOfPage":{
 			    "@type":"WebPage",
-			    "@id":"http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/"
+			    "@id":"http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/"
 			},
-			"datePublished": "2017-10-07T14:57:03.000Z",
-			"dateModified": "2018-11-26T17:19:27.924Z",
+			"datePublished": "2019-08-05T17:50:59.000Z",
+			"dateModified": "2019-08-05T17:52:51.124Z",
 			
 			"image": {
 				"@type": "ImageObject",
@@ -1729,7 +1738,7 @@ h6.categories {
   	<!-- container -->
   	<div id="container">
 	  	<div id="main">
-		    <article id="post-Writing-Spark-batches-only-in-SQL" class="post">
+		    <article id="post-Compare-Two-Tables-in-SQL" class="post">
 
 		   		<!-- categories and bread crumb -->
 		    	
@@ -1751,7 +1760,7 @@ h6.categories {
 			            <div class="header-cap flx">
 							
 							  <h1 class="article-title entry-title" itemprop="name">
-							    <a href="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/" target="_blank" itemprop="url">Writing Spark batches only in SQL</a>
+							    <a href="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/" target="_blank" itemprop="url">Compare Two Tables in SQL</a>
 							  </h1>
 							
 						</div>
@@ -1761,7 +1770,7 @@ h6.categories {
 					<div class="entry-meta-header">
 						<span class="meta-elements date">
 							<span class="fa fa-fw fa-clock-o"></span>
-							<time datetime="2017-10-07" itemprop="datePublished">2017.10.07</time>
+							<time datetime="2019-08-06" itemprop="datePublished">2019.08.05</time>
 						</span>
 					</div>
 				</div>
@@ -1778,106 +1787,30 @@ h6.categories {
                     
 
 			    	<!-- content -->
-			  		<p><a href="http://spark.apache.org/" target="_blank" rel="noopener">Apache Spark<sup>TM</sup></a> is known as popular big data framework which is faster than Hadoop MapReduce, easy-to-use, and fault-tolerant. Most of the Spark tutorials require readers to understand Scala, Java, or Python as base programming language. But, in my opinion, SQL is enough to write a spark batch script.</p>
-<p>In this article, I will show that <strong>you can write Spark batches only in SQL if your input data is ready as structured dataset</strong>. This means that you don&#x2019;t need to learn Scala or Python, RDD, DataFrame if your job can be expressed in SQL. Moreover, the expression power of SparkSQL may be stronger than you think.</p>
-<p>The SQL scripts as follows can be found at <a href="https://github.com/sanori/spark-sql-example" target="_blank" rel="noopener">https://github.com/sanori/spark-sql-example</a>. You can test them yourself.</p>
+			  		<p>You may want to compare the results processed while you develop and enhance data processing tasks.
+For example, you might want to see if the table from improved query are the same as the one of the existing query.
+If the tables are different, you might want to know how many rows are different and which field is different.
+In other words, you might want to compare two tables, such as the Linux <code>diff</code> command.</p>
+<p>You might hesitate to compare two tables row by row if you feel the table is so big.
+But, don&#x2019;t worry. You can make the cluster of servers compare the tables by simple SQL statement.</p>
 <a id="more"></a>
 
-<h2 id="Spark-batches"><a href="#Spark-batches" class="headerlink" title="Spark batches"></a>Spark batches</h2><p>Typical Spark batches are a program that</p>
-<ol>
-<li>read data from data sources,</li>
-<li>transform and calculate the data, and</li>
-<li>save the result.</li>
-</ol>
-<p>Most of the Spark tutorials require Scala or Python (or R) programming language to write a Spark batch. For example, you may write a Python script to calculate the lines of each plays of Shakespeare when you are provided the full text in parquet format as follows. (Some codes are included for illustration purpose.)</p>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> SparkSession</span><br><span class="line"><span class="keyword">import</span> pyspark.sql.functions <span class="keyword">as</span> sf</span><br><span class="line"><span class="keyword">import</span> os.path</span><br><span class="line"></span><br><span class="line"><span class="comment"># Start Spark</span></span><br><span class="line">spark = SparkSession \</span><br><span class="line">    .builder \</span><br><span class="line">    .appName(<span class="string">&quot;pyspark example&quot;</span>) \</span><br><span class="line">    .getOrCreate()</span><br><span class="line"></span><br><span class="line">basedir = os.path.dirname(os.path.realpath(__file__))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Read all of Shakespeare&apos;s plays</span></span><br><span class="line">df = spark.read.parquet(os.path.join(basedir, <span class="string">&quot;data/shakespeare.gz.parquet&quot;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Print the schema to the console</span></span><br><span class="line">df.printSchema()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Calculate number of lines of each work (play)</span></span><br><span class="line">result = df \</span><br><span class="line">    .groupBy(<span class="string">&quot;play_name&quot;</span>) \</span><br><span class="line">    .agg(sf.count(<span class="string">&quot;line_id&quot;</span>).alias(<span class="string">&quot;lines&quot;</span>)) \</span><br><span class="line">    .orderBy(<span class="string">&quot;lines&quot;</span>, ascending=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Print a part of the result to the console</span></span><br><span class="line">result.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Save the result as one file in JSON Lines format</span></span><br><span class="line">result \</span><br><span class="line">    .repartition(<span class="number">1</span>) \</span><br><span class="line">    .write \</span><br><span class="line">    .json(os.path.join(basedir, <span class="string">&quot;length_of_play&quot;</span>), mode=<span class="string">&quot;overwrite&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Stop Spark</span></span><br><span class="line">spark.stop()</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="Set-operators-in-SQL"><a href="#Set-operators-in-SQL" class="headerlink" title="Set operators in SQL"></a>Set operators in SQL</h2><p>You can use the SQL set operator to compare tables.
+For SQL set operators, the elements of a set are the rows.
+You may know the <code>UNION</code> operator which is frequently used to concatenate tables with the same schema. The SQL statement <code>A UNION B</code> returns the set union of the set <code>A</code> and <code>B</code>.
+Since the union operator is in SQL, it is natural that there are intersection and difference set operators in SQL.
+The former is <code>INTERSECT</code> and the latter is <code>EXCEPT</code>.
+The Venn diagram of SQL set operators are depicted as follows:</p>
+<div class="amp-img-wrapper"><amp-img src="/2019/08/Compare-Two-Tables-in-SQL/except-intersect-SQL.png" width="633" height="303" layout="responsive"></amp-img></div>
 
-<p>The data calculation part of the above code is to get the <code>result</code> DataFrame, which is from line 20 to 23. This part can be written using SQL as follows:</p>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Calculate number of lines of each work (play)</span></span><br><span class="line">df.createOrReplaceTempView(<span class="string">&quot;shakespeare&quot;</span>)  <span class="comment"># register df as shakespeare table</span></span><br><span class="line">result = spark.sql(<span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">SELECT play_name, count(line_id) AS lines</span></span><br><span class="line"><span class="string">FROM shakespeare</span></span><br><span class="line"><span class="string">GROUP BY play_name</span></span><br><span class="line"><span class="string">ORDER BY lines DESC</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span>)</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="EXCEPT-operator"><a href="#EXCEPT-operator" class="headerlink" title="EXCEPT operator"></a><code>EXCEPT</code> operator</h2><p>We can get the difference between the two tables using the <code>EXCEPT</code> operator.
+Note that <code>A EXCEPT B</code> returns only the rows that are in A but not in B.
+This statement does not return rows that are in A but not in B.
+Rows that are in A but not in B can be obtained with the statement &#x2018;B EXCEPT A&#x2019;.
+That is, you must combine the result of <code>EXCEPT B</code> with the result of<code>B EXCEPT A</code>.</p>
+<p>As a result, you can get the difference between the two tables in the same way as the following SQL statement:</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">(</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="string">&quot;A&quot;</span> <span class="keyword">AS</span> TBL, *</span><br><span class="line">    <span class="keyword">FROM</span> (</span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A)</span><br><span class="line">        <span class="keyword">EXCEPT</span></span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> B)</span><br><span class="line">    )</span><br><span class="line">) <span class="keyword">UNION</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="string">&quot;B&quot;</span> <span class="keyword">AS</span> TBL, *</span><br><span class="line">    <span class="keyword">FROM</span> (</span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> B)</span><br><span class="line">        <span class="keyword">EXCEPT</span></span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A)</span><br><span class="line">    )</span><br><span class="line">)</span><br></pre></td></tr></tbody></table></figure>
 
-<p>As I learn more about Spark, I realized that most of the data processing code can be replaced by SQL. And I found that most of the Spark batch script can be rewritten in SQL. For example, the above batch script can be rewritten in SQL as follows:</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Read all of Shakespeare&apos;s plays</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TEMPORARY</span> <span class="keyword">VIEW</span> shakespeare</span><br><span class="line">  <span class="keyword">USING</span> parquet</span><br><span class="line">  OPTIONS (<span class="keyword">path</span> <span class="string">&quot;data/shakespeare.gz.parquet&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Print the table schema and additional informations to the console</span></span><br><span class="line"><span class="keyword">DESCRIBE</span> <span class="keyword">EXTENDED</span> shakespeare;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Calculate number of lines of each work and print to the console</span></span><br><span class="line"><span class="keyword">SELECT</span> play_name, <span class="keyword">count</span>(line_id) <span class="keyword">AS</span> <span class="keyword">lines</span></span><br><span class="line">  <span class="keyword">FROM</span> shakespeare</span><br><span class="line">  <span class="keyword">GROUP</span> <span class="keyword">BY</span> play_name</span><br><span class="line">  <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">lines</span> <span class="keyword">DESC</span></span><br><span class="line">  <span class="keyword">LIMIT</span> <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Save the result as one file in JSON Lines format</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> lengthOfPlay;   <span class="comment">-- to overwrite, remove existing table</span></span><br><span class="line"><span class="keyword">SET</span> spark.sql.shuffle.partitions=<span class="number">1</span>;   <span class="comment">-- to make single output file</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> lengthOfPlay</span><br><span class="line">  <span class="keyword">USING</span> <span class="keyword">json</span></span><br><span class="line">  LOCATION <span class="string">&quot;length_of_play&quot;</span></span><br><span class="line">  <span class="keyword">AS</span> <span class="keyword">SELECT</span> play_name, <span class="keyword">count</span>(line_id) <span class="keyword">AS</span> <span class="keyword">lines</span></span><br><span class="line">    <span class="keyword">FROM</span> shakespeare</span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> play_name</span><br><span class="line">    <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">lines</span> <span class="keyword">DESC</span>;</span><br></pre></td></tr></tbody></table></figure>
-
-<p>The above SQL script can be executed by <code>spark-sql</code> which is included in default Spark distribution. This may imply that Spark creators consider SQL as one of the main programming language. In fact, most of the SQL references are from the official Spark programming guide named <a href="http://spark.apache.org/docs/latest/sql-programming-guide.html" target="_blank" rel="noopener">Spark SQL, DataFrames and Datasets Guide</a>. To see the SQL examples, you should click <strong>&#x201C;Sql&#x201D;</strong> tab as follows:</p>
-<div class="amp-img-wrapper"><amp-img src="/2017/10/Writing-Spark-batches-only-in-SQL/spark-doc-sql.png" width="539" height="153" layout="responsive"></amp-img></div>
-
-<h2 id="Writing-SQL-only-script"><a href="#Writing-SQL-only-script" class="headerlink" title="Writing SQL only script"></a>Writing SQL only script</h2><p>The most problematic part of writing a Spark script only in SQL would be file operations. Most of the Spark tutorials suggest to use Scala or Python Language to read a data file and/or save the result of data processing. But, there are several ways to read or write a data file in SparkSQL as follows.</p>
-<p>The file path in the following examples can be a HDFS URI path. That is, you can write SQL script for cluster or distributed environment.</p>
-<h3 id="Read-a-data-file"><a href="#Read-a-data-file" class="headerlink" title="Read a data file"></a>Read a data file</h3><h4 id="Read-directly-from-SQL-FROM"><a href="#Read-directly-from-SQL-FROM" class="headerlink" title="Read directly from SQL FROM"></a>Read directly from SQL <code>FROM</code></h4><p>You can simply read the data as a table using SQL <code>FROM</code> statement.</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> play_name</span><br><span class="line"><span class="keyword">FROM</span> parquet.<span class="string">`data/shakespeare.gz.parquet`</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>Reference: <a href="http://spark.apache.org/docs/latest/sql-programming-guide.html#run-sql-on-files-directly" target="_blank" rel="noopener">http://spark.apache.org/docs/latest/sql-programming-guide.html#run-sql-on-files-directly</a></p>
-<h4 id="Register-a-file-as-VIEW-or-TABLE"><a href="#Register-a-file-as-VIEW-or-TABLE" class="headerlink" title="Register a file as VIEW or TABLE"></a>Register a file as <code>VIEW</code> or <code>TABLE</code></h4><p>You may use data definition language such as <code>CREATE VIEW</code> or <code>CREATE TABLE</code> if you want to load data as a table or a view. I recommend to use <code>CREATE TEMPORARY VIEW</code> if you don&#x2019;t want to modify the original data since a <code>TABLE</code> can be modified by <code>INSERT INTO</code>, <code>TRUNCATE</code>, etc.</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TEMPORARY</span> <span class="keyword">VIEW</span> shakespeare</span><br><span class="line"><span class="keyword">USING</span> parquet</span><br><span class="line">OPTIONS (<span class="keyword">path</span> <span class="string">&quot;data/shakespeare.gz.parquet&quot;</span>)</span><br></pre></td></tr></tbody></table></figure>
-
-<p>Reference:</p>
-<ul>
-<li><a href="http://spark.apache.org/docs/latest/sql-programming-guide.html#loading-data-programmatically" target="_blank" rel="noopener">http://spark.apache.org/docs/latest/sql-programming-guide.html#loading-data-programmatically</a></li>
-<li><a href="https://docs.databricks.com/spark/latest/spark-sql/language-manual/create-view.html" target="_blank" rel="noopener">https://docs.databricks.com/spark/latest/spark-sql/language-manual/create-view.html</a></li>
-</ul>
-<h3 id="Write-a-result-to-a-file"><a href="#Write-a-result-to-a-file" class="headerlink" title="Write a result to a file"></a>Write a result to a file</h3><p>In Spark tutorials with Scala or Python, the processed result can be saved to a file using <a href="http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.Dataset@write:org.apache.spark.sql.DataFrameWriter[T]" target="_blank" rel="noopener"><code>write</code></a> API of Dataset. This is intuitive for most programmers.</p>
-<p>In SQL, all the data are abstracted as tables. Therefore, you should create a table to save or write the resultant data, instead of searching for write API for SQL.</p>
-<h4 id="CREATE-TABLE-AS-SELECT"><a href="#CREATE-TABLE-AS-SELECT" class="headerlink" title="CREATE TABLE AS SELECT"></a><code>CREATE TABLE AS SELECT</code></h4><p>If you save a new dataset, you may use <code>CREATE TABLE AS SELECT</code> statement.</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> lengthOfPlay</span><br><span class="line">  <span class="keyword">USING</span> <span class="keyword">json</span></span><br><span class="line">  LOCATION <span class="string">&quot;length_of_play&quot;</span></span><br><span class="line">  <span class="keyword">AS</span> <span class="keyword">SELECT</span> play_name, <span class="keyword">count</span>(line_id) <span class="keyword">AS</span> <span class="keyword">lines</span></span><br><span class="line">    <span class="keyword">FROM</span> shakespeare</span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> play_name</span><br><span class="line">    <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">lines</span> <span class="keyword">DESC</span>;</span><br></pre></td></tr></tbody></table></figure>
-
-<h4 id="INSERT-SELECT"><a href="#INSERT-SELECT" class="headerlink" title="INSERT SELECT"></a><code>INSERT SELECT</code></h4><p>If you want to append new data to existing table or directory,
-you may use <code>INSERT INTO &lt;table&gt; SELECT</code> statement.</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> lengthOfPlay</span><br><span class="line">  <span class="keyword">SELECT</span> play_name, <span class="keyword">count</span>(line_id) <span class="keyword">AS</span> <span class="keyword">lines</span></span><br><span class="line">  <span class="keyword">FROM</span> shakespeare</span><br><span class="line">  <span class="keyword">GROUP</span> <span class="keyword">BY</span> play_name</span><br><span class="line">  <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">lines</span> <span class="keyword">DESC</span>;</span><br></pre></td></tr></tbody></table></figure>
-
-<p>The table where the data are added must be created before to use <code>INSERT</code>.
-A typical table definition example is as follows.</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> lengthOfPlay (</span><br><span class="line">  play_name <span class="keyword">STRING</span>,</span><br><span class="line">  <span class="keyword">lines</span> <span class="built_in">INT</span></span><br><span class="line">  )</span><br><span class="line">  <span class="keyword">USING</span> <span class="keyword">json</span></span><br><span class="line">  LOCATION <span class="string">&quot;length_of_play&quot;</span>;</span><br></pre></td></tr></tbody></table></figure>
-
-<p>For more information, consult <a href="https://docs.databricks.com/spark/latest/spark-sql/language-manual/insert.html" target="_blank" rel="noopener">https://docs.databricks.com/spark/latest/spark-sql/language-manual/insert.html</a></p>
-<p>You may consider <code>INSERT OVERWRITE TABLE</code> statement to create a new dataset.
-But, in my humble opinion, <code>CREATE TABLE AS SELECT</code> is better to create new dataset
-since the table should be created before <code>INSERT</code> statement,
-and there is a chance of schema inconsistency between <code>CREATE TABLE</code> and <code>INSERT SELECT</code>.</p>
-<p>Note that there is no <code>UPDATE</code> statement in SparkSQL
-since all the data in Spark are immutable, or not changeable.
-You may create, append, or delete data, but you cannot change existing data.</p>
-<h2 id="Running-SQL-only-script"><a href="#Running-SQL-only-script" class="headerlink" title="Running SQL only script"></a>Running SQL only script</h2><h3 id="spark-sql"><a href="#spark-sql" class="headerlink" title="spark-sql"></a><code>spark-sql</code></h3><p>If you have installed Spark, you can execute the SQL script file as follows:</p>
-<figure class="highlight sh"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$SPARK_HOME</span>/bin/spark-sql -f &lt;script.sql&gt;</span><br></pre></td></tr></tbody></table></figure>
-
-<p>If you have added the spark executables to your <code>PATH</code>, <code>spark-sql -f &lt;script.sql&gt;</code> is enough.</p>
-<p>Like <code>spark-submit</code>, <code>spark-sql</code> supports <code>--master</code>, <code>--conf</code>, <code>--executor-memory MEM</code>, <code>--executor-cores NUM</code> options. Therefore you can tune Spark parameters for better performance.</p>
-<p>For more information on options and its meaning, consult <a href="http://spark.apache.org/docs/latest/submitting-applications.html#launching-applications-with-spark-submit" target="_blank" rel="noopener">http://spark.apache.org/docs/latest/submitting-applications.html#launching-applications-with-spark-submit</a></p>
-<h3 id="Setting-parameters-by-SET"><a href="#Setting-parameters-by-SET" class="headerlink" title="Setting parameters by SET"></a>Setting parameters by <code>SET</code></h3><p>You can set Spark parameters using <code>SET</code> statement in SparkSQL instead of setting parameters in <code>spark-sql</code> options. For example, you can replace <code>--master</code> option in <code>spark-sql</code> as follows.</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> spark.master=<span class="string">&quot;local[*]&quot;</span>;</span><br></pre></td></tr></tbody></table></figure>
-
-<p>For more configuration variables, consult <a href="http://spark.apache.org/docs/latest/configuration.html#available-properties" target="_blank" rel="noopener">http://spark.apache.org/docs/latest/configuration.html#available-properties</a></p>
-<p>Reference: <a href="https://docs.databricks.com/spark/latest/spark-sql/language-manual/set.html" target="_blank" rel="noopener">https://docs.databricks.com/spark/latest/spark-sql/language-manual/set.html</a></p>
-<h2 id="Difference-from-RDBMS"><a href="#Difference-from-RDBMS" class="headerlink" title="Difference from RDBMS"></a>Difference from RDBMS</h2><p>Although Spark supports SQL including data definition language, Spark is <strong>NOT</strong> a relational DBMS. Spark just have taken SQL as data processing language.</p>
-<p>All the data in Spark are immutable. That is, you <strong>cannot update</strong> existing tables, rows, and columns. There is no <code>UPDATE</code> statement.</p>
-<h2 id="Motivation-of-this-article"><a href="#Motivation-of-this-article" class="headerlink" title="Motivation of this article"></a>Motivation of this article</h2><ul>
-<li>Increasing Boilerplates in Spark batch scripts<ul>
-<li>Boilerplate codes are increasing as time goes by and it makes hard to manage.</li>
-<li>Most of Python/Scala batches are the same except SQL part which process data.</li>
-<li>Shell scripts are also required to submit Spark jobs using <code>spark-submit</code> with parameters.</li>
-</ul>
-</li>
-<li>SparkSQL is similar to Dataset API<ul>
-<li>Writing Dataset processing code using Dataset API is very similar to write SQL script.</li>
-<li>Most of the Spark batches can be expressed in SQL language only.</li>
-<li>SparkSQL examples exist in Dataset API.</li>
-</ul>
-</li>
-<li>Dataset is recommended than RDD since Spark 2<ul>
-<li>Dataset, which is general type of DataFrame, is supported by query optimizer (Catalyst) and efficient code generator and serializer (Tungsten).</li>
-<li>It is recommended to use Dataset instead of RDD due to the efficiency when the developer is not a Spark expert.</li>
-</ul>
-</li>
-</ul>
-<h2 id="Further-Works"><a href="#Further-Works" class="headerlink" title="Further Works"></a>Further Works</h2><p>The expresion power of SparkSQL may be more than we think.</p>
-<ul>
-<li><a href="http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.expressions.Window$" target="_blank" rel="noopener">Window functions</a></li>
-<li><a href="https://databricks.com/blog/2017/05/24/working-with-nested-data-using-higher-order-functions-in-sql-on-databricks.html" target="_blank" rel="noopener">Higher order functions</a></li>
-</ul>
-<p>I will write a article about these topics when I get time.</p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
-<li>Spark SQL, DataFrames and Datasets Guide: <a href="http://spark.apache.org/docs/latest/sql-programming-guide.html" target="_blank" rel="noopener">http://spark.apache.org/docs/latest/sql-programming-guide.html</a></li>
-<li>Spark SQL Reference: <a href="https://docs.databricks.com/spark/latest/spark-sql/index.html" target="_blank" rel="noopener">https://docs.databricks.com/spark/latest/spark-sql/index.html</a></li>
-</ul>
 
 
 			  		<!-- google Adsense -->
@@ -1913,24 +1846,6 @@ You may create, append, or delete data, but you cannot change existing data.</p>
 					    		<li class="article-tag-list-item">
 					    			<a class="article-tag-list-link link-gaTrack" href="/tags/SparkSQL/" data-linkType="link-tag">
 					    				SparkSQL
-					    			</a>
-					    		</li>
-							
-					    		<li class="article-tag-list-item">
-					    			<a class="article-tag-list-link link-gaTrack" href="/tags/Spark/" data-linkType="link-tag">
-					    				Spark
-					    			</a>
-					    		</li>
-							
-					    		<li class="article-tag-list-item">
-					    			<a class="article-tag-list-link link-gaTrack" href="/tags/DataFrame/" data-linkType="link-tag">
-					    				DataFrame
-					    			</a>
-					    		</li>
-							
-					    		<li class="article-tag-list-item">
-					    			<a class="article-tag-list-link link-gaTrack" href="/tags/Dataset/" data-linkType="link-tag">
-					    				Dataset
 					    			</a>
 					    		</li>
 							
