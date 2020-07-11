@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -18,17 +18,18 @@
   <title>Line-by-line Processing in node.js | Sanori&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Suppose that you have to count the number of accesses for each IP address in the access.log file. And list the IP addresses which accessed more than 100,000 times. You want to do it with JavaScript or">
-<meta name="keywords" content="node.js,JavaScript,CommandLineInterface">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Line-by-line Processing in node.js">
 <meta property="og:url" content="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
 <meta property="og:description" content="Suppose that you have to count the number of accesses for each IP address in the access.log file. And list the IP addresses which accessed more than 100,000 times. You want to do it with JavaScript or">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-13T18:25:08.463Z">
+<meta property="article:published_time" content="2019-03-13T18:06:19.000Z">
+<meta property="article:modified_time" content="2019-03-13T18:25:08.463Z">
+<meta property="article:author" content="Joo-Won Jung">
+<meta property="article:tag" content="node.js">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="CommandLineInterface">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Line-by-line Processing in node.js">
-<meta name="twitter:description" content="Suppose that you have to count the number of accesses for each IP address in the access.log file. And list the IP addresses which accessed more than 100,000 times. You want to do it with JavaScript or">
   
     <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
   
@@ -36,16 +37,22 @@
     <link rel="icon" href="/favicon.ico">
   
   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
   
   
     <link rel="amphtml" href="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/amp/">
 
-  <link rel="stylesheet" href="/css/style.css">
   
-    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/css/style.css">
+
   
-</head>
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
   <div id="container">
@@ -87,10 +94,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Line-by-line-Processing-in-node-js" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Line-by-line-Processing-in-node-js" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2019/03/Line-by-line-Processing-in-node-js/" class="article-date">
-  <time datetime="2019-03-13T18:06:19.000Z" itemprop="datePublished">2019-03-14</time>
+  <time class="dt-published" datetime="2019-03-13T18:06:19.000Z" itemprop="datePublished">2019-03-14</time>
 </a>
     
   </div>
@@ -100,14 +107,14 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
+    <h1 class="p-name article-title" itemprop="headline name">
       Line-by-line Processing in node.js
     </h1>
   
 
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="e-content article-entry" itemprop="articleBody">
       
         <p>Suppose that you have to count the number of accesses for each IP address in the <code>access.log</code> file. And list the IP addresses which accessed more than 100,000 times.
 You want to do it with JavaScript or node.js. How can you do that?</p>
@@ -131,7 +138,6 @@ In this article, some ways to process text line by line are presented.</p>
 But, we can make use of the feature to split the input stream by one line at a time.
 The rewritten script is as follows:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> readline = <span class="built_in">require</span>(<span class="string">'readline'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rl = readline.createInterface(&#123;</span><br><span class="line">  input: fs.createReadStream(<span class="string">'access.log'</span>),</span><br><span class="line">  crlfDelay: <span class="literal">Infinity</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> freq = &#123;&#125;;</span><br><span class="line">rl.on(<span class="string">'line'</span>, (line) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> ip = line.split(<span class="string">' '</span>)[<span class="number">0</span>];</span><br><span class="line">  freq[ip] = (freq[ip] + <span class="number">1</span>) || <span class="number">1</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">rl.on(<span class="string">'close'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> list = <span class="built_in">Object</span>.entries(freq)</span><br><span class="line">    .filter(<span class="function"><span class="params">x</span> =&gt;</span> x[<span class="number">1</span>] &gt;= <span class="number">100000</span>)</span><br><span class="line">    .sort(<span class="function">(<span class="params">a,b</span>) =&gt;</span> b[<span class="number">1</span>] - a[<span class="number">1</span>]);</span><br><span class="line">  <span class="built_in">console</span>.log(list);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
 <p>Note that the line processing part, which was in the for-loop, is in the ‘line’ event handler.
 And, since it is asynchronous, the post-processing part should be in the ‘close’ event handler.</p>
 <h2 id="split-Transform-Stream"><a href="#split-Transform-Stream" class="headerlink" title="split Transform Stream"></a><code>split</code> Transform Stream</h2><p>You may notice the event name of the ‘readline’ module is different from the standard event name if you are familiar to node.js stream.</p>
@@ -144,17 +150,16 @@ was experimentally added to node.js since v11.4.0.
 Using this feature, we can rewrite the script as follows:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> readline = <span class="built_in">require</span>(<span class="string">'readline'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> rl = readline.createInterface(&#123;</span><br><span class="line">    input: fs.createReadStream(<span class="string">'access.log'</span>),</span><br><span class="line">    crlfDelay: <span class="literal">Infinity</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> freq = &#123;&#125;;</span><br><span class="line">  <span class="keyword">for</span> <span class="keyword">await</span> (<span class="keyword">const</span> line <span class="keyword">of</span> rl) &#123;</span><br><span class="line">    <span class="keyword">const</span> ip = line.split(<span class="string">' '</span>)[<span class="number">0</span>];</span><br><span class="line">    freq[ip] = (freq[ip] + <span class="number">1</span>) || <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> list = <span class="built_in">Object</span>.entries(freq)</span><br><span class="line">    .filter(<span class="function"><span class="params">x</span> =&gt;</span> x[<span class="number">1</span>] &gt;= <span class="number">100000</span>)</span><br><span class="line">    .sort(<span class="function">(<span class="params">a,b</span>) =&gt;</span> b[<span class="number">1</span>] - a[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(list);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">require</span>.main === <span class="built_in">module</span>) &#123;</span><br><span class="line">  main();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/" data-id="ck24vfxbh0007dzjd0qy2fjgd" data-title="Line-by-line Processing in node.js" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/" data-id="ckchaonrc0009v6jd4ito42sj" data-title="Line-by-line Processing in node.js" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/#disqus_thread" class="article-comment-link">Comments</a>
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CommandLineInterface/">CommandLineInterface</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CommandLineInterface/" rel="tag">CommandLineInterface</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/" rel="tag">node.js</a></li></ul>
 
     </footer>
   </div>
@@ -185,7 +190,7 @@ Using this feature, we can rewrite the script as follows:</p>
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -253,7 +258,7 @@ Using this feature, we can rewrite the script as follows:</p>
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2019 Joo-Won Jung<br>
+      &copy; 2020 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -284,13 +289,19 @@ Using this feature, we can rewrite the script as follows:</p>
 </script>
 
 
+
 <script src="/js/jquery-3.4.1.min.js"></script>
 
 
-  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
 
 
 <script src="/js/script.js"></script>
+
 
 
 

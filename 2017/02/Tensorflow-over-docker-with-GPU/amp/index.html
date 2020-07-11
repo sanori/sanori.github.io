@@ -1787,27 +1787,17 @@ h6.categories {
 <li><a href="https://docs.docker.com/engine/installation/" target="_blank" rel="noopener">Docker engine</a></li>
 </ul>
 <h2 id="Quick-start"><a href="#Quick-start" class="headerlink" title="Quick start"></a>Quick start</h2><ol>
-<li><p>install <a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="noopener">nvidia-docker</a>.</p>
-</li>
-<li><p>run TensorFlow using nvidia-docker.</p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nvidia-docker run -it --rm -p 8888:8888 gcr.io/tensorflow/tensorflow:latest-gpu</span><br></pre></td></tr></tbody></table></figure>
-</li>
-<li><p>&lt;ctrl&gt;-click or copy &amp; paste the URI looks like <code>http://localhost:8888/?token=&lt;hex_string&gt;</code> that appears on your terminal. Then you can get Jupyter notebook on your browser.</p>
-<div class="amp-img-wrapper"><amp-img src="/2017/02/Tensorflow-over-docker-with-GPU/TensorFlow-jupyter.png" width="773" height="405" layout="responsive"></amp-img></div>
+<li>install <a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="noopener">nvidia-docker</a>.</li>
+<li>run TensorFlow using nvidia-docker.<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nvidia-docker run -it --rm -p 8888:8888 gcr.io/tensorflow/tensorflow:latest-gpu</span><br></pre></td></tr></tbody></table></figure></li>
+<li>&lt;ctrl&gt;-click or copy &amp; paste the URI looks like <code>http://localhost:8888/?token=&lt;hex_string&gt;</code> that appears on your terminal. Then you can get Jupyter notebook on your browser.<div class="amp-img-wrapper"><amp-img src="/2017/02/Tensorflow-over-docker-with-GPU/TensorFlow-jupyter.png" width="773" height="405" layout="responsive"></amp-img></div>
 
 </li>
 </ol>
 <h2 id="Why-this-works"><a href="#Why-this-works" class="headerlink" title="Why this works"></a>Why this works</h2><p><a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="noopener">nvidia-docker</a> provides CUDA toolkit and cuDNN and tensorflow docker images utilizes it. All the installation procedures are abstracted by Docker images.</p>
 <h2 id="Troubleshooting-in-Ubuntu"><a href="#Troubleshooting-in-Ubuntu" class="headerlink" title="Troubleshooting in Ubuntu"></a>Troubleshooting in Ubuntu</h2><ol>
-<li><p>Identify your nVidia graphics card</p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lspci | grep -i nvidia</span><br></pre></td></tr></tbody></table></figure>
-</li>
-<li><p>Verify CUDA driver and its version</p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat /proc/driver/nvidia/version</span><br><span class="line">NVRM version: NVIDIA UNIX x86_64 Kernel Module  375.39  Tue Jan 31 20:47:00 PST 2017</span><br><span class="line">GCC version:  gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.4)</span><br></pre></td></tr></tbody></table></figure>
-</li>
-<li><p>Verify CUDA toolkit in <code>nvidia-docker</code></p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nvidia-docker run --rm nvidia/cuda nvidia-smi</span><br></pre></td></tr></tbody></table></figure>
-
+<li>Identify your nVidia graphics card<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lspci | grep -i nvidia</span><br></pre></td></tr></tbody></table></figure></li>
+<li>Verify CUDA driver and its version<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat /proc/driver/nvidia/version</span><br><span class="line">NVRM version: NVIDIA UNIX x86_64 Kernel Module  375.39  Tue Jan 31 20:47:00 PST 2017</span><br><span class="line">GCC version:  gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.4)</span><br></pre></td></tr></tbody></table></figure></li>
+<li>Verify CUDA toolkit in <code>nvidia-docker</code><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nvidia-docker run --rm nvidia/cuda nvidia-smi</span><br></pre></td></tr></tbody></table></figure>
 </li>
 </ol>
 
@@ -1899,7 +1889,7 @@ h6.categories {
 
 				<div class="copyright-title">
 					<span>
-					&copy; 2019&nbsp;Sanori&#39;s Blog
+					&copy; 2020&nbsp;Sanori&#39;s Blog
 					</span>
 				</div>
 

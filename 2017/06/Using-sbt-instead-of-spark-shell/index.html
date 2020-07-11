@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -18,17 +18,19 @@
   <title>Using sbt instead of spark-shell | Sanori&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="If you are familiar to sbt console, a convenient Scala REPL, and you are about to develop Spark using spark-shell, you don’t need to install spark-shell. In fact, you don’t need to install even Spark!">
-<meta name="keywords" content="Spark,Scala,sbt,spark-shell">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Using sbt instead of spark-shell">
 <meta property="og:url" content="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
 <meta property="og:description" content="If you are familiar to sbt console, a convenient Scala REPL, and you are about to develop Spark using spark-shell, you don’t need to install spark-shell. In fact, you don’t need to install even Spark!">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-26T17:19:27.924Z">
+<meta property="article:published_time" content="2017-06-06T09:17:11.000Z">
+<meta property="article:modified_time" content="2018-11-26T17:19:27.924Z">
+<meta property="article:author" content="Joo-Won Jung">
+<meta property="article:tag" content="Spark">
+<meta property="article:tag" content="Scala">
+<meta property="article:tag" content="sbt">
+<meta property="article:tag" content="spark-shell">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Using sbt instead of spark-shell">
-<meta name="twitter:description" content="If you are familiar to sbt console, a convenient Scala REPL, and you are about to develop Spark using spark-shell, you don’t need to install spark-shell. In fact, you don’t need to install even Spark!">
   
     <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
   
@@ -36,16 +38,22 @@
     <link rel="icon" href="/favicon.ico">
   
   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
   
   
     <link rel="amphtml" href="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/amp/">
 
-  <link rel="stylesheet" href="/css/style.css">
   
-    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/css/style.css">
+
   
-</head>
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
   <div id="container">
@@ -87,10 +95,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Using-sbt-instead-of-spark-shell" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Using-sbt-instead-of-spark-shell" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2017/06/Using-sbt-instead-of-spark-shell/" class="article-date">
-  <time datetime="2017-06-06T09:17:11.000Z" itemprop="datePublished">2017-06-06</time>
+  <time class="dt-published" datetime="2017-06-06T09:17:11.000Z" itemprop="datePublished">2017-06-06</time>
 </a>
     
   </div>
@@ -100,14 +108,14 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
+    <h1 class="p-name article-title" itemprop="headline name">
       Using sbt instead of spark-shell
     </h1>
   
 
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="e-content article-entry" itemprop="articleBody">
       
         <p>If you are familiar to <a href="http://www.scala-sbt.org/0.13/docs/Command-Line-Reference.html#Configuration-level+tasks" target="_blank" rel="noopener">sbt console</a>, a convenient Scala <a href="http://docs.scala-lang.org/overviews/repl/overview.html" target="_blank" rel="noopener">REPL</a>, and you are about to develop <a href="http://spark.apache.org/" target="_blank" rel="noopener">Spark</a> using <a href="http://spark.apache.org/docs/latest/quick-start.html#interactive-analysis-with-the-spark-shell" target="_blank" rel="noopener">spark-shell</a>, you don’t need to install spark-shell.</p>
 <p>In fact, you don’t need to install even Spark!</p>
@@ -124,9 +132,8 @@ You can check available spark modules at Maven repository.</p>
 </ul>
 <h3 id="Generate-spark-and-sc-in-sbt-console"><a href="#Generate-spark-and-sc-in-sbt-console" class="headerlink" title="Generate spark and sc in sbt console"></a>Generate <code>spark</code> and <code>sc</code> in <code>sbt console</code></h3><p><code>spark-shell</code> provides <code>spark</code> (Spark 2.x) and <code>sc</code> object as the entry point of the Spark API. We can generate the API objects in sbt console as follows.</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.functions._</span><br><span class="line"><span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder().master(<span class="string">"local"</span>).appName(<span class="string">"spark-shell"</span>).getOrCreate()</span><br><span class="line"><span class="keyword">import</span> spark.implicits._</span><br><span class="line"><span class="keyword">val</span> sc = spark.sparkContext</span><br></pre></td></tr></table></figure>
-
 <p>If you enter the above code in <code>sbt console</code>, you would get the Spark start messages. Note that the start message introduces the URI of SparkUI like as follows.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">17/06/07 04:18:48 INFO Utils: Successfully started service &apos;SparkUI&apos; on port 4040.</span><br><span class="line">17/06/07 04:18:48 INFO SparkUI: Bound SparkUI to 0.0.0.0, and started at http://192.168.0.2:4040</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">17&#x2F;06&#x2F;07 04:18:48 INFO Utils: Successfully started service &#39;SparkUI&#39; on port 4040.</span><br><span class="line">17&#x2F;06&#x2F;07 04:18:48 INFO SparkUI: Bound SparkUI to 0.0.0.0, and started at http:&#x2F;&#x2F;192.168.0.2:4040</span><br></pre></td></tr></table></figure>
 
 <h3 id="Automate-the-creation-of-Spark-API"><a href="#Automate-the-creation-of-Spark-API" class="headerlink" title="Automate the creation of Spark API"></a>Automate the creation of Spark API</h3><p>Instead of entering the above code every time when Scala REPL starts, you can automate the Spark API object creation by <a href="http://www.scala-sbt.org/0.13/docs/Howto-Scala.html#Define+the+initial+commands+evaluated+when+entering+the+Scala+REPL" target="_blank" rel="noopener"><code>initialCommands</code> keyword in <code>build.sbt</code></a>.</p>
 <p>By adding the following code in <code>build.sbt</code>, you can access <code>spark</code> and <code>sc</code> API object when <code>sbt console</code> starts.</p>
@@ -145,13 +152,13 @@ Spark get exit signal of <code>sbt console</code> and shutdown gracefully.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/" data-id="ck24vfxbt000edzjdpqllshkg" data-title="Using sbt instead of spark-shell" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/" data-id="ckchaonrj000kv6jdciht8fba" data-title="Using sbt instead of spark-shell" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/#disqus_thread" class="article-comment-link">Comments</a>
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark/">Spark</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sbt/">sbt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark-shell/">spark-shell</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/" rel="tag">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark/" rel="tag">Spark</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sbt/" rel="tag">sbt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark-shell/" rel="tag">spark-shell</a></li></ul>
 
     </footer>
   </div>
@@ -182,7 +189,7 @@ Spark get exit signal of <code>sbt console</code> and shutdown gracefully.</p>
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -250,7 +257,7 @@ Spark get exit signal of <code>sbt console</code> and shutdown gracefully.</p>
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2019 Joo-Won Jung<br>
+      &copy; 2020 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -281,13 +288,19 @@ Spark get exit signal of <code>sbt console</code> and shutdown gracefully.</p>
 </script>
 
 
+
 <script src="/js/jquery-3.4.1.min.js"></script>
 
 
-  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
 
 
 <script src="/js/script.js"></script>
+
 
 
 

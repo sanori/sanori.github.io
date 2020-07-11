@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -18,18 +18,21 @@
   <title>TensorFlow over docker with GPU support | Sanori&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="I have succeeded to run TensorFlow on my desktop which runs Ubuntu 16.04 LTS with nVidia GeForce GTX 1050. I want to share the easy and fast way to install TensorFlow, so I write this down. This does">
-<meta name="keywords" content="TensorFlow,nvidia-docker,docker,nVidia,CUDA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TensorFlow over docker with GPU support">
 <meta property="og:url" content="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
 <meta property="og:description" content="I have succeeded to run TensorFlow on my desktop which runs Ubuntu 16.04 LTS with nVidia GeForce GTX 1050. I want to share the easy and fast way to install TensorFlow, so I write this down. This does">
-<meta property="og:locale" content="default">
 <meta property="og:image" content="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/TensorFlow-jupyter.png">
-<meta property="og:updated_time" content="2018-11-26T17:19:27.924Z">
+<meta property="article:published_time" content="2017-02-26T11:14:17.000Z">
+<meta property="article:modified_time" content="2018-11-26T17:19:27.924Z">
+<meta property="article:author" content="Joo-Won Jung">
+<meta property="article:tag" content="TensorFlow">
+<meta property="article:tag" content="nvidia-docker">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="nVidia">
+<meta property="article:tag" content="CUDA">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TensorFlow over docker with GPU support">
-<meta name="twitter:description" content="I have succeeded to run TensorFlow on my desktop which runs Ubuntu 16.04 LTS with nVidia GeForce GTX 1050. I want to share the easy and fast way to install TensorFlow, so I write this down. This does">
 <meta name="twitter:image" content="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/TensorFlow-jupyter.png">
   
     <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
@@ -38,16 +41,22 @@
     <link rel="icon" href="/favicon.ico">
   
   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
   
   
     <link rel="amphtml" href="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/amp/">
 
-  <link rel="stylesheet" href="/css/style.css">
   
-    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/css/style.css">
+
   
-</head>
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
   <div id="container">
@@ -89,10 +98,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Tensorflow-over-docker-with-GPU" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Tensorflow-over-docker-with-GPU" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2017/02/Tensorflow-over-docker-with-GPU/" class="article-date">
-  <time datetime="2017-02-26T11:14:17.000Z" itemprop="datePublished">2017-02-26</time>
+  <time class="dt-published" datetime="2017-02-26T11:14:17.000Z" itemprop="datePublished">2017-02-26</time>
 </a>
     
   </div>
@@ -102,14 +111,14 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
+    <h1 class="p-name article-title" itemprop="headline name">
       TensorFlow over docker with GPU support
     </h1>
   
 
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="e-content article-entry" itemprop="articleBody">
       
         <p>I have succeeded to run TensorFlow on my desktop which runs Ubuntu 16.04 LTS with nVidia GeForce GTX 1050. I want to share the easy and fast way to install TensorFlow, so I write this down. This does <strong>NOT</strong> require to download and install CUDA toolkit nor cuDNN, but you can get GPU acceleration.</p>
 <a id="more"></a>
@@ -126,40 +135,30 @@
 <li><a href="https://docs.docker.com/engine/installation/" target="_blank" rel="noopener">Docker engine</a></li>
 </ul>
 <h2 id="Quick-start"><a href="#Quick-start" class="headerlink" title="Quick start"></a>Quick start</h2><ol>
-<li><p>install <a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="noopener">nvidia-docker</a>.</p>
-</li>
-<li><p>run TensorFlow using nvidia-docker.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nvidia-docker run -it --rm -p 8888:8888 gcr.io/tensorflow/tensorflow:latest-gpu</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>&lt;ctrl&gt;-click or copy &amp; paste the URI looks like <code>http://localhost:8888/?token=&lt;hex_string&gt;</code> that appears on your terminal. Then you can get Jupyter notebook on your browser.</p>
-<img src="/2017/02/Tensorflow-over-docker-with-GPU/TensorFlow-jupyter.png" title="Jupyter Notebook of TensorFlow">
+<li>install <a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="noopener">nvidia-docker</a>.</li>
+<li>run TensorFlow using nvidia-docker.<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nvidia-docker run -it --rm -p 8888:8888 gcr.io/tensorflow/tensorflow:latest-gpu</span><br></pre></td></tr></table></figure></li>
+<li>&lt;ctrl&gt;-click or copy &amp; paste the URI looks like <code>http://localhost:8888/?token=&lt;hex_string&gt;</code> that appears on your terminal. Then you can get Jupyter notebook on your browser.<img src="/2017/02/Tensorflow-over-docker-with-GPU/TensorFlow-jupyter.png" class="" title="Jupyter Notebook of TensorFlow">
 
 </li>
 </ol>
 <h2 id="Why-this-works"><a href="#Why-this-works" class="headerlink" title="Why this works"></a>Why this works</h2><p><a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="noopener">nvidia-docker</a> provides CUDA toolkit and cuDNN and tensorflow docker images utilizes it. All the installation procedures are abstracted by Docker images.</p>
 <h2 id="Troubleshooting-in-Ubuntu"><a href="#Troubleshooting-in-Ubuntu" class="headerlink" title="Troubleshooting in Ubuntu"></a>Troubleshooting in Ubuntu</h2><ol>
-<li><p>Identify your nVidia graphics card</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lspci | grep -i nvidia</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Verify CUDA driver and its version</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat /proc/driver/nvidia/version</span><br><span class="line">NVRM version: NVIDIA UNIX x86_64 Kernel Module  375.39  Tue Jan 31 20:47:00 PST 2017</span><br><span class="line">GCC version:  gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.4)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Verify CUDA toolkit in <code>nvidia-docker</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nvidia-docker run --rm nvidia/cuda nvidia-smi</span><br></pre></td></tr></table></figure>
-
+<li>Identify your nVidia graphics card<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lspci | grep -i nvidia</span><br></pre></td></tr></table></figure></li>
+<li>Verify CUDA driver and its version<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat /proc/driver/nvidia/version</span><br><span class="line">NVRM version: NVIDIA UNIX x86_64 Kernel Module  375.39  Tue Jan 31 20:47:00 PST 2017</span><br><span class="line">GCC version:  gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.4)</span><br></pre></td></tr></table></figure></li>
+<li>Verify CUDA toolkit in <code>nvidia-docker</code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nvidia-docker run --rm nvidia/cuda nvidia-smi</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/" data-id="ck24vfxbs000cdzjd61c9lam2" data-title="TensorFlow over docker with GPU support" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/" data-id="ckchaonrg000iv6jddfzvete0" data-title="TensorFlow over docker with GPU support" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/#disqus_thread" class="article-comment-link">Comments</a>
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CUDA/">CUDA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TensorFlow/">TensorFlow</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nVidia/">nVidia</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nvidia-docker/">nvidia-docker</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CUDA/" rel="tag">CUDA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TensorFlow/" rel="tag">TensorFlow</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nVidia/" rel="tag">nVidia</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nvidia-docker/" rel="tag">nvidia-docker</a></li></ul>
 
     </footer>
   </div>
@@ -190,7 +189,7 @@
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -258,7 +257,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2019 Joo-Won Jung<br>
+      &copy; 2020 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -289,13 +288,19 @@
 </script>
 
 
+
 <script src="/js/jquery-3.4.1.min.js"></script>
 
 
-  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
 
 
 <script src="/js/script.js"></script>
+
 
 
 

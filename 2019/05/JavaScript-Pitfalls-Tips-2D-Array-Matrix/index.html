@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -17,20 +17,22 @@
   
   <title>JavaScript Pitfalls &amp; Tips: 2D Array, Matrix | Sanori&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Sometimes, you need to create and manipulate a two-dimensional (2D) array or a matrix. In JavaScript, an array of arrays can be used as a 2D array.  1234567const mat = [  [0, 1, 2, 3],  [4, 5, 6, 7]">
-<meta name="keywords" content="node.js,JavaScript,Matrix,2DArray">
+  <meta name="description" content="Sometimes, you need to create and manipulate a two-dimensional (2D) array or a matrix. In JavaScript, an array of arrays can be used as a 2D array.  1234567const mat &#x3D; [  [0, 1, 2, 3],  [4, 5, 6, 7]">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript Pitfalls &amp; Tips: 2D Array, Matrix">
 <meta property="og:url" content="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
-<meta property="og:description" content="Sometimes, you need to create and manipulate a two-dimensional (2D) array or a matrix. In JavaScript, an array of arrays can be used as a 2D array.  1234567const mat = [  [0, 1, 2, 3],  [4, 5, 6, 7]">
-<meta property="og:locale" content="default">
+<meta property="og:description" content="Sometimes, you need to create and manipulate a two-dimensional (2D) array or a matrix. In JavaScript, an array of arrays can be used as a 2D array.  1234567const mat &#x3D; [  [0, 1, 2, 3],  [4, 5, 6, 7]">
 <meta property="og:image" content="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/js-2d-array-title.png">
 <meta property="og:image" content="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/js-2d-array-misleading.png">
-<meta property="og:updated_time" content="2019-08-05T18:01:18.767Z">
+<meta property="article:published_time" content="2019-05-25T13:51:10.000Z">
+<meta property="article:modified_time" content="2019-08-05T18:01:18.767Z">
+<meta property="article:author" content="Joo-Won Jung">
+<meta property="article:tag" content="node.js">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Matrix">
+<meta property="article:tag" content="2DArray">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript Pitfalls &amp; Tips: 2D Array, Matrix">
-<meta name="twitter:description" content="Sometimes, you need to create and manipulate a two-dimensional (2D) array or a matrix. In JavaScript, an array of arrays can be used as a 2D array.  1234567const mat = [  [0, 1, 2, 3],  [4, 5, 6, 7]">
 <meta name="twitter:image" content="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/js-2d-array-title.png">
   
     <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
@@ -39,16 +41,22 @@
     <link rel="icon" href="/favicon.ico">
   
   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
   
   
     <link rel="amphtml" href="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/amp/">
 
-  <link rel="stylesheet" href="/css/style.css">
   
-    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/css/style.css">
+
   
-</head>
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
   <div id="container">
@@ -90,10 +98,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-JavaScript-Pitfalls-Tips-2D-Array-Matrix" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-JavaScript-Pitfalls-Tips-2D-Array-Matrix" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/" class="article-date">
-  <time datetime="2019-05-25T13:51:10.000Z" itemprop="datePublished">2019-05-25</time>
+  <time class="dt-published" datetime="2019-05-25T13:51:10.000Z" itemprop="datePublished">2019-05-25</time>
 </a>
     
   </div>
@@ -103,16 +111,16 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
+    <h1 class="p-name article-title" itemprop="headline name">
       JavaScript Pitfalls &amp; Tips: 2D Array, Matrix
     </h1>
   
 
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="e-content article-entry" itemprop="articleBody">
       
-        <img src="/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/js-2d-array-title.png" title="const A = Array(4).fill(Array(4).fill(0));">
+        <img src="/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/js-2d-array-title.png" class="" title="const A &#x3D; Array(4).fill(Array(4).fill(0));">
 
 <p>Sometimes, you need to create and manipulate a two-dimensional (2D) array or a matrix. In JavaScript, an array of arrays can be used as a 2D array. </p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mat = [</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">  [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>],</span><br><span class="line">  [<span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>],</span><br><span class="line">  [<span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>]</span><br><span class="line">];</span><br><span class="line"><span class="built_in">console</span>.log(mat[<span class="number">1</span>][<span class="number">2</span>]);    <span class="comment">// gives 6</span></span><br></pre></td></tr></table></figure>
@@ -122,7 +130,7 @@ If you know about <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScri
 Since the <code>Array(n).fill(0)</code> creates just <strong>one</strong> array of size <em>n</em> and all the elements of the first array, that represents rows, point to the same, the second array as follows:</p>
 <p>When you got to know <code>Array.prototype.fill()</code> method, you may be tempted to initialize m x n array like <code>Array(m).fill(Array(n).fill(0))</code>, but this does not work properly. Since the <code>Array(n).fill(0)</code> creates just <strong>one</strong> array of size <em>n</em> and all the elements of the first array, that represents rows, point to the same, second array as follows:</p>
 <a id="more"></a> 
-<img src="/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/js-2d-array-misleading.png" title="the structure of Array(m).fill(Array(n).fill(0))">
+<img src="/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/js-2d-array-misleading.png" class="" title="the structure of Array(m).fill(Array(n).fill(0))">
 
 <p>For the same reason, “Array(m).fill([])” also does not work properly.</p>
 <h2 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h2><h3 id="Initialize-each-row-using-for-loop"><a href="#Initialize-each-row-using-for-loop" class="headerlink" title="Initialize each row using for loop"></a>Initialize each row using for loop</h3><p>The simplest solution is to create each row using for loop:</p>
@@ -145,13 +153,13 @@ It can simplify <code>Array(m).fill(null)</code> part of previous solution.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/" data-id="ck24vfxbe0003dzjdf6jw6dto" data-title="JavaScript Pitfalls &amp; Tips: 2D Array, Matrix" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/" data-id="ckchaonr40003v6jdhxsq33y6" data-title="JavaScript Pitfalls &amp; Tips: 2D Array, Matrix" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/#disqus_thread" class="article-comment-link">Comments</a>
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/2DArray/">2DArray</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix/">Matrix</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/2DArray/" rel="tag">2DArray</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/" rel="tag">node.js</a></li></ul>
 
     </footer>
   </div>
@@ -182,7 +190,7 @@ It can simplify <code>Array(m).fill(null)</code> part of previous solution.</p>
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -250,7 +258,7 @@ It can simplify <code>Array(m).fill(null)</code> part of previous solution.</p>
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2019 Joo-Won Jung<br>
+      &copy; 2020 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -281,13 +289,19 @@ It can simplify <code>Array(m).fill(null)</code> part of previous solution.</p>
 </script>
 
 
+
 <script src="/js/jquery-3.4.1.min.js"></script>
 
 
-  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
 
 
 <script src="/js/script.js"></script>
+
 
 
 

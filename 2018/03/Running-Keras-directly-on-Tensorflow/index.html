@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -17,18 +17,20 @@
   
   <title>Running Keras directly on TensorFlow | Sanori&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Keras is a high-level library/API for neural network, a.k.a. deep learning. You can write shorter, simpler code using Keras. At the time of writing, Keras can use one of TensorFlow, Theano, and CNTK a">
-<meta name="keywords" content="Keras,TensorFlow,nvidia-docker,docker">
+  <meta name="description" content="Keras is a high-level library&#x2F;API for neural network, a.k.a. deep learning. You can write shorter, simpler code using Keras. At the time of writing, Keras can use one of TensorFlow, Theano, and CNTK a">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Running Keras directly on TensorFlow">
 <meta property="og:url" content="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
-<meta property="og:description" content="Keras is a high-level library/API for neural network, a.k.a. deep learning. You can write shorter, simpler code using Keras. At the time of writing, Keras can use one of TensorFlow, Theano, and CNTK a">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-05T18:01:18.767Z">
+<meta property="og:description" content="Keras is a high-level library&#x2F;API for neural network, a.k.a. deep learning. You can write shorter, simpler code using Keras. At the time of writing, Keras can use one of TensorFlow, Theano, and CNTK a">
+<meta property="article:published_time" content="2018-03-15T18:09:20.000Z">
+<meta property="article:modified_time" content="2019-08-05T18:01:18.767Z">
+<meta property="article:author" content="Joo-Won Jung">
+<meta property="article:tag" content="Keras">
+<meta property="article:tag" content="TensorFlow">
+<meta property="article:tag" content="nvidia-docker">
+<meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Running Keras directly on TensorFlow">
-<meta name="twitter:description" content="Keras is a high-level library/API for neural network, a.k.a. deep learning. You can write shorter, simpler code using Keras. At the time of writing, Keras can use one of TensorFlow, Theano, and CNTK a">
   
     <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
   
@@ -36,16 +38,22 @@
     <link rel="icon" href="/favicon.ico">
   
   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
   
   
     <link rel="amphtml" href="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/amp/">
 
-  <link rel="stylesheet" href="/css/style.css">
   
-    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/css/style.css">
+
   
-</head>
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
   <div id="container">
@@ -87,10 +95,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Running-Keras-directly-on-Tensorflow" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Running-Keras-directly-on-Tensorflow" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2018/03/Running-Keras-directly-on-Tensorflow/" class="article-date">
-  <time datetime="2018-03-15T18:09:20.000Z" itemprop="datePublished">2018-03-16</time>
+  <time class="dt-published" datetime="2018-03-15T18:09:20.000Z" itemprop="datePublished">2018-03-16</time>
 </a>
     
   </div>
@@ -100,14 +108,14 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
+    <h1 class="p-name article-title" itemprop="headline name">
       Running Keras directly on TensorFlow
     </h1>
   
 
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="e-content article-entry" itemprop="articleBody">
       
         <p><a href="https://keras.io/" target="_blank" rel="noopener">Keras</a> is a high-level library/API for neural network, a.k.a. deep learning. You can write shorter, simpler code using Keras. At the time of writing, Keras can use one of <a href="https://www.tensorflow.org/" target="_blank" rel="noopener">TensorFlow</a>, <a href="http://deeplearning.net/software/theano/" target="_blank" rel="noopener">Theano</a>, and <a href="https://www.microsoft.com/en-us/cognitive-toolkit/" target="_blank" rel="noopener">CNTK</a> as a backend of deep learning process.</p>
 <p>From TensorFlow 1.4, <a href="https://github.com/tensorflow/tensorflow/releases/tag/v1.4.0" target="_blank" rel="noopener">Keras API became one of core APIs of TensorFlow</a>. Therefore, you don’t need to install both Keras and TensorFlow if you have a plan to use only TensorFlow backend in Keras. In other words, you can run Keras in simple way with full GPU support if you have got nvidia-docker environment which is mentioned in my last blog post, “<a href="/2017/02/Tensorflow-over-docker-with-GPU/">TensorFlow over docker with GPU support</a>“</p>
@@ -136,12 +144,10 @@
 <p>Some of early Keras documents, tutorials and books are written in <a href="https://faroit.github.io/keras-docs/1.2.2/" target="_blank" rel="noopener">Keras 1 API</a> which is currently deprecated. Since the TensorFlow implementation of Keras API only supports Keras API version 2, you should change old API to the new one if your code is written in Keras 1.</p>
 <p>The summary of changes from Keras 1 to Keras 2 is mentioned in “<a href="https://blog.keras.io/introducing-keras-2.html" target="_blank" rel="noopener">Introducing Keras 2</a>“. According to the article, while The APIs are significantly changed, Keras gives warning or error message to help migrate to Keras 2. It is true for original Keras, but false for TensorFlow implementation. For example, note the following code which is wrtten in Keras 1 API:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.add(Dense(<span class="number">12</span>, input_dim=<span class="number">11</span>, init=<span class="string">'uniform'</span>, activation=<span class="string">'relu'</span>))</span><br></pre></td></tr></table></figure>
-
 <p>The (original) Keras gives the following warning to help migrating to Keras 2:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UserWarning: Update your `Dense` call to the Keras 2 API: `Dense(12, activation=&quot;relu&quot;, kernel_initializer=&quot;uniform&quot;, input_dim=11)`</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UserWarning: Update your &#96;Dense&#96; call to the Keras 2 API: &#96;Dense(12, activation&#x3D;&quot;relu&quot;, kernel_initializer&#x3D;&quot;uniform&quot;, input_dim&#x3D;11)&#96;</span><br></pre></td></tr></table></figure>
 <p>But, the Keras API of TensorFlow 1.6.0 gives the following error message:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TypeError: (&apos;Keyword argument not understood:&apos;, &apos;init&apos;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TypeError: (&#39;Keyword argument not understood:&#39;, &#39;init&#39;)</span><br></pre></td></tr></table></figure>
 
 <p>The most critical argument is <code>nb_epoch</code> in <code>model.fit()</code> since TensorFlow <strong>does not give any error messages</strong>. You should change <code>nb_epoch</code> to <code>epochs</code>. Without this, TensorFlow just run 1 epoch only.</p>
 <h2 id="Migration-Example"><a href="#Migration-Example" class="headerlink" title="Migration Example"></a>Migration Example</h2><h3 id="Sample-Keras-1-code"><a href="#Sample-Keras-1-code" class="headerlink" title="Sample Keras 1 code"></a>Sample Keras 1 code</h3><p><a href="https://www.udemy.com/a-gentle-introduction-to-deep-learning-using-keras/" target="_blank" rel="noopener">*”A Gentle Introduction to Deep Learning using Keras”*</a> is a great introductory lecture about Keras. It is one hour lecture and easy to understand with explanatory example code in Jupyter notebook. You can get the iPython notebook and sample data from <a href="https://www.udemy.com/a-gentle-introduction-to-deep-learning-using-keras/learn/v4/t/lecture/6847974" target="_blank" rel="noopener">Section 1, Lecture 9</a>.</p>
@@ -150,25 +156,21 @@
 <p>You can run TensorFlow instantly <strong>without</strong> installing Python, pip, pandas, TensorFlow, CUDA, cuDNN if you are using <a href="https://www.docker.com/" target="_blank" rel="noopener">docker</a>.</p>
 <p>After download and unzip <code>KerasDownload.zip</code>, you can get Jupyter environment by running official TensorFlow docker image:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -it --rm \</span><br><span class="line">  -v <span class="string">"<span class="variable">$PWD</span>"</span>:/notebooks -p 8888:8888 \</span><br><span class="line">  gcr.io/tensorflow/tensorflow:latest-py3</span><br></pre></td></tr></table></figure>
-
 <p>If you want to use your nVidia graphics card and have installed <code>nvidia-docker</code>, you can also get full support by GPU by running docker:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo nvidia-docker run -it --rm \</span><br><span class="line">  -v <span class="string">"<span class="variable">$PWD</span>"</span>:/notebooks -p 8888:8888 \</span><br><span class="line">  gcr.io/tensorflow/tensorflow:latest-gpu-py3</span><br></pre></td></tr></table></figure>
 
 <h3 id="Modify-import-1"><a href="#Modify-import-1" class="headerlink" title="Modify import"></a>Modify <code>import</code></h3><p>In “Step 1. Import our modules”, there is import directive to import Keras classes.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Dense</span><br><span class="line"><span class="keyword">import</span> numpy</span><br></pre></td></tr></table></figure>
-
 <p>You need to change this to:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tensorflow.python.keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.keras.layers <span class="keyword">import</span> Dense</span><br><span class="line"><span class="keyword">import</span> numpy</span><br></pre></td></tr></table></figure>
 
 <h3 id="Modify-Dense-and-fit"><a href="#Modify-Dense-and-fit" class="headerlink" title="Modify Dense and fit"></a>Modify <code>Dense</code> and <code>fit</code></h3><p>You may get an error in “Step 4. Build the Model” due to the argument <code>init</code>:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">model = Sequential()</span><br><span class="line">model.add(Dense(<span class="number">12</span>, input_dim=<span class="number">11</span>, init=<span class="string">'uniform'</span>, activation=<span class="string">'relu'</span>))</span><br><span class="line">model.add(Dense(<span class="number">8</span>, init=<span class="string">'uniform'</span>, activation=<span class="string">'relu'</span>))</span><br><span class="line">model.add(Dense(<span class="number">1</span>, init=<span class="string">'uniform'</span>, activation=<span class="string">'sigmoid'</span>))</span><br></pre></td></tr></table></figure>
-
 <p>From Keras 2, <code>init</code> argument1 of <code>Dense</code> class is changed to <code>kernel_initializer</code>. (More precisely, <code>init</code> and <code>weights</code> are arranged to <code>kernel_initializer</code> and <code>bias_initializer</code>.) Therefore, you need to change the above code to:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">model = Sequential()</span><br><span class="line">model.add(Dense(<span class="number">12</span>, input_dim=<span class="number">11</span>, kernel_initializer=<span class="string">'uniform'</span>, activation=<span class="string">'relu'</span>))</span><br><span class="line">model.add(Dense(<span class="number">8</span>, kernel_initializer=<span class="string">'uniform'</span>, activation=<span class="string">'relu'</span>))</span><br><span class="line">model.add(Dense(<span class="number">1</span>, kernel_initializer=<span class="string">'uniform'</span>, activation=<span class="string">'sigmoid'</span>))</span><br></pre></td></tr></table></figure>
 
 <p>In “Step 5. Fit the Model”, you should fix the following code:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.fit(X, Y, nb_epoch=<span class="number">200</span>, batch_size=<span class="number">30</span>)</span><br></pre></td></tr></table></figure>
-
 <p>In Keras 2, this code works, but not correctly. This code runs just 1 epoch which is the default value of epochs. If you want to run 200 epochs, you should fix it as follows:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.fit(X, Y, epochs=<span class="number">200</span>, batch_size=<span class="number">30</span>)</span><br></pre></td></tr></table></figure>
 
@@ -180,13 +182,13 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/" data-id="ck24vfxbi0008dzjdtzvul4g5" data-title="Running Keras directly on TensorFlow" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/" data-id="ckchaonrc000av6jd0hfedi3i" data-title="Running Keras directly on TensorFlow" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/#disqus_thread" class="article-comment-link">Comments</a>
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Keras/">Keras</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TensorFlow/">TensorFlow</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nvidia-docker/">nvidia-docker</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Keras/" rel="tag">Keras</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TensorFlow/" rel="tag">TensorFlow</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nvidia-docker/" rel="tag">nvidia-docker</a></li></ul>
 
     </footer>
   </div>
@@ -217,7 +219,7 @@
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -285,7 +287,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2019 Joo-Won Jung<br>
+      &copy; 2020 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -316,13 +318,19 @@
 </script>
 
 
+
 <script src="/js/jquery-3.4.1.min.js"></script>
 
 
-  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
 
 
 <script src="/js/script.js"></script>
+
 
 
 

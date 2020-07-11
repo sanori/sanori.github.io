@@ -1805,10 +1805,8 @@ h6.categories {
 <p>Some of early Keras documents, tutorials and books are written in <a href="https://faroit.github.io/keras-docs/1.2.2/" target="_blank" rel="noopener">Keras 1 API</a> which is currently deprecated. Since the TensorFlow implementation of Keras API only supports Keras API version 2, you should change old API to the new one if your code is written in Keras 1.</p>
 <p>The summary of changes from Keras 1 to Keras 2 is mentioned in &#x201C;<a href="https://blog.keras.io/introducing-keras-2.html" target="_blank" rel="noopener">Introducing Keras 2</a>&#x201C;. According to the article, while The APIs are significantly changed, Keras gives warning or error message to help migrate to Keras 2. It is true for original Keras, but false for TensorFlow implementation. For example, note the following code which is wrtten in Keras 1 API:</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.add(Dense(<span class="number">12</span>, input_dim=<span class="number">11</span>, init=<span class="string">&apos;uniform&apos;</span>, activation=<span class="string">&apos;relu&apos;</span>))</span><br></pre></td></tr></tbody></table></figure>
-
 <p>The (original) Keras gives the following warning to help migrating to Keras 2:</p>
 <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UserWarning: Update your `Dense` call to the Keras 2 API: `Dense(12, activation=&quot;relu&quot;, kernel_initializer=&quot;uniform&quot;, input_dim=11)`</span><br></pre></td></tr></tbody></table></figure>
-
 <p>But, the Keras API of TensorFlow 1.6.0 gives the following error message:</p>
 <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TypeError: (&apos;Keyword argument not understood:&apos;, &apos;init&apos;)</span><br></pre></td></tr></tbody></table></figure>
 
@@ -1819,25 +1817,21 @@ h6.categories {
 <p>You can run TensorFlow instantly <strong>without</strong> installing Python, pip, pandas, TensorFlow, CUDA, cuDNN if you are using <a href="https://www.docker.com/" target="_blank" rel="noopener">docker</a>.</p>
 <p>After download and unzip <code>KerasDownload.zip</code>, you can get Jupyter environment by running official TensorFlow docker image:</p>
 <figure class="highlight sh"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -it --rm \</span><br><span class="line">  -v <span class="string">&quot;<span class="variable">$PWD</span>&quot;</span>:/notebooks -p 8888:8888 \</span><br><span class="line">  gcr.io/tensorflow/tensorflow:latest-py3</span><br></pre></td></tr></tbody></table></figure>
-
 <p>If you want to use your nVidia graphics card and have installed <code>nvidia-docker</code>, you can also get full support by GPU by running docker:</p>
 <figure class="highlight sh"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo nvidia-docker run -it --rm \</span><br><span class="line">  -v <span class="string">&quot;<span class="variable">$PWD</span>&quot;</span>:/notebooks -p 8888:8888 \</span><br><span class="line">  gcr.io/tensorflow/tensorflow:latest-gpu-py3</span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="Modify-import-1"><a href="#Modify-import-1" class="headerlink" title="Modify import"></a>Modify <code>import</code></h3><p>In &#x201C;Step 1. Import our modules&#x201D;, there is import directive to import Keras classes.</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Dense</span><br><span class="line"><span class="keyword">import</span> numpy</span><br></pre></td></tr></tbody></table></figure>
-
 <p>You need to change this to:</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tensorflow.python.keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.keras.layers <span class="keyword">import</span> Dense</span><br><span class="line"><span class="keyword">import</span> numpy</span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="Modify-Dense-and-fit"><a href="#Modify-Dense-and-fit" class="headerlink" title="Modify Dense and fit"></a>Modify <code>Dense</code> and <code>fit</code></h3><p>You may get an error in &#x201C;Step 4. Build the Model&#x201D; due to the argument <code>init</code>:</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">model = Sequential()</span><br><span class="line">model.add(Dense(<span class="number">12</span>, input_dim=<span class="number">11</span>, init=<span class="string">&apos;uniform&apos;</span>, activation=<span class="string">&apos;relu&apos;</span>))</span><br><span class="line">model.add(Dense(<span class="number">8</span>, init=<span class="string">&apos;uniform&apos;</span>, activation=<span class="string">&apos;relu&apos;</span>))</span><br><span class="line">model.add(Dense(<span class="number">1</span>, init=<span class="string">&apos;uniform&apos;</span>, activation=<span class="string">&apos;sigmoid&apos;</span>))</span><br></pre></td></tr></tbody></table></figure>
-
 <p>From Keras 2, <code>init</code> argument1 of <code>Dense</code> class is changed to <code>kernel_initializer</code>. (More precisely, <code>init</code> and <code>weights</code> are arranged to <code>kernel_initializer</code> and <code>bias_initializer</code>.) Therefore, you need to change the above code to:</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">model = Sequential()</span><br><span class="line">model.add(Dense(<span class="number">12</span>, input_dim=<span class="number">11</span>, kernel_initializer=<span class="string">&apos;uniform&apos;</span>, activation=<span class="string">&apos;relu&apos;</span>))</span><br><span class="line">model.add(Dense(<span class="number">8</span>, kernel_initializer=<span class="string">&apos;uniform&apos;</span>, activation=<span class="string">&apos;relu&apos;</span>))</span><br><span class="line">model.add(Dense(<span class="number">1</span>, kernel_initializer=<span class="string">&apos;uniform&apos;</span>, activation=<span class="string">&apos;sigmoid&apos;</span>))</span><br></pre></td></tr></tbody></table></figure>
 
 <p>In &#x201C;Step 5. Fit the Model&#x201D;, you should fix the following code:</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.fit(X, Y, nb_epoch=<span class="number">200</span>, batch_size=<span class="number">30</span>)</span><br></pre></td></tr></tbody></table></figure>
-
 <p>In Keras 2, this code works, but not correctly. This code runs just 1 epoch which is the default value of epochs. If you want to run 200 epochs, you should fix it as follows:</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.fit(X, Y, epochs=<span class="number">200</span>, batch_size=<span class="number">30</span>)</span><br></pre></td></tr></tbody></table></figure>
 
@@ -1928,7 +1922,7 @@ h6.categories {
 
 				<div class="copyright-title">
 					<span>
-					&copy; 2019&nbsp;Sanori&#39;s Blog
+					&copy; 2020&nbsp;Sanori&#39;s Blog
 					</span>
 				</div>
 

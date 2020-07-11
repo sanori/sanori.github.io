@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -18,17 +18,20 @@
   <title>Writing Command Line Scripts in Node.js | Sanori&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="I was new to node.js 4 month ago and my main programming language was Python and C. I was motivated to try node.js by the regex-dna benchmark that shows JavaScript V8 is about 7 times faster than Pyth">
-<meta name="keywords" content="node.js,JavaScript,CommandLineInterface,CLI">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Writing Command Line Scripts in Node.js">
 <meta property="og:url" content="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
 <meta property="og:description" content="I was new to node.js 4 month ago and my main programming language was Python and C. I was motivated to try node.js by the regex-dna benchmark that shows JavaScript V8 is about 7 times faster than Pyth">
-<meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-03-13T18:28:02.920Z">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2015-09-21T18:28:30.000Z">
+<meta property="article:modified_time" content="2019-03-13T18:28:02.920Z">
+<meta property="article:author" content="Joo-Won Jung">
+<meta property="article:tag" content="node.js">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="CommandLineInterface">
+<meta property="article:tag" content="CLI">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Writing Command Line Scripts in Node.js">
-<meta name="twitter:description" content="I was new to node.js 4 month ago and my main programming language was Python and C. I was motivated to try node.js by the regex-dna benchmark that shows JavaScript V8 is about 7 times faster than Pyth">
   
     <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
   
@@ -36,16 +39,22 @@
     <link rel="icon" href="/favicon.ico">
   
   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
   
   
     <link rel="amphtml" href="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/amp/">
 
-  <link rel="stylesheet" href="/css/style.css">
   
-    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/css/style.css">
+
   
-</head>
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
   <div id="container">
@@ -87,10 +96,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Writing-Command-Line-Scripts-in-Node-js" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Writing-Command-Line-Scripts-in-Node-js" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2015/09/Writing-Command-Line-Scripts-in-Node-js/" class="article-date">
-  <time datetime="2015-09-21T18:28:30.000Z" itemprop="datePublished">2015-09-22</time>
+  <time class="dt-published" datetime="2015-09-21T18:28:30.000Z" itemprop="datePublished">2015-09-22</time>
 </a>
     
   </div>
@@ -100,14 +109,14 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
+    <h1 class="p-name article-title" itemprop="headline name">
       Writing Command Line Scripts in Node.js
     </h1>
   
 
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="e-content article-entry" itemprop="articleBody">
       
         <p>I was new to node.js 4 month ago and my main programming language was Python and C. I was motivated to try node.js by the <a href="http://benchmarksgame.alioth.debian.org/u64/performance.php?test=regexdna" target="_blank" rel="noopener">regex-dna benchmark</a> that shows JavaScript V8 is about 7 times faster than Python 3, and even faster than C implementation.</p>
 <p>Jack Franklin’s article, <a href="http://javascriptplayground.com/blog/2015/03/node-command-line-tool/" target="_blank" rel="noopener">“Writing Command Line Tools with Node”</a> was very helpful for me. The article shows that <code>npm</code> and <code>package.json</code> play an important role in running environment independent of OS, the importance of first line, basic command line argument processing and the way to invoke other commands.</p>
@@ -126,7 +135,6 @@
 <h2 id="Detecting-the-script-is-called-in-command-line"><a href="#Detecting-the-script-is-called-in-command-line" class="headerlink" title="Detecting the script is called in command line"></a>Detecting the script is called in command line</h2><p>A script can be used by another script. But, running another node.js script through <code>child_prcess.exec</code> is somewhat hilarious. The best soultion would be import the script through <code>require</code>. But, we want the script works as the command also.</p>
 <p>In Python, the folling idiom was used for a file that is used for both command to run and module to import. The <code>main</code> function will not be executed if it is imported as module.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
 <p>For example, <a href="https://docs.python.org/2/library/simplehttpserver.html" target="_blank" rel="noopener">SimpleHTTPServer</a> module can be imported, but it can be run as simple http server by running <code>python &lt;path_to&gt;/SimpleHTTPServer.py</code> or <code>python -m SimpleHTTPServer</code>.</p>
 <p>Similar idiom can be applied to node.js as follows. This is <a href="https://nodejs.org/api/modules.html#modules_accessing_the_main_module" target="_blank" rel="noopener">a part of node.js specification</a> since <a href="https://nodejs.org/docs/v0.4.8/api/modules.html#accessing_the_main_module" target="_blank" rel="noopener">node.js 0.4.8</a>.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">require</span>.main === <span class="built_in">module</span>) &#123;</span><br><span class="line">    main();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -136,13 +144,13 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/" data-id="ck24vfxbs000ddzjdmmjdgndv" data-title="Writing Command Line Scripts in Node.js" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/" data-id="ckchaonrk000lv6jd3njd4mk0" data-title="Writing Command Line Scripts in Node.js" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/#disqus_thread" class="article-comment-link">Comments</a>
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CLI/">CLI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CommandLineInterface/">CommandLineInterface</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CLI/" rel="tag">CLI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CommandLineInterface/" rel="tag">CommandLineInterface</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/" rel="tag">node.js</a></li></ul>
 
     </footer>
   </div>
@@ -168,7 +176,7 @@
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -236,7 +244,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2019 Joo-Won Jung<br>
+      &copy; 2020 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -267,13 +275,19 @@
 </script>
 
 
+
 <script src="/js/jquery-3.4.1.min.js"></script>
 
 
-  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
 
 
 <script src="/js/script.js"></script>
+
 
 
 

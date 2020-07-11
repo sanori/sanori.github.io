@@ -14,7 +14,7 @@
 	
 	<meta property="og:site_name" content="Sanori&#39;s Blog">
 	
-		<meta property="og:description" content="&lt;img src=&#34;/2019/04/JavaScript-Pitfalls-Tips-toFixed/js-toFixed-title.png&#34; title=&#34;2.55.toFixed(1) !== 2.6&#34;&gt;
+		<meta property="og:description" content="&lt;img src=&#34;/2019/04/JavaScript-Pitfalls-Tips-toFixed/js-toFixed-title.png&#34; class=&#34;&#34; title=&#34;2.55.toFixed(1) !&amp;#x3D;&amp;#x3D; 2.6&#34;&gt;
 
 &lt;p&gt;&lt;code&gt;Number.prototype.toFixed(n)&lt;/code&gt; is a number formatting method that shows n-th digits after the decimal point. It seems to rounds (n+1)-th digits. But, sometimes, it does not round up. For example, the value of &lt;code&gt;2.55.toFixed(1)&lt;/code&gt; is &lt;code&gt;2.5&lt;/code&gt;, not &lt;code&gt;2.6&lt;/code&gt; which is correct. &lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed#Using_toFixed&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;This example is even in MDN documents&lt;/a&gt;.&lt;/p&gt;">
 	
@@ -23,7 +23,7 @@
 	<meta name="twitter:url" content="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/">
 	<meta name="twitter:title" content="JavaScript Pitfalls &amp; Tips: toFixed - Sanori&#39;s Blog">
 	
-		<meta name="twitter:description" content="&lt;img src=&#34;/2019/04/JavaScript-Pitfalls-Tips-toFixed/js-toFixed-title.png&#34; title=&#34;2.55.toFixed(1) !== 2.6&#34;&gt;
+		<meta name="twitter:description" content="&lt;img src=&#34;/2019/04/JavaScript-Pitfalls-Tips-toFixed/js-toFixed-title.png&#34; class=&#34;&#34; title=&#34;2.55.toFixed(1) !&amp;#x3D;&amp;#x3D; 2.6&#34;&gt;
 
 &lt;p&gt;&lt;code&gt;Number.prototype.toFixed(n)&lt;/code&gt; is a number formatting method that shows n-th digits after the decimal point. It seems to rounds (n+1)-th digits. But, sometimes, it does not round up. For example, the value of &lt;code&gt;2.55.toFixed(1)&lt;/code&gt; is &lt;code&gt;2.5&lt;/code&gt;, not &lt;code&gt;2.6&lt;/code&gt; which is correct. &lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed#Using_toFixed&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;This example is even in MDN documents&lt;/a&gt;.&lt;/p&gt;">
 	
@@ -57,7 +57,7 @@
 			"@type": "BlogPosting",
 			"headline": "JavaScript Pitfalls &amp; Tips: toFixed",
 			
-			"description": "&lt;img src=&#34;/2019/04/JavaScript-Pitfalls-Tips-toFixed/js-toFixed-title.png&#34; title=&#34;2.55.toFixed(1) !== 2.6&#34;&gt;
+			"description": "&lt;img src=&#34;/2019/04/JavaScript-Pitfalls-Tips-toFixed/js-toFixed-title.png&#34; class=&#34;&#34; title=&#34;2.55.toFixed(1) !&amp;#x3D;&amp;#x3D; 2.6&#34;&gt;
 
 &lt;p&gt;&lt;code&gt;Number.prototype.toFixed(n)&lt;/code&gt; is a number formatting method that shows n-th digits after the decimal point. It seems to rounds (n+1)-th digits. But, sometimes, it does not round up. For example, the value of &lt;code&gt;2.55.toFixed(1)&lt;/code&gt; is &lt;code&gt;2.5&lt;/code&gt;, not &lt;code&gt;2.6&lt;/code&gt; which is correct. &lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed#Using_toFixed&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;This example is even in MDN documents&lt;/a&gt;.&lt;/p&gt;",
 			
@@ -1789,7 +1789,7 @@ h6.categories {
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>If we want to round the digit correctly, we should not use <code>toFixed(n)</code>. There are the following alternatives.</p>
 <h3 id="Do-it-in-Integer"><a href="#Do-it-in-Integer" class="headerlink" title="Do it in Integer"></a>Do it in Integer</h3><p>The first alternative is not using floating points, but using integer. For example, set all the currency unit to cents, not dollars.</p>
 <p>Adding 0.5 and get the integer part in 64-bit floating points notation does no harm. Using this feature we can write another toFixed function as follows:</p>
-<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Return the fixed point notation.</span></span><br><span class="line"><span class="comment"> * @param {number} n - the number to be fixed notation </span></span><br><span class="line"><span class="comment"> * @param {number} d - the number of digits after decimal points</span></span><br><span class="line"><span class="comment"> * @returns {string}</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toFixed</span>(<span class="params">n, d</span>) </span>{</span><br><span class="line">  <span class="keyword">const</span> tenToD = <span class="built_in">Math</span>.pow(<span class="number">10</span>, d);</span><br><span class="line">  <span class="keyword">return</span> (<span class="built_in">Math</span>.floor(n * tenToD + <span class="number">0.5</span>) / tenToD).toFixed(d);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Return the fixed point notation.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">{number}</span> <span class="variable">n</span></span> - the number to be fixed notation </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">{number}</span> <span class="variable">d</span></span> - the number of digits after decimal points</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns <span class="type">{string}</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toFixed</span>(<span class="params">n, d</span>) </span>{</span><br><span class="line">  <span class="keyword">const</span> tenToD = <span class="built_in">Math</span>.pow(<span class="number">10</span>, d);</span><br><span class="line">  <span class="keyword">return</span> (<span class="built_in">Math</span>.floor(n * tenToD + <span class="number">0.5</span>) / tenToD).toFixed(d);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>You may use <code>Math.round</code> instead of <code>Math.floor</code> and <code>+ 0.5</code>.</p>
 <figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toFixed</span>(<span class="params">n, d</span>) </span>{</span><br><span class="line">  <span class="keyword">const</span> tenToD = <span class="built_in">Math</span>.pow(<span class="number">10</span>, d);</span><br><span class="line">  <span class="keyword">return</span> (<span class="built_in">Math</span>.round(n * tenToD) / tenToD).toFixed(d);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
@@ -1879,7 +1879,7 @@ h6.categories {
 
 				<div class="copyright-title">
 					<span>
-					&copy; 2019&nbsp;Sanori&#39;s Blog
+					&copy; 2020&nbsp;Sanori&#39;s Blog
 					</span>
 				</div>
 

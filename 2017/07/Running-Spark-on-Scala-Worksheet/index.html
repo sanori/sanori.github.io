@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -18,20 +18,23 @@
   <title>Running Spark on Scala Worksheet | Sanori&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="In developing with Spark, you would want to try some queries or instructions and get results immediately to check if your idea is working or not. Sometimes, just trying to run the code would be faster">
-<meta name="keywords" content="Spark,Scala,Scala Worksheet,REPL,interactive development">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Running Spark on Scala Worksheet">
 <meta property="og:url" content="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
 <meta property="og:description" content="In developing with Spark, you would want to try some queries or instructions and get results immediately to check if your idea is working or not. Sometimes, just trying to run the code would be faster">
-<meta property="og:locale" content="default">
 <meta property="og:image" content="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/spark-on-scala-worksheet.png">
 <meta property="og:image" content="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/broken-worksheet.png">
 <meta property="og:image" content="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/scala-worksheet-preferences-eclipse.png">
-<meta property="og:updated_time" content="2018-11-26T17:19:27.924Z">
+<meta property="article:published_time" content="2017-06-30T18:15:53.000Z">
+<meta property="article:modified_time" content="2018-11-26T17:19:27.924Z">
+<meta property="article:author" content="Joo-Won Jung">
+<meta property="article:tag" content="Spark">
+<meta property="article:tag" content="Scala">
+<meta property="article:tag" content="Scala Worksheet">
+<meta property="article:tag" content="REPL">
+<meta property="article:tag" content="interactive development">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Running Spark on Scala Worksheet">
-<meta name="twitter:description" content="In developing with Spark, you would want to try some queries or instructions and get results immediately to check if your idea is working or not. Sometimes, just trying to run the code would be faster">
 <meta name="twitter:image" content="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/spark-on-scala-worksheet.png">
   
     <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
@@ -40,16 +43,22 @@
     <link rel="icon" href="/favicon.ico">
   
   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
   
   
     <link rel="amphtml" href="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/amp/">
 
-  <link rel="stylesheet" href="/css/style.css">
   
-    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/css/style.css">
+
   
-</head>
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
   <div id="container">
@@ -91,10 +100,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Running-Spark-on-Scala-Worksheet" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Running-Spark-on-Scala-Worksheet" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2017/07/Running-Spark-on-Scala-Worksheet/" class="article-date">
-  <time datetime="2017-06-30T18:15:53.000Z" itemprop="datePublished">2017-07-01</time>
+  <time class="dt-published" datetime="2017-06-30T18:15:53.000Z" itemprop="datePublished">2017-07-01</time>
 </a>
     
   </div>
@@ -104,21 +113,21 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
+    <h1 class="p-name article-title" itemprop="headline name">
       Running Spark on Scala Worksheet
     </h1>
   
 
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="e-content article-entry" itemprop="articleBody">
       
         <p>In developing with Spark, you would want to try some queries or instructions and get results immediately to check if your idea is working or not. Sometimes, just trying to run the code would be faster than look through the reference manual.</p>
 <p><a href="https://github.com/scala-ide/scala-worksheet/wiki/Getting-Started" target="_blank" rel="noopener">Scala Worksheet</a> is a REPL(<a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop" target="_blank" rel="noopener">Read-Eval-Print Loop</a>) on text editor in an IDE(integrated development environment) such as <a href="http://scala-ide.org/" target="_blank" rel="noopener">Scala IDE</a> (on Eclipse) and <a href="https://www.jetbrains.com/idea/" target="_blank" rel="noopener">IntelliJ IDEA</a>. You can try commands, functions, object definitions, and methods on Scala Worksheet(<code>.sc</code>) file, and you will get the results when you save that file. Since Scala worksheet runs on IDE, you can get help such as code completion.</p>
 <p>In this post, a template to run Spark on Scala Worksheet is presented. The template was made to be general as possible.</p>
 <a id="more"></a>
 
-<img src="/2017/07/Running-Spark-on-Scala-Worksheet/spark-on-scala-worksheet.png" title="Running Spark on Scala worksheet. (Scala IDE case) You can get its result on the right side every time when you save the file.">
+<img src="/2017/07/Running-Spark-on-Scala-Worksheet/spark-on-scala-worksheet.png" class="" title="Running Spark on Scala worksheet. (Scala IDE case) You can get its result on the right side every time when you save the file.">
 
 <h2 id="Worksheet-Template"><a href="#Worksheet-Template" class="headerlink" title="Worksheet Template"></a>Worksheet Template</h2><p>If you copy-and-paste the following code to your Scala worksheet,
 you can interact with local Spark system immediately.
@@ -127,7 +136,7 @@ The following code is for Spark 2.x.</p>
 
 <p>In line 7 and 8, suppress Spark log messages to simplify start up messages and resultant data. This also avoids *”Output exceeds cutoff limit”* error by reducing log messages.</p>
 <p>In line 13, suppress progress bar graph which is intuitive in terminal environment. Without this, the result part would be messed up like as follows:</p>
-<img src="/2017/07/Running-Spark-on-Scala-Worksheet/broken-worksheet.png" title="Scala worksheet broken by progress bar">
+<img src="/2017/07/Running-Spark-on-Scala-Worksheet/broken-worksheet.png" class="" title="Scala worksheet broken by progress bar">
 
 <p>You may increase the number of threads which run Spark by setting <code>.master(&quot;local[2]&quot;)</code> or <code>.master(&quot;local[*]&quot;)</code> in line 11. The details are in <a href="http://spark.apache.org/docs/latest/submitting-applications.html#master-urls" target="_blank" rel="noopener">Spark programming guides</a>.</p>
 <h2 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h2><h3 id="“Output-exceeds-cutoff-limit”"><a href="#“Output-exceeds-cutoff-limit”" class="headerlink" title="“Output exceeds cutoff limit”"></a>“Output exceeds cutoff limit”</h3><p>This is caused by the limit of output buffer. You can expand the buffer size by changing IDE configuration.</p>
@@ -135,7 +144,7 @@ The following code is for Spark 2.x.</p>
 <li>Scala IDE (Eclipse)
 In the <em>Windows</em> menu, select <em>Preference</em>, then you will get the Preference dialog. Select <em>Scala Worksheet</em> in Preference dialog, then you can change the <em>Output character limit per statement</em>.</li>
 </ul>
-<img src="/2017/07/Running-Spark-on-Scala-Worksheet/scala-worksheet-preferences-eclipse.png" title="Scala worksheet preferences in Preferences dialog">
+<img src="/2017/07/Running-Spark-on-Scala-Worksheet/scala-worksheet-preferences-eclipse.png" class="" title="Scala worksheet preferences in Preferences dialog">
 
 <ul>
 <li>IntelliJ
@@ -143,13 +152,10 @@ File -&gt; Settings… -&gt; Languages and Frameworks -&gt; Scala -&gt; “Works
 </ul>
 <h3 id="Character-encoding-Spark-IDE-Eclipse"><a href="#Character-encoding-Spark-IDE-Eclipse" class="headerlink" title="Character encoding (Spark IDE, Eclipse)"></a>Character encoding (Spark IDE, Eclipse)</h3><p>The characters in some results may broken if your text are composed of not only ASCII characters, especially East Asian environment, such as Korean, Japanese, and Chinese. This problem may occurs in Microsoft Windows environment whose default character encoding is not UTF-8.</p>
 <ul>
-<li><p>Set JVM output character set as UTF-8
-Add the following line in <code>eclipse.ini</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Dfile.encoding=UTF8</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Set editor encoding as UTF-8
-In <em>Preferences</em> dialog, select General &gt; Workspace. If you scroll down the contents of Workspace preferences you can get <em>Text file encoding</em> area. Set the text file encoding as UTF-8.</p>
-</li>
+<li>Set JVM output character set as UTF-8
+Add the following line in <code>eclipse.ini</code>:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Dfile.encoding&#x3D;UTF8</span><br></pre></td></tr></table></figure></li>
+<li>Set editor encoding as UTF-8
+In <em>Preferences</em> dialog, select General &gt; Workspace. If you scroll down the contents of Workspace preferences you can get <em>Text file encoding</em> area. Set the text file encoding as UTF-8.</li>
 </ul>
 <h2 id="Working-Examples"><a href="#Working-Examples" class="headerlink" title="Working Examples"></a>Working Examples</h2><p>(Update: 2016-07-03)</p>
 <p>You can get the working examples of Scala worksheet that runs word count Spark code at <a href="https://github.com/sanori/spark-sbt" target="_blank" rel="noopener">https://github.com/sanori/spark-sbt</a>.</p>
@@ -164,13 +170,13 @@ In <em>Preferences</em> dialog, select General &gt; Workspace. If you scroll dow
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/" data-id="ck24vfxbj0009dzjdskyhyzp8" data-title="Running Spark on Scala Worksheet" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/" data-id="ckchaonre000cv6jdhmekgfsd" data-title="Running Spark on Scala Worksheet" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/#disqus_thread" class="article-comment-link">Comments</a>
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/REPL/">REPL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala-Worksheet/">Scala Worksheet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark/">Spark</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/interactive-development/">interactive development</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/REPL/" rel="tag">REPL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/" rel="tag">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala-Worksheet/" rel="tag">Scala Worksheet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark/" rel="tag">Spark</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/interactive-development/" rel="tag">interactive development</a></li></ul>
 
     </footer>
   </div>
@@ -201,7 +207,7 @@ In <em>Preferences</em> dialog, select General &gt; Workspace. If you scroll dow
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -269,7 +275,7 @@ In <em>Preferences</em> dialog, select General &gt; Workspace. If you scroll dow
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2019 Joo-Won Jung<br>
+      &copy; 2020 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -300,13 +306,19 @@ In <em>Preferences</em> dialog, select General &gt; Workspace. If you scroll dow
 </script>
 
 
+
 <script src="/js/jquery-3.4.1.min.js"></script>
 
 
-  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
 
 
 <script src="/js/script.js"></script>
+
 
 
 

@@ -1790,7 +1790,6 @@ You can check available spark modules at Maven repository.</p>
 </ul>
 <h3 id="Generate-spark-and-sc-in-sbt-console"><a href="#Generate-spark-and-sc-in-sbt-console" class="headerlink" title="Generate spark and sc in sbt console"></a>Generate <code>spark</code> and <code>sc</code> in <code>sbt console</code></h3><p><code>spark-shell</code> provides <code>spark</code> (Spark 2.x) and <code>sc</code> object as the entry point of the Spark API. We can generate the API objects in sbt console as follows.</p>
 <figure class="highlight scala"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.functions._</span><br><span class="line"><span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder().master(<span class="string">&quot;local&quot;</span>).appName(<span class="string">&quot;spark-shell&quot;</span>).getOrCreate()</span><br><span class="line"><span class="keyword">import</span> spark.implicits._</span><br><span class="line"><span class="keyword">val</span> sc = spark.sparkContext</span><br></pre></td></tr></tbody></table></figure>
-
 <p>If you enter the above code in <code>sbt console</code>, you would get the Spark start messages. Note that the start message introduces the URI of SparkUI like as follows.</p>
 <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">17/06/07 04:18:48 INFO Utils: Successfully started service &apos;SparkUI&apos; on port 4040.</span><br><span class="line">17/06/07 04:18:48 INFO SparkUI: Bound SparkUI to 0.0.0.0, and started at http://192.168.0.2:4040</span><br></pre></td></tr></tbody></table></figure>
 
@@ -1890,7 +1889,7 @@ Spark get exit signal of <code>sbt console</code> and shutdown gracefully.</p>
 
 				<div class="copyright-title">
 					<span>
-					&copy; 2019&nbsp;Sanori&#39;s Blog
+					&copy; 2020&nbsp;Sanori&#39;s Blog
 					</span>
 				</div>
 

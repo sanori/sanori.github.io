@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -18,17 +18,18 @@
   <title>SQL Window Functions: row_number, rank, dense_rank | Sanori&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="SQL Window functions are the functions related to the ordering of elements in each given partition. In the last post, I have introduced an example of getting top-3 elements for each partition using th">
-<meta name="keywords" content="SQL,SparkSQL,SqlWindowFunction">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL Window Functions: row_number, rank, dense_rank">
 <meta property="og:url" content="http://sanori.github.io/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
 <meta property="og:description" content="SQL Window functions are the functions related to the ordering of elements in each given partition. In the last post, I have introduced an example of getting top-3 elements for each partition using th">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-17T17:09:15.965Z">
+<meta property="article:published_time" content="2018-12-17T16:54:39.000Z">
+<meta property="article:modified_time" content="2018-12-17T17:09:15.965Z">
+<meta property="article:author" content="Joo-Won Jung">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="SparkSQL">
+<meta property="article:tag" content="SqlWindowFunction">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SQL Window Functions: row_number, rank, dense_rank">
-<meta name="twitter:description" content="SQL Window functions are the functions related to the ordering of elements in each given partition. In the last post, I have introduced an example of getting top-3 elements for each partition using th">
   
     <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
   
@@ -36,16 +37,22 @@
     <link rel="icon" href="/favicon.ico">
   
   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
   
   
     <link rel="amphtml" href="http://sanori.github.io/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/amp/">
 
-  <link rel="stylesheet" href="/css/style.css">
   
-    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/css/style.css">
+
   
-</head>
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
   <div id="container">
@@ -87,10 +94,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-SQL-Window-Functions-row-number-rank-dense-rank" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-SQL-Window-Functions-row-number-rank-dense-rank" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/" class="article-date">
-  <time datetime="2018-12-17T16:54:39.000Z" itemprop="datePublished">2018-12-18</time>
+  <time class="dt-published" datetime="2018-12-17T16:54:39.000Z" itemprop="datePublished">2018-12-18</time>
 </a>
     
   </div>
@@ -100,14 +107,14 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
+    <h1 class="p-name article-title" itemprop="headline name">
       SQL Window Functions: row_number, rank, dense_rank
     </h1>
   
 
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="e-content article-entry" itemprop="articleBody">
       
         <p>SQL Window functions are the functions related to the ordering of elements
 in each given partition.
@@ -354,13 +361,13 @@ since the previous rank was 1.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/" data-id="ck24vfxbr000bdzjdirz3lbgo" data-title="SQL Window Functions: row_number, rank, dense_rank" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/" data-id="ckchaonrg000hv6jd1ok9cfyk" data-title="SQL Window Functions: row_number, rank, dense_rank" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/#disqus_thread" class="article-comment-link">Comments</a>
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL/">SQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SparkSQL/">SparkSQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SqlWindowFunction/">SqlWindowFunction</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL/" rel="tag">SQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SparkSQL/" rel="tag">SparkSQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SqlWindowFunction/" rel="tag">SqlWindowFunction</a></li></ul>
 
     </footer>
   </div>
@@ -391,7 +398,7 @@ since the previous rank was 1.</p>
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -459,7 +466,7 @@ since the previous rank was 1.</p>
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2019 Joo-Won Jung<br>
+      &copy; 2020 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -490,13 +497,19 @@ since the previous rank was 1.</p>
 </script>
 
 
+
 <script src="/js/jquery-3.4.1.min.js"></script>
 
 
-  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
 
 
 <script src="/js/script.js"></script>
+
 
 
 

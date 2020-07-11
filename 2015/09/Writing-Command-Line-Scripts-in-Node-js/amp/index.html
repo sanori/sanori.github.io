@@ -1795,7 +1795,6 @@ h6.categories {
 <h2 id="Detecting-the-script-is-called-in-command-line"><a href="#Detecting-the-script-is-called-in-command-line" class="headerlink" title="Detecting the script is called in command line"></a>Detecting the script is called in command line</h2><p>A script can be used by another script. But, running another node.js script through <code>child_prcess.exec</code> is somewhat hilarious. The best soultion would be import the script through <code>require</code>. But, we want the script works as the command also.</p>
 <p>In Python, the folling idiom was used for a file that is used for both command to run and module to import. The <code>main</code> function will not be executed if it is imported as module.</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></tbody></table></figure>
-
 <p>For example, <a href="https://docs.python.org/2/library/simplehttpserver.html" target="_blank" rel="noopener">SimpleHTTPServer</a> module can be imported, but it can be run as simple http server by running <code>python &lt;path_to&gt;/SimpleHTTPServer.py</code> or <code>python -m SimpleHTTPServer</code>.</p>
 <p>Similar idiom can be applied to node.js as follows. This is <a href="https://nodejs.org/api/modules.html#modules_accessing_the_main_module" target="_blank" rel="noopener">a part of node.js specification</a> since <a href="https://nodejs.org/docs/v0.4.8/api/modules.html#accessing_the_main_module" target="_blank" rel="noopener">node.js 0.4.8</a>.</p>
 <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">require</span>.main === <span class="built_in">module</span>) {</span><br><span class="line">    main();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
@@ -1884,7 +1883,7 @@ h6.categories {
 
 				<div class="copyright-title">
 					<span>
-					&copy; 2019&nbsp;Sanori&#39;s Blog
+					&copy; 2020&nbsp;Sanori&#39;s Blog
 					</span>
 				</div>
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -18,18 +18,18 @@
   <title>Compare Two Tables in SQL | Sanori&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="You may want to compare the results processed while you develop and enhance data processing tasks. For example, you might want to see if the table from improved query are the same as the one of the ex">
-<meta name="keywords" content="SQL,SparkSQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Compare Two Tables in SQL">
 <meta property="og:url" content="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
 <meta property="og:description" content="You may want to compare the results processed while you develop and enhance data processing tasks. For example, you might want to see if the table from improved query are the same as the one of the ex">
-<meta property="og:locale" content="default">
 <meta property="og:image" content="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/except-intersect-SQL.png">
-<meta property="og:updated_time" content="2019-08-05T18:01:18.767Z">
+<meta property="article:published_time" content="2019-08-05T17:50:59.000Z">
+<meta property="article:modified_time" content="2019-08-05T18:01:18.767Z">
+<meta property="article:author" content="Joo-Won Jung">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="SparkSQL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Compare Two Tables in SQL">
-<meta name="twitter:description" content="You may want to compare the results processed while you develop and enhance data processing tasks. For example, you might want to see if the table from improved query are the same as the one of the ex">
 <meta name="twitter:image" content="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/except-intersect-SQL.png">
   
     <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
@@ -38,16 +38,22 @@
     <link rel="icon" href="/favicon.ico">
   
   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
   
   
     <link rel="amphtml" href="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/amp/">
 
-  <link rel="stylesheet" href="/css/style.css">
   
-    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/css/style.css">
+
   
-</head>
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
   <div id="container">
@@ -89,10 +95,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Compare-Two-Tables-in-SQL" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Compare-Two-Tables-in-SQL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2019/08/Compare-Two-Tables-in-SQL/" class="article-date">
-  <time datetime="2019-08-05T17:50:59.000Z" itemprop="datePublished">2019-08-06</time>
+  <time class="dt-published" datetime="2019-08-05T17:50:59.000Z" itemprop="datePublished">2019-08-06</time>
 </a>
     
   </div>
@@ -102,14 +108,14 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
+    <h1 class="p-name article-title" itemprop="headline name">
       Compare Two Tables in SQL
     </h1>
   
 
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="e-content article-entry" itemprop="articleBody">
       
         <p>You may want to compare the results processed while you develop and enhance data processing tasks.
 For example, you might want to see if the table from improved query are the same as the one of the existing query.
@@ -125,27 +131,26 @@ You may know the <code>UNION</code> operator which is frequently used to concate
 Since the union operator is in SQL, it is natural that there are intersection and difference set operators in SQL.
 The former is <code>INTERSECT</code> and the latter is <code>EXCEPT</code>.
 The Venn diagram of SQL set operators are depicted as follows:</p>
-<img src="/2019/08/Compare-Two-Tables-in-SQL/except-intersect-SQL.png" title="EXCEPT, INTERSECT operator in SQL">
+<img src="/2019/08/Compare-Two-Tables-in-SQL/except-intersect-SQL.png" class="" title="EXCEPT, INTERSECT operator in SQL">
 
 <h2 id="EXCEPT-operator"><a href="#EXCEPT-operator" class="headerlink" title="EXCEPT operator"></a><code>EXCEPT</code> operator</h2><p>We can get the difference between the two tables using the <code>EXCEPT</code> operator.
 Note that <code>A EXCEPT B</code> returns only the rows that are in A but not in B.
 This statement does not return rows that are in A but not in B.
 Rows that are in A but not in B can be obtained with the statement ‘B EXCEPT A’.
-That is, you must combine the result of <code>EXCEPT B</code> with the result of<code>B EXCEPT A</code>.</p>
+That is, you must combine the result of <code>EXCEPT B</code> with the result of<code> B EXCEPT A</code>.</p>
 <p>As a result, you can get the difference between the two tables in the same way as the following SQL statement:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">(</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="string">"A"</span> <span class="keyword">AS</span> TBL, *</span><br><span class="line">    <span class="keyword">FROM</span> (</span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A)</span><br><span class="line">        <span class="keyword">EXCEPT</span></span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> B)</span><br><span class="line">    )</span><br><span class="line">) <span class="keyword">UNION</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="string">"B"</span> <span class="keyword">AS</span> TBL, *</span><br><span class="line">    <span class="keyword">FROM</span> (</span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> B)</span><br><span class="line">        <span class="keyword">EXCEPT</span></span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A)</span><br><span class="line">    )</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/" data-id="ck24vfxbd0002dzjd91jip2m6" data-title="Compare Two Tables in SQL" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/" data-id="ckchaonr30002v6jd4x919j89" data-title="Compare Two Tables in SQL" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/#disqus_thread" class="article-comment-link">Comments</a>
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL/">SQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SparkSQL/">SparkSQL</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL/" rel="tag">SQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SparkSQL/" rel="tag">SparkSQL</a></li></ul>
 
     </footer>
   </div>
@@ -167,7 +172,7 @@ That is, you must combine the result of <code>EXCEPT B</code> with the result of
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -235,7 +240,7 @@ That is, you must combine the result of <code>EXCEPT B</code> with the result of
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2019 Joo-Won Jung<br>
+      &copy; 2020 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -266,13 +271,19 @@ That is, you must combine the result of <code>EXCEPT B</code> with the result of
 </script>
 
 
+
 <script src="/js/jquery-3.4.1.min.js"></script>
 
 
-  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
 
 
 <script src="/js/script.js"></script>
+
 
 
 

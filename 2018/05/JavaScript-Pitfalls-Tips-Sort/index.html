@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -18,18 +18,18 @@
   <title>JavaScript Pitfalls &amp; Tips: Sort | Sanori&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="JavaScript Quiz:   What would be the result of the above JavaScript code? You may expect [2, 10, 456, 3548] since the array seem to be an integer array and JavaScript would sort it in numeric order. B">
-<meta name="keywords" content="node.js,JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript Pitfalls &amp; Tips: Sort">
 <meta property="og:url" content="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
 <meta property="og:description" content="JavaScript Quiz:   What would be the result of the above JavaScript code? You may expect [2, 10, 456, 3548] since the array seem to be an integer array and JavaScript would sort it in numeric order. B">
-<meta property="og:locale" content="default">
 <meta property="og:image" content="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png">
-<meta property="og:updated_time" content="2019-03-13T18:28:02.920Z">
+<meta property="article:published_time" content="2018-05-24T18:51:03.000Z">
+<meta property="article:modified_time" content="2019-03-13T18:28:02.920Z">
+<meta property="article:author" content="Joo-Won Jung">
+<meta property="article:tag" content="node.js">
+<meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript Pitfalls &amp; Tips: Sort">
-<meta name="twitter:description" content="JavaScript Quiz:   What would be the result of the above JavaScript code? You may expect [2, 10, 456, 3548] since the array seem to be an integer array and JavaScript would sort it in numeric order. B">
 <meta name="twitter:image" content="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png">
   
     <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
@@ -38,16 +38,22 @@
     <link rel="icon" href="/favicon.ico">
   
   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
   
   
     <link rel="amphtml" href="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/amp/">
 
-  <link rel="stylesheet" href="/css/style.css">
   
-    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/css/style.css">
+
   
-</head>
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
   <div id="container">
@@ -89,10 +95,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-JavaScript-Pitfalls-Tips-Sort" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-JavaScript-Pitfalls-Tips-Sort" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2018/05/JavaScript-Pitfalls-Tips-Sort/" class="article-date">
-  <time datetime="2018-05-24T18:51:03.000Z" itemprop="datePublished">2018-05-25</time>
+  <time class="dt-published" datetime="2018-05-24T18:51:03.000Z" itemprop="datePublished">2018-05-25</time>
 </a>
     
   </div>
@@ -102,17 +108,17 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
+    <h1 class="p-name article-title" itemprop="headline name">
       JavaScript Pitfalls &amp; Tips: Sort
     </h1>
   
 
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="e-content article-entry" itemprop="articleBody">
       
         <p>JavaScript Quiz:</p>
-<img src="/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png" title="[10, 2, 456, 3548].sort()">
+<img src="/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png" class="" title="[10, 2, 456, 3548].sort()">
 
 <p>What would be the result of the above JavaScript code? You may expect <code>[2, 10, 456, 3548]</code> since the array seem to be an integer array and JavaScript would sort it in numeric order. But, the correct result is as follows:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">2</span>, <span class="number">3548</span>, <span class="number">456</span>]</span><br></pre></td></tr></table></figure>
@@ -122,31 +128,28 @@
 <p>It is because the default comparison function of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort" target="_blank" rel="noopener"><code>Array.prototype.sort()</code></a> is the <em>string comparison</em> after converting each element to string.</p>
 <p>Why the default sort function of JavaScript array as string comparison? I guess that the reason is the array type in JavaScript is for general types. For example, the following is a valid array of JavaScript.</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [ <span class="string">'13'</span>, <span class="string">'Bob'</span>, <span class="number">20</span>, <span class="literal">NaN</span>, <span class="literal">Infinity</span> ];</span><br></pre></td></tr></table></figure>
-
 <p>Since the default sort function is for string, <code>a.sort()</code> works consistently and with no error.</p>
 <h2 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h2><p>But, if you want to sort the array as numbers, how can you make it? There are two ways.</p>
 <h3 id="Comparison-function-for-Number"><a href="#Comparison-function-for-Number" class="headerlink" title="Comparison function for Number"></a>Comparison function for <code>Number</code></h3><p>You may supply a comparison function for numbers as follows:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">2</span>, <span class="number">456</span>, <span class="number">3548</span>].sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>) </span>&#123; <span class="keyword">return</span> a - b &#125;)</span><br></pre></td></tr></table></figure>
-
 <p>If you use ES2015 or above, you may use arrow function to keep it simple:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">2</span>, <span class="number">456</span>, <span class="number">3548</span>].sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b)</span><br></pre></td></tr></table></figure>
 
 <h3 id="Typed-array-ES2015-above"><a href="#Typed-array-ES2015-above" class="headerlink" title="Typed array (ES2015 above)"></a>Typed array (ES2015 above)</h3><p>You may think the sort function should sort in numeric order if the array is numeric typed array. You are right if you make the array numeric typed. JavaScript supports typed array.</p>
 <p>ES2015 introduced <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray" target="_blank" rel="noopener"><code>TypedArray</code></a> as a view of binary data buffer. But you may use it as an array of the same type. So you can make the general array as typed array and sort as follows:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Float64Array</span>.from([<span class="number">10</span>, <span class="number">2</span>, <span class="number">456</span>, <span class="number">3548</span>]).sort()</span><br></pre></td></tr></table></figure>
-
 <p>Note that there is <strong>no</strong> <code>Int64Array</code> type since the widest integer in bitwise operation is 32-bit.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/" data-id="ck24vfxbg0005dzjdzpoltc7r" data-title="JavaScript Pitfalls &amp; Tips: Sort" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/" data-id="ckchaonra0006v6jdg0j3858k" data-title="JavaScript Pitfalls &amp; Tips: Sort" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/#disqus_thread" class="article-comment-link">Comments</a>
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/" rel="tag">node.js</a></li></ul>
 
     </footer>
   </div>
@@ -177,7 +180,7 @@
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -245,7 +248,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2019 Joo-Won Jung<br>
+      &copy; 2020 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -276,13 +279,19 @@
 </script>
 
 
+
 <script src="/js/jquery-3.4.1.min.js"></script>
 
 
-  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
 
 
 <script src="/js/script.js"></script>
+
 
 
 

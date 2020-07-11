@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -17,19 +17,20 @@
   
   <title>JavaScript Pitfalls &amp; Tips: Bitwise Operation | Sanori&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Bitwise left shift operator (&amp;lt;&amp;lt;) is used instead of power of 2 (2n) operator on integer variable. This idiom may lead to strange result in JavaScript.">
-<meta name="keywords" content="node.js,JavaScript,bitwise">
+  <meta name="description" content="Bitwise left shift operator (&lt;&lt;) is used instead of power of 2 (2n) operator on integer variable. This idiom may lead to strange result in JavaScript.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript Pitfalls &amp; Tips: Bitwise Operation">
 <meta property="og:url" content="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
-<meta property="og:description" content="Bitwise left shift operator (&amp;lt;&amp;lt;) is used instead of power of 2 (2n) operator on integer variable. This idiom may lead to strange result in JavaScript.">
-<meta property="og:locale" content="default">
+<meta property="og:description" content="Bitwise left shift operator (&lt;&lt;) is used instead of power of 2 (2n) operator on integer variable. This idiom may lead to strange result in JavaScript.">
 <meta property="og:image" content="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png">
-<meta property="og:updated_time" content="2018-11-26T17:19:27.924Z">
+<meta property="article:published_time" content="2018-06-03T08:19:51.000Z">
+<meta property="article:modified_time" content="2018-11-26T17:19:27.924Z">
+<meta property="article:author" content="Joo-Won Jung">
+<meta property="article:tag" content="node.js">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="bitwise">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript Pitfalls &amp; Tips: Bitwise Operation">
-<meta name="twitter:description" content="Bitwise left shift operator (&amp;lt;&amp;lt;) is used instead of power of 2 (2n) operator on integer variable. This idiom may lead to strange result in JavaScript.">
 <meta name="twitter:image" content="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png">
   
     <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
@@ -38,16 +39,22 @@
     <link rel="icon" href="/favicon.ico">
   
   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
   
   
     <link rel="amphtml" href="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/amp/">
 
-  <link rel="stylesheet" href="/css/style.css">
   
-    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/css/style.css">
+
   
-</head>
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
   <div id="container">
@@ -89,10 +96,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-JavaScript-Pitfalls-Tips-Bitwise-Operation" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-JavaScript-Pitfalls-Tips-Bitwise-Operation" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/" class="article-date">
-  <time datetime="2018-06-03T08:19:51.000Z" itemprop="datePublished">2018-06-03</time>
+  <time class="dt-published" datetime="2018-06-03T08:19:51.000Z" itemprop="datePublished">2018-06-03</time>
 </a>
     
   </div>
@@ -102,16 +109,16 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
+    <h1 class="p-name article-title" itemprop="headline name">
       JavaScript Pitfalls &amp; Tips: Bitwise Operation
     </h1>
   
 
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="e-content article-entry" itemprop="articleBody">
       
-        <img src="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png" title="1 << 31 !== Math.pow(2, 31)">
+        <img src="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png" class="" title="1 &lt;&lt; 31 !&#x3D;&#x3D; Math.pow(2, 31)">
 
 <p>Bitwise left shift operator (<code>&lt;&lt;</code>) is used instead of power of 2 (2<sup>n</sup>) operator on integer variable. This idiom may lead to strange result in JavaScript.</p>
 <a id="more"></a>
@@ -131,13 +138,13 @@ Therefore, <code>1 &lt;&lt; n</code> is not the same as <code>Math.pow(2, n)</co
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/" data-id="ck24vfxbf0004dzjdefeb1dja" data-title="JavaScript Pitfalls &amp; Tips: Bitwise Operation" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/" data-id="ckchaonr70005v6jd7cysbgfh" data-title="JavaScript Pitfalls &amp; Tips: Bitwise Operation" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/#disqus_thread" class="article-comment-link">Comments</a>
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bitwise/">bitwise</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bitwise/" rel="tag">bitwise</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/" rel="tag">node.js</a></li></ul>
 
     </footer>
   </div>
@@ -168,7 +175,7 @@ Therefore, <code>1 &lt;&lt; n</code> is not the same as <code>Math.pow(2, n)</co
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -236,7 +243,7 @@ Therefore, <code>1 &lt;&lt; n</code> is not the same as <code>Math.pow(2, n)</co
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2019 Joo-Won Jung<br>
+      &copy; 2020 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -267,13 +274,19 @@ Therefore, <code>1 &lt;&lt; n</code> is not the same as <code>Math.pow(2, n)</co
 </script>
 
 
+
 <script src="/js/jquery-3.4.1.min.js"></script>
 
 
-  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
 
 
 <script src="/js/script.js"></script>
+
 
 
 
