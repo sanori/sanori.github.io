@@ -1792,7 +1792,7 @@ h6.categories {
 
 <a id="more"></a>
 
-<p>It is because the default comparison function of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort" target="_blank" rel="noopener"><code>Array.prototype.sort()</code></a> is the <em>string comparison</em> after converting each element to string.</p>
+<p>It is because the default comparison function of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort"><code>Array.prototype.sort()</code></a> is the <em>string comparison</em> after converting each element to string.</p>
 <p>Why the default sort function of JavaScript array as string comparison? I guess that the reason is the array type in JavaScript is for general types. For example, the following is a valid array of JavaScript.</p>
 <figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [ <span class="string">&apos;13&apos;</span>, <span class="string">&apos;Bob&apos;</span>, <span class="number">20</span>, <span class="literal">NaN</span>, <span class="literal">Infinity</span> ];</span><br></pre></td></tr></tbody></table></figure>
 <p>Since the default sort function is for string, <code>a.sort()</code> works consistently and with no error.</p>
@@ -1803,7 +1803,7 @@ h6.categories {
 <figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">2</span>, <span class="number">456</span>, <span class="number">3548</span>].sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b)</span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="Typed-array-ES2015-above"><a href="#Typed-array-ES2015-above" class="headerlink" title="Typed array (ES2015 above)"></a>Typed array (ES2015 above)</h3><p>You may think the sort function should sort in numeric order if the array is numeric typed array. You are right if you make the array numeric typed. JavaScript supports typed array.</p>
-<p>ES2015 introduced <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray" target="_blank" rel="noopener"><code>TypedArray</code></a> as a view of binary data buffer. But you may use it as an array of the same type. So you can make the general array as typed array and sort as follows:</p>
+<p>ES2015 introduced <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray"><code>TypedArray</code></a> as a view of binary data buffer. But you may use it as an array of the same type. So you can make the general array as typed array and sort as follows:</p>
 <figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Float64Array</span>.from([<span class="number">10</span>, <span class="number">2</span>, <span class="number">456</span>, <span class="number">3548</span>]).sort()</span><br></pre></td></tr></tbody></table></figure>
 <p>Note that there is <strong>no</strong> <code>Int64Array</code> type since the widest integer in bitwise operation is 32-bit.</p>
 

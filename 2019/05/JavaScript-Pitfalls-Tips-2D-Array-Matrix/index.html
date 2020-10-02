@@ -23,6 +23,7 @@
 <meta property="og:url" content="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
 <meta property="og:description" content="Sometimes, you need to create and manipulate a two-dimensional (2D) array or a matrix. In JavaScript, an array of arrays can be used as a 2D array.  1234567const mat &#x3D; [  [0, 1, 2, 3],  [4, 5, 6, 7]">
+<meta property="og:locale">
 <meta property="og:image" content="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/js-2d-array-title.png">
 <meta property="og:image" content="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/js-2d-array-misleading.png">
 <meta property="article:published_time" content="2019-05-25T13:51:10.000Z">
@@ -35,10 +36,10 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/js-2d-array-title.png">
   
-    <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Sanori's Blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
   
   
     
@@ -56,7 +57,7 @@
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
   
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.2.0"></head>
 
 <body>
   <div id="container">
@@ -97,6 +98,7 @@
     </div>
   </div>
 </header>
+
       <div class="outer">
         <section id="main"><article id="post-JavaScript-Pitfalls-Tips-2D-Array-Matrix" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
@@ -126,7 +128,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mat = [</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">  [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>],</span><br><span class="line">  [<span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>],</span><br><span class="line">  [<span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>]</span><br><span class="line">];</span><br><span class="line"><span class="built_in">console</span>.log(mat[<span class="number">1</span>][<span class="number">2</span>]);    <span class="comment">// gives 6</span></span><br></pre></td></tr></table></figure>
 
 <p>How do you implement if you initialize m x n matrix with zeros?
-If you know about <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill" target="_blank" rel="noopener"><code>Array.prototype.fill()</code></a>, you may be tempted to initialize m x n array like <code>Array(m).fill(Array(n).fill(0))</code>, but this does not work properly.
+If you know about <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill"><code>Array.prototype.fill()</code></a>, you may be tempted to initialize m x n array like <code>Array(m).fill(Array(n).fill(0))</code>, but this does not work properly.
 Since the <code>Array(n).fill(0)</code> creates just <strong>one</strong> array of size <em>n</em> and all the elements of the first array, that represents rows, point to the same, the second array as follows:</p>
 <p>When you got to know <code>Array.prototype.fill()</code> method, you may be tempted to initialize m x n array like <code>Array(m).fill(Array(n).fill(0))</code>, but this does not work properly. Since the <code>Array(n).fill(0)</code> creates just <strong>one</strong> array of size <em>n</em> and all the elements of the first array, that represents rows, point to the same, second array as follows:</p>
 <a id="more"></a> 
@@ -137,23 +139,23 @@ Since the <code>Array(n).fill(0)</code> creates just <strong>one</strong> array 
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mat = <span class="built_in">Array</span>(m);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">  mat[i] = <span class="built_in">Array</span>(n).fill(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="Using-map"><a href="#Using-map" class="headerlink" title="Using map"></a>Using <code>map</code></h3><p>If you are aware of functional programming, you would know that a for loop can be converted to map and/or reduce. In this case, we can use a map function in this way.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mat = <span class="built_in">Array</span>(m).fill(<span class="literal">null</span>).map(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">Array</span>(n).fill(<span class="number">0</span>));</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mat = <span class="built_in">Array</span>(m).fill(<span class="literal">null</span>).map(<span class="function">() =&gt;</span> <span class="built_in">Array</span>(n).fill(<span class="number">0</span>));</span><br></pre></td></tr></table></figure>
 
-<h3 id="Using-Array-from"><a href="#Using-Array-from" class="headerlink" title="Using Array.from()"></a>Using <code>Array.from()</code></h3><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from" target="_blank" rel="noopener"><code>Array.from</code></a> can create using <a href="http://2ality.com/2013/05/quirk-array-like-objects.html" target="_blank" rel="noopener">arrayLike object</a> and map function.
+<h3 id="Using-Array-from"><a href="#Using-Array-from" class="headerlink" title="Using Array.from()"></a>Using <code>Array.from()</code></h3><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from"><code>Array.from</code></a> can create using <a target="_blank" rel="noopener" href="http://2ality.com/2013/05/quirk-array-like-objects.html">arrayLike object</a> and map function.
 It can simplify <code>Array(m).fill(null)</code> part of previous solution.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mat = <span class="built_in">Array</span>.from(&#123;<span class="attr">length</span>:m&#125;, () =&gt; <span class="built_in">Array</span>(n).fill(<span class="number">0</span>));</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mat = <span class="built_in">Array</span>.from(&#123;<span class="attr">length</span>:m&#125;, <span class="function">() =&gt;</span> <span class="built_in">Array</span>(n).fill(<span class="number">0</span>));</span><br></pre></td></tr></table></figure>
 
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
-<li><a href="https://stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript" target="_blank" rel="noopener">How can I create a two dimensional array in JavaScript? - Stack Overflow</a></li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill" target="_blank" rel="noopener">Array.prototype.fill() - JavaScript | MDN</a></li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from" target="_blank" rel="noopener">Array.from() - JavaScript | MDN</a></li>
-<li><a href="http://2ality.com/2013/05/quirk-array-like-objects.html" target="_blank" rel="noopener">JavaScript quirk 8: array-like objects</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript">How can I create a two dimensional array in JavaScript? - Stack Overflow</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill">Array.prototype.fill() - JavaScript | MDN</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from">Array.from() - JavaScript | MDN</a></li>
+<li><a target="_blank" rel="noopener" href="http://2ality.com/2013/05/quirk-array-like-objects.html">JavaScript quirk 8: array-like objects</a></li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/" data-id="ckchaonr40003v6jdhxsq33y6" data-title="JavaScript Pitfalls &amp; Tips: 2D Array, Matrix" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/" data-id="ckfs3bc3p0003x3jd2recaxhk" data-title="JavaScript Pitfalls &amp; Tips: 2D Array, Matrix" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -190,7 +192,7 @@ It can simplify <code>Array(m).fill(null)</code> part of previous solution.</p>
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -258,6 +260,10 @@ It can simplify <code>Array(m).fill(null)</code> part of previous solution.</p>
   
   <div class="outer">
     <div id="footer-info" class="inner">
+      
+        <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></br>
+This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.</br>
+      
       &copy; 2020 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>

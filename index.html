@@ -23,13 +23,14 @@
 <meta property="og:url" content="http://sanori.github.io/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
 <meta property="og:description" content="Sanori&#39;s writings about software development and computer science.">
+<meta property="og:locale">
 <meta property="article:author" content="Joo-Won Jung">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Sanori's Blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
   
   
     
@@ -45,7 +46,7 @@
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
   
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.2.0"></head>
 
 <body>
   <div id="container">
@@ -86,6 +87,7 @@
     </div>
   </div>
 </header>
+
       <div class="outer">
         <section id="main">
   
@@ -125,7 +127,7 @@ But, don’t worry. You can make the cluster of servers compare the tables by si
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/" data-id="ckchaonr30002v6jd4x919j89" data-title="Compare Two Tables in SQL" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/" data-id="ckfs3bc3o0002x3jd357r1j7o" data-title="Compare Two Tables in SQL" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -169,7 +171,7 @@ But, don’t worry. You can make the cluster of servers compare the tables by si
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mat = [</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">  [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>],</span><br><span class="line">  [<span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>],</span><br><span class="line">  [<span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>]</span><br><span class="line">];</span><br><span class="line"><span class="built_in">console</span>.log(mat[<span class="number">1</span>][<span class="number">2</span>]);    <span class="comment">// gives 6</span></span><br></pre></td></tr></table></figure>
 
 <p>How do you implement if you initialize m x n matrix with zeros?
-If you know about <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill" target="_blank" rel="noopener"><code>Array.prototype.fill()</code></a>, you may be tempted to initialize m x n array like <code>Array(m).fill(Array(n).fill(0))</code>, but this does not work properly.
+If you know about <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill"><code>Array.prototype.fill()</code></a>, you may be tempted to initialize m x n array like <code>Array(m).fill(Array(n).fill(0))</code>, but this does not work properly.
 Since the <code>Array(n).fill(0)</code> creates just <strong>one</strong> array of size <em>n</em> and all the elements of the first array, that represents rows, point to the same, the second array as follows:</p>
 <p>When you got to know <code>Array.prototype.fill()</code> method, you may be tempted to initialize m x n array like <code>Array(m).fill(Array(n).fill(0))</code>, but this does not work properly. Since the <code>Array(n).fill(0)</code> creates just <strong>one</strong> array of size <em>n</em> and all the elements of the first array, that represents rows, point to the same, second array as follows:</p>
         
@@ -180,7 +182,7 @@ Since the <code>Array(n).fill(0)</code> creates just <strong>one</strong> array 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/" data-id="ckchaonr40003v6jdhxsq33y6" data-title="JavaScript Pitfalls &amp; Tips: 2D Array, Matrix" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/" data-id="ckfs3bc3p0003x3jd2recaxhk" data-title="JavaScript Pitfalls &amp; Tips: 2D Array, Matrix" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -220,7 +222,7 @@ Since the <code>Array(n).fill(0)</code> creates just <strong>one</strong> array 
       
         <img src="/2019/04/JavaScript-Pitfalls-Tips-toFixed/js-toFixed-title.png" class="" title="2.55.toFixed(1) !&#x3D;&#x3D; 2.6">
 
-<p><code>Number.prototype.toFixed(n)</code> is a number formatting method that shows n-th digits after the decimal point. It seems to rounds (n+1)-th digits. But, sometimes, it does not round up. For example, the value of <code>2.55.toFixed(1)</code> is <code>2.5</code>, not <code>2.6</code> which is correct. <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed#Using_toFixed" target="_blank" rel="noopener">This example is even in MDN documents</a>.</p>
+<p><code>Number.prototype.toFixed(n)</code> is a number formatting method that shows n-th digits after the decimal point. It seems to rounds (n+1)-th digits. But, sometimes, it does not round up. For example, the value of <code>2.55.toFixed(1)</code> is <code>2.5</code>, not <code>2.6</code> which is correct. <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed#Using_toFixed">This example is even in MDN documents</a>.</p>
         
           <p class="article-more-link">
             <a href="/2019/04/JavaScript-Pitfalls-Tips-toFixed/#more">Read More</a>
@@ -229,7 +231,7 @@ Since the <code>Array(n).fill(0)</code> creates just <strong>one</strong> array 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/" data-id="ckchaonrb0007v6jd5sme5pm9" data-title="JavaScript Pitfalls &amp; Tips: toFixed" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/" data-id="ckfs3bc3t0007x3jd50wnatr3" data-title="JavaScript Pitfalls &amp; Tips: toFixed" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -277,7 +279,7 @@ You want to do it with JavaScript or node.js. How can you do that?</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/" data-id="ckchaonrc0009v6jd4ito42sj" data-title="Line-by-line Processing in node.js" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/" data-id="ckfs3bc3u0009x3jdh7hi3ilh" data-title="Line-by-line Processing in node.js" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -334,7 +336,7 @@ that is, the same elements in order.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/" data-id="ckchaonrg000hv6jd1ok9cfyk" data-title="SQL Window Functions: row_number, rank, dense_rank" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/" data-id="ckfs3bc3y000hx3jde0yg1thb" data-title="SQL Window Functions: row_number, rank, dense_rank" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -372,14 +374,14 @@ that is, the same elements in order.</p>
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p><a href="https://en.wikipedia.org/wiki/SQL_window_function" target="_blank" rel="noopener">SQL Window functions</a>
+        <p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/SQL_window_function">SQL Window functions</a>
 are similar to aggregate functions, such as count(),
 sum() or average(), but has different usage.
 Window functions are related to ordering like rank(), row_number(),
 while aggregate functions are related to summary of set of values
 like count(), sum().
 SQL Window functions specification is
-<a href="https://en.wikipedia.org/wiki/SQL:2003" target="_blank" rel="noopener">ISO/ANSI standard since 2003</a>.
+<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/SQL:2003">ISO/ANSI standard since 2003</a>.
 You can use SQL window functions on HiveQL, MySQL, Transact-SQL
 as well as Spark SQL.</p>
 <p>In processing data, there are several cases to split data into groups
@@ -405,7 +407,7 @@ using the rank() function which is one of SQL window functions.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" data-id="ckchaonre000ev6jd2eby495y" data-title="SQL Window Functions: Top-k Elements Example" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" data-id="ckfs3bc3x000ex3jd9z0ydxot" data-title="SQL Window Functions: Top-k Elements Example" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -454,7 +456,7 @@ using the rank() function which is one of SQL window functions.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/" data-id="ckchaonr70005v6jd7cysbgfh" data-title="JavaScript Pitfalls &amp; Tips: Bitwise Operation" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/" data-id="ckfs3bc3r0005x3jdb1mc7xov" data-title="JavaScript Pitfalls &amp; Tips: Bitwise Operation" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -505,7 +507,7 @@ using the rank() function which is one of SQL window functions.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/" data-id="ckchaonra0006v6jdg0j3858k" data-title="JavaScript Pitfalls &amp; Tips: Sort" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/" data-id="ckfs3bc3s0006x3jd6kihall1" data-title="JavaScript Pitfalls &amp; Tips: Sort" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -543,8 +545,8 @@ using the rank() function which is one of SQL window functions.</p>
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p><a href="https://keras.io/" target="_blank" rel="noopener">Keras</a> is a high-level library/API for neural network, a.k.a. deep learning. You can write shorter, simpler code using Keras. At the time of writing, Keras can use one of <a href="https://www.tensorflow.org/" target="_blank" rel="noopener">TensorFlow</a>, <a href="http://deeplearning.net/software/theano/" target="_blank" rel="noopener">Theano</a>, and <a href="https://www.microsoft.com/en-us/cognitive-toolkit/" target="_blank" rel="noopener">CNTK</a> as a backend of deep learning process.</p>
-<p>From TensorFlow 1.4, <a href="https://github.com/tensorflow/tensorflow/releases/tag/v1.4.0" target="_blank" rel="noopener">Keras API became one of core APIs of TensorFlow</a>. Therefore, you don’t need to install both Keras and TensorFlow if you have a plan to use only TensorFlow backend in Keras. In other words, you can run Keras in simple way with full GPU support if you have got nvidia-docker environment which is mentioned in my last blog post, “<a href="/2017/02/Tensorflow-over-docker-with-GPU/">TensorFlow over docker with GPU support</a>“</p>
+        <p><a target="_blank" rel="noopener" href="https://keras.io/">Keras</a> is a high-level library/API for neural network, a.k.a. deep learning. You can write shorter, simpler code using Keras. At the time of writing, Keras can use one of <a target="_blank" rel="noopener" href="https://www.tensorflow.org/">TensorFlow</a>, <a target="_blank" rel="noopener" href="http://deeplearning.net/software/theano/">Theano</a>, and <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/cognitive-toolkit/">CNTK</a> as a backend of deep learning process.</p>
+<p>From TensorFlow 1.4, <a target="_blank" rel="noopener" href="https://github.com/tensorflow/tensorflow/releases/tag/v1.4.0">Keras API became one of core APIs of TensorFlow</a>. Therefore, you don’t need to install both Keras and TensorFlow if you have a plan to use only TensorFlow backend in Keras. In other words, you can run Keras in simple way with full GPU support if you have got nvidia-docker environment which is mentioned in my last blog post, “<a href="/2017/02/Tensorflow-over-docker-with-GPU/">TensorFlow over docker with GPU support</a>“</p>
 <p>In this post, I’ll show you how to modify original Keras code to run on TensorFlow directly.</p>
         
           <p class="article-more-link">
@@ -554,7 +556,7 @@ using the rank() function which is one of SQL window functions.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/" data-id="ckchaonrc000av6jd0hfedi3i" data-title="Running Keras directly on TensorFlow" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/" data-id="ckfs3bc3v000ax3jdei6s69ok" data-title="Running Keras directly on TensorFlow" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -592,9 +594,9 @@ using the rank() function which is one of SQL window functions.</p>
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p><a href="http://spark.apache.org/" target="_blank" rel="noopener">Apache Spark<sup>TM</sup></a> is known as popular big data framework which is faster than Hadoop MapReduce, easy-to-use, and fault-tolerant. Most of the Spark tutorials require readers to understand Scala, Java, or Python as base programming language. But, in my opinion, SQL is enough to write a spark batch script.</p>
+        <p><a target="_blank" rel="noopener" href="http://spark.apache.org/">Apache Spark<sup>TM</sup></a> is known as popular big data framework which is faster than Hadoop MapReduce, easy-to-use, and fault-tolerant. Most of the Spark tutorials require readers to understand Scala, Java, or Python as base programming language. But, in my opinion, SQL is enough to write a spark batch script.</p>
 <p>In this article, I will show that <strong>you can write Spark batches only in SQL if your input data is ready as structured dataset</strong>. This means that you don’t need to learn Scala or Python, RDD, DataFrame if your job can be expressed in SQL. Moreover, the expression power of SparkSQL may be stronger than you think.</p>
-<p>The SQL scripts as follows can be found at <a href="https://github.com/sanori/spark-sql-example" target="_blank" rel="noopener">https://github.com/sanori/spark-sql-example</a>. You can test them yourself.</p>
+<p>The SQL scripts as follows can be found at <a target="_blank" rel="noopener" href="https://github.com/sanori/spark-sql-example">https://github.com/sanori/spark-sql-example</a>. You can test them yourself.</p>
         
           <p class="article-more-link">
             <a href="/2017/10/Writing-Spark-batches-only-in-SQL/#more">Read More</a>
@@ -603,7 +605,7 @@ using the rank() function which is one of SQL window functions.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/" data-id="ckchaonsf002tv6jdexsu5xpn" data-title="Writing Spark batches only in SQL" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/" data-id="ckfs3bc4x002nx3jd2g5ghphr" data-title="Writing Spark batches only in SQL" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -690,6 +692,10 @@ using the rank() function which is one of SQL window functions.</p>
   
   <div class="outer">
     <div id="footer-info" class="inner">
+      
+        <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></br>
+This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.</br>
+      
       &copy; 2020 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>

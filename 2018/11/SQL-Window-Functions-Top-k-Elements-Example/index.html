@@ -23,6 +23,7 @@
 <meta property="og:url" content="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
 <meta property="og:description" content="SQL Window functions are similar to aggregate functions, such as count(), sum() or average(), but has different usage. Window functions are related to ordering like rank(), row_number(), while aggrega">
+<meta property="og:locale">
 <meta property="article:published_time" content="2018-11-03T13:52:21.000Z">
 <meta property="article:modified_time" content="2019-03-13T18:08:32.274Z">
 <meta property="article:author" content="Joo-Won Jung">
@@ -32,10 +33,10 @@
 <meta property="article:tag" content="SqlWindowFunction">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Sanori's Blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
   
   
     
@@ -53,7 +54,7 @@
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
   
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.2.0"></head>
 
 <body>
   <div id="container">
@@ -94,6 +95,7 @@
     </div>
   </div>
 </header>
+
       <div class="outer">
         <section id="main"><article id="post-SQL-Window-Functions-Top-k-Elements-Example" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
@@ -117,14 +119,14 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p><a href="https://en.wikipedia.org/wiki/SQL_window_function" target="_blank" rel="noopener">SQL Window functions</a>
+        <p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/SQL_window_function">SQL Window functions</a>
 are similar to aggregate functions, such as count(),
 sum() or average(), but has different usage.
 Window functions are related to ordering like rank(), row_number(),
 while aggregate functions are related to summary of set of values
 like count(), sum().
 SQL Window functions specification is
-<a href="https://en.wikipedia.org/wiki/SQL:2003" target="_blank" rel="noopener">ISO/ANSI standard since 2003</a>.
+<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/SQL:2003">ISO/ANSI standard since 2003</a>.
 You can use SQL window functions on HiveQL, MySQL, Transact-SQL
 as well as Spark SQL.</p>
 <p>In processing data, there are several cases to split data into groups
@@ -429,18 +431,18 @@ Then you can get only most 3 frequent remoteAddr’s for each day.</p>
 <p>The window function rank() generates rank of each days (date).
 And WHERE clause in outermost SELECT statement removes needless output.</p>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
-<li>SQL window function: <a href="https://en.wikipedia.org/wiki/SQL_window_function" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/SQL_window_function</a></li>
-<li>Yin Huai and Michael Armbrust, “<a href="https://databricks.com/blog/2015/07/15/introducing-window-functions-in-spark-sql.html" target="_blank" rel="noopener">Introducing Window Functions in Spark SQL</a>“, <em>Databricks Engneering Blog</em>, July 15, 2015, <a href="https://databricks.com/blog/2015/07/15/introducing-window-functions-in-spark-sql.html" target="_blank" rel="noopener">https://databricks.com/blog/2015/07/15/introducing-window-functions-in-spark-sql.html</a></li>
+<li>SQL window function: <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/SQL_window_function">https://en.wikipedia.org/wiki/SQL_window_function</a></li>
+<li>Yin Huai and Michael Armbrust, “<a target="_blank" rel="noopener" href="https://databricks.com/blog/2015/07/15/introducing-window-functions-in-spark-sql.html">Introducing Window Functions in Spark SQL</a>“, <em>Databricks Engneering Blog</em>, July 15, 2015, <a target="_blank" rel="noopener" href="https://databricks.com/blog/2015/07/15/introducing-window-functions-in-spark-sql.html">https://databricks.com/blog/2015/07/15/introducing-window-functions-in-spark-sql.html</a></li>
 <li>Databricks Documentation &gt;
-<a href="https://docs.databricks.com/spark/latest/spark-sql/index.html" target="_blank" rel="noopener">SQL Guide</a> &gt;
-<a href="https://docs.databricks.com/spark/latest/spark-sql/language-manual/select.html" target="_blank" rel="noopener">Select</a> &gt;
-<a href="https://docs.databricks.com/spark/latest/spark-sql/language-manual/select.html#window-functions" target="_blank" rel="noopener">Window functions</a></li>
+<a target="_blank" rel="noopener" href="https://docs.databricks.com/spark/latest/spark-sql/index.html">SQL Guide</a> &gt;
+<a target="_blank" rel="noopener" href="https://docs.databricks.com/spark/latest/spark-sql/language-manual/select.html">Select</a> &gt;
+<a target="_blank" rel="noopener" href="https://docs.databricks.com/spark/latest/spark-sql/language-manual/select.html#window-functions">Window functions</a></li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" data-id="ckchaonre000ev6jd2eby495y" data-title="SQL Window Functions: Top-k Elements Example" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" data-id="ckfs3bc3x000ex3jd9z0ydxot" data-title="SQL Window Functions: Top-k Elements Example" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -477,7 +479,7 @@ And WHERE clause in outermost SELECT statement removes needless output.</p>
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -545,6 +547,10 @@ And WHERE clause in outermost SELECT statement removes needless output.</p>
   
   <div class="outer">
     <div id="footer-info" class="inner">
+      
+        <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></br>
+This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.</br>
+      
       &copy; 2020 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>

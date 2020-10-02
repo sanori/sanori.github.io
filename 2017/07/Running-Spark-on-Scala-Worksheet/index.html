@@ -23,6 +23,7 @@
 <meta property="og:url" content="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
 <meta property="og:description" content="In developing with Spark, you would want to try some queries or instructions and get results immediately to check if your idea is working or not. Sometimes, just trying to run the code would be faster">
+<meta property="og:locale">
 <meta property="og:image" content="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/spark-on-scala-worksheet.png">
 <meta property="og:image" content="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/broken-worksheet.png">
 <meta property="og:image" content="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/scala-worksheet-preferences-eclipse.png">
@@ -37,10 +38,10 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/spark-on-scala-worksheet.png">
   
-    <link rel="alternate" href="/atom.xml" title="Sanori&#39;s Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Sanori's Blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
   
   
     
@@ -58,7 +59,7 @@
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
   
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.2.0"></head>
 
 <body>
   <div id="container">
@@ -99,6 +100,7 @@
     </div>
   </div>
 </header>
+
       <div class="outer">
         <section id="main"><article id="post-Running-Spark-on-Scala-Worksheet" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
@@ -123,7 +125,7 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>In developing with Spark, you would want to try some queries or instructions and get results immediately to check if your idea is working or not. Sometimes, just trying to run the code would be faster than look through the reference manual.</p>
-<p><a href="https://github.com/scala-ide/scala-worksheet/wiki/Getting-Started" target="_blank" rel="noopener">Scala Worksheet</a> is a REPL(<a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop" target="_blank" rel="noopener">Read-Eval-Print Loop</a>) on text editor in an IDE(integrated development environment) such as <a href="http://scala-ide.org/" target="_blank" rel="noopener">Scala IDE</a> (on Eclipse) and <a href="https://www.jetbrains.com/idea/" target="_blank" rel="noopener">IntelliJ IDEA</a>. You can try commands, functions, object definitions, and methods on Scala Worksheet(<code>.sc</code>) file, and you will get the results when you save that file. Since Scala worksheet runs on IDE, you can get help such as code completion.</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/scala-ide/scala-worksheet/wiki/Getting-Started">Scala Worksheet</a> is a REPL(<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">Read-Eval-Print Loop</a>) on text editor in an IDE(integrated development environment) such as <a target="_blank" rel="noopener" href="http://scala-ide.org/">Scala IDE</a> (on Eclipse) and <a target="_blank" rel="noopener" href="https://www.jetbrains.com/idea/">IntelliJ IDEA</a>. You can try commands, functions, object definitions, and methods on Scala Worksheet(<code>.sc</code>) file, and you will get the results when you save that file. Since Scala worksheet runs on IDE, you can get help such as code completion.</p>
 <p>In this post, a template to run Spark on Scala Worksheet is presented. The template was made to be general as possible.</p>
 <a id="more"></a>
 
@@ -132,13 +134,13 @@
 <h2 id="Worksheet-Template"><a href="#Worksheet-Template" class="headerlink" title="Worksheet Template"></a>Worksheet Template</h2><p>If you copy-and-paste the following code to your Scala worksheet,
 you can interact with local Spark system immediately.
 The following code is for Spark 2.x.</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.functions._</span><br><span class="line"><span class="keyword">import</span> org.apache.log4j.&#123; <span class="type">Level</span>, <span class="type">Logger</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">sparkWorksheet</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Set off the vebose log messages</span></span><br><span class="line">  <span class="type">Logger</span>.getLogger(<span class="string">"org"</span>).setLevel(<span class="type">Level</span>.<span class="type">OFF</span>)</span><br><span class="line">  <span class="type">Logger</span>.getLogger(<span class="string">"akka"</span>).setLevel(<span class="type">Level</span>.<span class="type">OFF</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder</span><br><span class="line">    .master(<span class="string">"local"</span>)</span><br><span class="line">    .appName(<span class="string">"scalaWorksheet"</span>)</span><br><span class="line">    .config(<span class="string">"spark.ui.showConsoleProgress"</span>, <span class="literal">false</span>)</span><br><span class="line">    .getOrCreate()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">import</span> spark.implicits._</span><br><span class="line"></span><br><span class="line">  <span class="keyword">lazy</span> <span class="keyword">val</span> sc = spark.sparkContext</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Your Spark codes are here</span></span><br><span class="line">  <span class="comment">// spark: sparkSession object (like sqlContext in Spark 1.x)</span></span><br><span class="line">  <span class="comment">// sc: sparkContext object (Spark 1.x compatible)</span></span><br><span class="line"></span><br><span class="line">  spark.stop()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.functions._</span><br><span class="line"><span class="keyword">import</span> org.apache.log4j.&#123; <span class="type">Level</span>, <span class="type">Logger</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">sparkWorksheet</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Set off the vebose log messages</span></span><br><span class="line">  <span class="type">Logger</span>.getLogger(<span class="string">&quot;org&quot;</span>).setLevel(<span class="type">Level</span>.<span class="type">OFF</span>)</span><br><span class="line">  <span class="type">Logger</span>.getLogger(<span class="string">&quot;akka&quot;</span>).setLevel(<span class="type">Level</span>.<span class="type">OFF</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder</span><br><span class="line">    .master(<span class="string">&quot;local&quot;</span>)</span><br><span class="line">    .appName(<span class="string">&quot;scalaWorksheet&quot;</span>)</span><br><span class="line">    .config(<span class="string">&quot;spark.ui.showConsoleProgress&quot;</span>, <span class="literal">false</span>)</span><br><span class="line">    .getOrCreate()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">import</span> spark.implicits._</span><br><span class="line"></span><br><span class="line">  <span class="keyword">lazy</span> <span class="keyword">val</span> sc = spark.sparkContext</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Your Spark codes are here</span></span><br><span class="line">  <span class="comment">// spark: sparkSession object (like sqlContext in Spark 1.x)</span></span><br><span class="line">  <span class="comment">// sc: sparkContext object (Spark 1.x compatible)</span></span><br><span class="line"></span><br><span class="line">  spark.stop()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>In line 7 and 8, suppress Spark log messages to simplify start up messages and resultant data. This also avoids *”Output exceeds cutoff limit”* error by reducing log messages.</p>
+<p>In line 7 and 8, suppress Spark log messages to simplify start up messages and resultant data. This also avoids <em>“Output exceeds cutoff limit”</em> error by reducing log messages.</p>
 <p>In line 13, suppress progress bar graph which is intuitive in terminal environment. Without this, the result part would be messed up like as follows:</p>
 <img src="/2017/07/Running-Spark-on-Scala-Worksheet/broken-worksheet.png" class="" title="Scala worksheet broken by progress bar">
 
-<p>You may increase the number of threads which run Spark by setting <code>.master(&quot;local[2]&quot;)</code> or <code>.master(&quot;local[*]&quot;)</code> in line 11. The details are in <a href="http://spark.apache.org/docs/latest/submitting-applications.html#master-urls" target="_blank" rel="noopener">Spark programming guides</a>.</p>
+<p>You may increase the number of threads which run Spark by setting <code>.master(&quot;local[2]&quot;)</code> or <code>.master(&quot;local[*]&quot;)</code> in line 11. The details are in <a target="_blank" rel="noopener" href="http://spark.apache.org/docs/latest/submitting-applications.html#master-urls">Spark programming guides</a>.</p>
 <h2 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h2><h3 id="“Output-exceeds-cutoff-limit”"><a href="#“Output-exceeds-cutoff-limit”" class="headerlink" title="“Output exceeds cutoff limit”"></a>“Output exceeds cutoff limit”</h3><p>This is caused by the limit of output buffer. You can expand the buffer size by changing IDE configuration.</p>
 <ul>
 <li>Scala IDE (Eclipse)
@@ -158,19 +160,19 @@ Add the following line in <code>eclipse.ini</code>:<figure class="highlight plai
 In <em>Preferences</em> dialog, select General &gt; Workspace. If you scroll down the contents of Workspace preferences you can get <em>Text file encoding</em> area. Set the text file encoding as UTF-8.</li>
 </ul>
 <h2 id="Working-Examples"><a href="#Working-Examples" class="headerlink" title="Working Examples"></a>Working Examples</h2><p>(Update: 2016-07-03)</p>
-<p>You can get the working examples of Scala worksheet that runs word count Spark code at <a href="https://github.com/sanori/spark-sbt" target="_blank" rel="noopener">https://github.com/sanori/spark-sbt</a>.</p>
+<p>You can get the working examples of Scala worksheet that runs word count Spark code at <a target="_blank" rel="noopener" href="https://github.com/sanori/spark-sbt">https://github.com/sanori/spark-sbt</a>.</p>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
-<li><a href="https://stackoverflow.com/questions/29896403/spark-output-log-style-vs-progress-style?answertab=votes#tab-top" target="_blank" rel="noopener">stackoverflow: Spark ouput log style vs progress-style</a></li>
-<li><a href="https://stackoverflow.com/questions/13409328/eclipse-output-exceeds-cutoff-limit-in-scala-worksheet" target="_blank" rel="noopener">stackoverflow: Eclipse output exceeds cutoff limit in scala worksheet</a></li>
-<li><a href="https://stackoverflow.com/questions/42269262/intellij-output-exceeds-cutoff-limit-in-scala-worksheet" target="_blank" rel="noopener">stackoverflow: IntelliJ output exceeds cutoff limit in scala worksheet</a></li>
-<li><a href="https://stackoverflow.com/questions/27781187/how-to-stop-messages-displaying-on-spark-console" target="_blank" rel="noopener">stackoverflow: How to stop messages displaying on spark console?</a></li>
-<li><a href="https://stackoverflow.com/questions/18470050/results-encoding-in-scala-worksheet-eclipse-plugin" target="_blank" rel="noopener">stackoverflow: Results encoding in Scala Worksheet Eclipse plugin</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/29896403/spark-output-log-style-vs-progress-style?answertab=votes#tab-top">stackoverflow: Spark ouput log style vs progress-style</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/13409328/eclipse-output-exceeds-cutoff-limit-in-scala-worksheet">stackoverflow: Eclipse output exceeds cutoff limit in scala worksheet</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/42269262/intellij-output-exceeds-cutoff-limit-in-scala-worksheet">stackoverflow: IntelliJ output exceeds cutoff limit in scala worksheet</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/27781187/how-to-stop-messages-displaying-on-spark-console">stackoverflow: How to stop messages displaying on spark console?</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/18470050/results-encoding-in-scala-worksheet-eclipse-plugin">stackoverflow: Results encoding in Scala Worksheet Eclipse plugin</a></li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/" data-id="ckchaonre000cv6jdhmekgfsd" data-title="Running Spark on Scala Worksheet" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/" data-id="ckfs3bc3w000cx3jda0km2owz" data-title="Running Spark on Scala Worksheet" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -207,7 +209,7 @@ In <em>Preferences</em> dialog, select General &gt; Workspace. If you scroll dow
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -275,6 +277,10 @@ In <em>Preferences</em> dialog, select General &gt; Workspace. If you scroll dow
   
   <div class="outer">
     <div id="footer-info" class="inner">
+      
+        <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></br>
+This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.</br>
+      
       &copy; 2020 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
