@@ -1811,7 +1811,6 @@ That is, you must combine the result of <code>EXCEPT B</code> with the result of
 <p>As a result, you can get the difference between the two tables in the same way as the following SQL statement:</p>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">(</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="string">&quot;A&quot;</span> <span class="keyword">AS</span> TBL, *</span><br><span class="line">    <span class="keyword">FROM</span> (</span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A)</span><br><span class="line">        <span class="keyword">EXCEPT</span></span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> B)</span><br><span class="line">    )</span><br><span class="line">) <span class="keyword">UNION</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="string">&quot;B&quot;</span> <span class="keyword">AS</span> TBL, *</span><br><span class="line">    <span class="keyword">FROM</span> (</span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> B)</span><br><span class="line">        <span class="keyword">EXCEPT</span></span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A)</span><br><span class="line">    )</span><br><span class="line">)</span><br></pre></td></tr></tbody></table></figure>
 
-
 			  		<!-- google Adsense -->
 			  		
 
@@ -1881,7 +1880,7 @@ That is, you must combine the result of <code>EXCEPT B</code> with the result of
 
 				<div class="copyright-title">
 					<span>
-					&copy; 2020&nbsp;Sanori&#39;s Blog
+					&copy; 2021&nbsp;Sanori&#39;s Blog
 					</span>
 				</div>
 

@@ -54,7 +54,7 @@
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
   
-<meta name="generator" content="Hexo 5.2.0"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 <body>
   <div id="container">
@@ -125,7 +125,6 @@
 
 <h3 id="Include-Spark-in-build-sbt"><a href="#Include-Spark-in-build-sbt" class="headerlink" title="Include Spark in build.sbt"></a>Include Spark in <code>build.sbt</code></h3><p>Instead of download and install Spark, you can use spark by adding the following lines in your <code>build.sbt</code>.</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">libraryDependencies += <span class="string">&quot;org.apache.spark&quot;</span> %% <span class="string">&quot;spark-core&quot;</span> % <span class="string">&quot;2.1.1&quot;</span>,</span><br><span class="line">libraryDependencies += <span class="string">&quot;org.apache.spark&quot;</span> %% <span class="string">&quot;spark-sql&quot;</span> % <span class="string">&quot;2.1.1&quot;</span>,</span><br></pre></td></tr></table></figure>
-
 <p>Note that the last revision number, 2.1.1, is the version of Spark.
 You can check available spark modules at Maven repository.</p>
 <ul>
@@ -136,16 +135,13 @@ You can check available spark modules at Maven repository.</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.functions._</span><br><span class="line"><span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder().master(<span class="string">&quot;local&quot;</span>).appName(<span class="string">&quot;spark-shell&quot;</span>).getOrCreate()</span><br><span class="line"><span class="keyword">import</span> spark.implicits._</span><br><span class="line"><span class="keyword">val</span> sc = spark.sparkContext</span><br></pre></td></tr></table></figure>
 <p>If you enter the above code in <code>sbt console</code>, you would get the Spark start messages. Note that the start message introduces the URI of SparkUI like as follows.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">17&#x2F;06&#x2F;07 04:18:48 INFO Utils: Successfully started service &#39;SparkUI&#39; on port 4040.</span><br><span class="line">17&#x2F;06&#x2F;07 04:18:48 INFO SparkUI: Bound SparkUI to 0.0.0.0, and started at http:&#x2F;&#x2F;192.168.0.2:4040</span><br></pre></td></tr></table></figure>
-
 <h3 id="Automate-the-creation-of-Spark-API"><a href="#Automate-the-creation-of-Spark-API" class="headerlink" title="Automate the creation of Spark API"></a>Automate the creation of Spark API</h3><p>Instead of entering the above code every time when Scala REPL starts, you can automate the Spark API object creation by <a target="_blank" rel="noopener" href="http://www.scala-sbt.org/0.13/docs/Howto-Scala.html#Define+the+initial+commands+evaluated+when+entering+the+Scala+REPL"><code>initialCommands</code> keyword in <code>build.sbt</code></a>.</p>
 <p>By adding the following code in <code>build.sbt</code>, you can access <code>spark</code> and <code>sc</code> API object when <code>sbt console</code> starts.</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">initialCommands in console := <span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">  import org.apache.spark.sql.SparkSession</span></span><br><span class="line"><span class="string">  import org.apache.spark.sql.functions._</span></span><br><span class="line"><span class="string">  val spark = SparkSession.builder()</span></span><br><span class="line"><span class="string">    .master(&quot;</span><span class="string">local&quot;)</span></span><br><span class="line"><span class="string">    .appName(&quot;</span>spark-<span class="string">shell&quot;)</span></span><br><span class="line"><span class="string">    .getOrCreate()</span></span><br><span class="line"><span class="string">  import spark.implicits._</span></span><br><span class="line"><span class="string">  val sc = spark.sparkContext</span></span><br><span class="line"><span class="string">&quot;</span><span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p>Since the creation of <code>spark</code> object implies start of Spark system, it is needed to send shutdown signal to Spark when console is closed.</p>
 <p>By adding the following code in <code>build.sbt</code>,
 Spark get exit signal of <code>sbt console</code> and shutdown gracefully.</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cleanupCommands in console := <span class="string">&quot;spark.stop()&quot;</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="Get-Things-Together-Spark-SBT-template"><a href="#Get-Things-Together-Spark-SBT-template" class="headerlink" title="Get Things Together: Spark SBT template"></a>Get Things Together: Spark SBT template</h2><p>(Update: 2016-06-13)</p>
 <p>Get the above comments altogether, I have created a SBT project template form spark.</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/sanori/spark-sbt">https://github.com/sanori/spark-sbt</a></p>
@@ -154,7 +150,7 @@ Spark get exit signal of <code>sbt console</code> and shutdown gracefully.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/" data-id="ckfs3bc42000kx3jd0jvtehjl" data-title="Using sbt instead of spark-shell" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/" data-id="ckk9ifvi9000kvsjd14me0pdl" data-title="Using sbt instead of spark-shell" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/06/Using-sbt-instead-of-spark-shell/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -263,7 +259,7 @@ Spark get exit signal of <code>sbt console</code> and shutdown gracefully.</p>
         <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></br>
 This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.</br>
       
-      &copy; 2020 Joo-Won Jung<br>
+      &copy; 2021 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

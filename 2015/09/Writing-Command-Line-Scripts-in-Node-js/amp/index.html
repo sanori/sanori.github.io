@@ -1786,7 +1786,6 @@ h6.categories {
 <h2 id="Arguments-with-options-and-values"><a href="#Arguments-with-options-and-values" class="headerlink" title="Arguments with options and values"></a>Arguments with options and values</h2><p>Although <code>process.argv</code> is enough to process command line arguments, sometimes command line argument parser, such as <code>getopt</code> in C, <a href="https://docs.python.org/2.7/library/argparse.html#module-argparse">argparse</a> in Python is needed for productivity and usability, especially for processing options.</p>
 <p><a href="https://github.com/tj/commander.js">commander.js</a> is perfect for this case. Just writing a help text for options as follows, make the parser works.</p>
 <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> program = <span class="built_in">require</span>(<span class="string">&apos;commander&apos;</span>);</span><br><span class="line">program</span><br><span class="line">    .option(<span class="string">&apos;-b, --boolean&apos;</span>, <span class="string">&apos;Boolean option&apos;</span>)</span><br><span class="line">    .option(<span class="string">&apos;-k, --key [value]&apos;</span>, <span class="string">&apos;Key=value option&apos;</span>)</span><br><span class="line">    .parse(process.argv);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&apos;Boolean:&apos;</span>, program.boolean);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&apos;Key =&apos;</span>, program.key);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&apos;Rest arguments:&apos;</span>, program.args);</span><br></pre></td></tr></tbody></table></figure>
-
 <p>There are alternatives for command line argument parsing:</p>
 <ul>
 <li><a href="https://github.com/substack/minimist">minimist</a>: Small module that returns compact JavaScript object as the result of argument parsing.</li>
@@ -1798,7 +1797,6 @@ h6.categories {
 <p>For example, <a href="https://docs.python.org/2/library/simplehttpserver.html">SimpleHTTPServer</a> module can be imported, but it can be run as simple http server by running <code>python &lt;path_to&gt;/SimpleHTTPServer.py</code> or <code>python -m SimpleHTTPServer</code>.</p>
 <p>Similar idiom can be applied to node.js as follows. This is <a href="https://nodejs.org/api/modules.html#modules_accessing_the_main_module">a part of node.js specification</a> since <a href="https://nodejs.org/docs/v0.4.8/api/modules.html#accessing_the_main_module">node.js 0.4.8</a>.</p>
 <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">require</span>.main === <span class="built_in">module</span>) {</span><br><span class="line">    main();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
 <h2 id="Synchronous-I-O"><a href="#Synchronous-I-O" class="headerlink" title="Synchronous I/O"></a>Synchronous I/O</h2><p>The most frustrating feature of node.js would be asynchronous, non-blocking I/O especially for script writers in shell, python, etc. Since node 0.12, there exists synchronous API such as <a href="https://nodejs.org/api/child_process.html#child_process_child_process_execsync_command_options"><code>child_prcess.execSync</code></a> and <a href="https://nodejs.org/api/fs.html"><code>fs.*Sync</code></a>. Therefore you may write the scripts as you did in shell or python. But, since the virtue of node.js is fast from asynchronous I/O, I recommend to try asynchronous features of node.js if you have enough time.</p>
 
 
@@ -1883,7 +1881,7 @@ h6.categories {
 
 				<div class="copyright-title">
 					<span>
-					&copy; 2020&nbsp;Sanori&#39;s Blog
+					&copy; 2021&nbsp;Sanori&#39;s Blog
 					</span>
 				</div>
 

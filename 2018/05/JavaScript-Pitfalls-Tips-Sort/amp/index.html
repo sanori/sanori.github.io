@@ -1789,7 +1789,6 @@ h6.categories {
 
 <p>What would be the result of the above JavaScript code? You may expect <code>[2, 10, 456, 3548]</code> since the array seem to be an integer array and JavaScript would sort it in numeric order. But, the correct result is as follows:</p>
 <figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">2</span>, <span class="number">3548</span>, <span class="number">456</span>]</span><br></pre></td></tr></tbody></table></figure>
-
 <a id="more"></a>
 
 <p>It is because the default comparison function of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort"><code>Array.prototype.sort()</code></a> is the <em>string comparison</em> after converting each element to string.</p>
@@ -1801,7 +1800,6 @@ h6.categories {
 <figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">2</span>, <span class="number">456</span>, <span class="number">3548</span>].sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>) </span>{ <span class="keyword">return</span> a - b })</span><br></pre></td></tr></tbody></table></figure>
 <p>If you use ES2015 or above, you may use arrow function to keep it simple:</p>
 <figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">2</span>, <span class="number">456</span>, <span class="number">3548</span>].sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b)</span><br></pre></td></tr></tbody></table></figure>
-
 <h3 id="Typed-array-ES2015-above"><a href="#Typed-array-ES2015-above" class="headerlink" title="Typed array (ES2015 above)"></a>Typed array (ES2015 above)</h3><p>You may think the sort function should sort in numeric order if the array is numeric typed array. You are right if you make the array numeric typed. JavaScript supports typed array.</p>
 <p>ES2015 introduced <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray"><code>TypedArray</code></a> as a view of binary data buffer. But you may use it as an array of the same type. So you can make the general array as typed array and sort as follows:</p>
 <figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Float64Array</span>.from([<span class="number">10</span>, <span class="number">2</span>, <span class="number">456</span>, <span class="number">3548</span>]).sort()</span><br></pre></td></tr></tbody></table></figure>
@@ -1877,7 +1875,7 @@ h6.categories {
 
 				<div class="copyright-title">
 					<span>
-					&copy; 2020&nbsp;Sanori&#39;s Blog
+					&copy; 2021&nbsp;Sanori&#39;s Blog
 					</span>
 				</div>
 

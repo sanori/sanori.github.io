@@ -59,7 +59,7 @@
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
   
-<meta name="generator" content="Hexo 5.2.0"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 <body>
   <div id="container">
@@ -135,7 +135,6 @@
 you can interact with local Spark system immediately.
 The following code is for Spark 2.x.</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.functions._</span><br><span class="line"><span class="keyword">import</span> org.apache.log4j.&#123; <span class="type">Level</span>, <span class="type">Logger</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">sparkWorksheet</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Set off the vebose log messages</span></span><br><span class="line">  <span class="type">Logger</span>.getLogger(<span class="string">&quot;org&quot;</span>).setLevel(<span class="type">Level</span>.<span class="type">OFF</span>)</span><br><span class="line">  <span class="type">Logger</span>.getLogger(<span class="string">&quot;akka&quot;</span>).setLevel(<span class="type">Level</span>.<span class="type">OFF</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder</span><br><span class="line">    .master(<span class="string">&quot;local&quot;</span>)</span><br><span class="line">    .appName(<span class="string">&quot;scalaWorksheet&quot;</span>)</span><br><span class="line">    .config(<span class="string">&quot;spark.ui.showConsoleProgress&quot;</span>, <span class="literal">false</span>)</span><br><span class="line">    .getOrCreate()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">import</span> spark.implicits._</span><br><span class="line"></span><br><span class="line">  <span class="keyword">lazy</span> <span class="keyword">val</span> sc = spark.sparkContext</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Your Spark codes are here</span></span><br><span class="line">  <span class="comment">// spark: sparkSession object (like sqlContext in Spark 1.x)</span></span><br><span class="line">  <span class="comment">// sc: sparkContext object (Spark 1.x compatible)</span></span><br><span class="line"></span><br><span class="line">  spark.stop()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>In line 7 and 8, suppress Spark log messages to simplify start up messages and resultant data. This also avoids <em>“Output exceeds cutoff limit”</em> error by reducing log messages.</p>
 <p>In line 13, suppress progress bar graph which is intuitive in terminal environment. Without this, the result part would be messed up like as follows:</p>
 <img src="/2017/07/Running-Spark-on-Scala-Worksheet/broken-worksheet.png" class="" title="Scala worksheet broken by progress bar">
@@ -172,7 +171,7 @@ In <em>Preferences</em> dialog, select General &gt; Workspace. If you scroll dow
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/" data-id="ckfs3bc3w000cx3jda0km2owz" data-title="Running Spark on Scala Worksheet" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/" data-id="ckk9ifvi4000cvsjdhsqfclv8" data-title="Running Spark on Scala Worksheet" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/07/Running-Spark-on-Scala-Worksheet/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -281,7 +280,7 @@ In <em>Preferences</em> dialog, select General &gt; Workspace. If you scroll dow
         <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></br>
 This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.</br>
       
-      &copy; 2020 Joo-Won Jung<br>
+      &copy; 2021 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

@@ -1797,8 +1797,7 @@ h6.categories {
 <h2 id="Troubleshooting-in-Ubuntu"><a href="#Troubleshooting-in-Ubuntu" class="headerlink" title="Troubleshooting in Ubuntu"></a>Troubleshooting in Ubuntu</h2><ol>
 <li>Identify your nVidia graphics card<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lspci | grep -i nvidia</span><br></pre></td></tr></tbody></table></figure></li>
 <li>Verify CUDA driver and its version<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat /proc/driver/nvidia/version</span><br><span class="line">NVRM version: NVIDIA UNIX x86_64 Kernel Module  375.39  Tue Jan 31 20:47:00 PST 2017</span><br><span class="line">GCC version:  gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.4)</span><br></pre></td></tr></tbody></table></figure></li>
-<li>Verify CUDA toolkit in <code>nvidia-docker</code><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nvidia-docker run --rm nvidia/cuda nvidia-smi</span><br></pre></td></tr></tbody></table></figure>
-</li>
+<li>Verify CUDA toolkit in <code>nvidia-docker</code><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nvidia-docker run --rm nvidia/cuda nvidia-smi</span><br></pre></td></tr></tbody></table></figure></li>
 </ol>
 
 
@@ -1889,7 +1888,7 @@ h6.categories {
 
 				<div class="copyright-title">
 					<span>
-					&copy; 2020&nbsp;Sanori&#39;s Blog
+					&copy; 2021&nbsp;Sanori&#39;s Blog
 					</span>
 				</div>
 

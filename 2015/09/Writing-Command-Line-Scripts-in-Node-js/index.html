@@ -54,7 +54,7 @@
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
   
-<meta name="generator" content="Hexo 5.2.0"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 <body>
   <div id="container">
@@ -127,7 +127,6 @@
 <h2 id="Arguments-with-options-and-values"><a href="#Arguments-with-options-and-values" class="headerlink" title="Arguments with options and values"></a>Arguments with options and values</h2><p>Although <code>process.argv</code> is enough to process command line arguments, sometimes command line argument parser, such as <code>getopt</code> in C, <a target="_blank" rel="noopener" href="https://docs.python.org/2.7/library/argparse.html#module-argparse">argparse</a> in Python is needed for productivity and usability, especially for processing options.</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/tj/commander.js">commander.js</a> is perfect for this case. Just writing a help text for options as follows, make the parser works.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> program = <span class="built_in">require</span>(<span class="string">&#x27;commander&#x27;</span>);</span><br><span class="line">program</span><br><span class="line">    .option(<span class="string">&#x27;-b, --boolean&#x27;</span>, <span class="string">&#x27;Boolean option&#x27;</span>)</span><br><span class="line">    .option(<span class="string">&#x27;-k, --key [value]&#x27;</span>, <span class="string">&#x27;Key=value option&#x27;</span>)</span><br><span class="line">    .parse(process.argv);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;Boolean:&#x27;</span>, program.boolean);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;Key =&#x27;</span>, program.key);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;Rest arguments:&#x27;</span>, program.args);</span><br></pre></td></tr></table></figure>
-
 <p>There are alternatives for command line argument parsing:</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/substack/minimist">minimist</a>: Small module that returns compact JavaScript object as the result of argument parsing.</li>
@@ -139,13 +138,12 @@
 <p>For example, <a target="_blank" rel="noopener" href="https://docs.python.org/2/library/simplehttpserver.html">SimpleHTTPServer</a> module can be imported, but it can be run as simple http server by running <code>python &lt;path_to&gt;/SimpleHTTPServer.py</code> or <code>python -m SimpleHTTPServer</code>.</p>
 <p>Similar idiom can be applied to node.js as follows. This is <a target="_blank" rel="noopener" href="https://nodejs.org/api/modules.html#modules_accessing_the_main_module">a part of node.js specification</a> since <a target="_blank" rel="noopener" href="https://nodejs.org/docs/v0.4.8/api/modules.html#accessing_the_main_module">node.js 0.4.8</a>.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">require</span>.main === <span class="built_in">module</span>) &#123;</span><br><span class="line">    main();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h2 id="Synchronous-I-O"><a href="#Synchronous-I-O" class="headerlink" title="Synchronous I/O"></a>Synchronous I/O</h2><p>The most frustrating feature of node.js would be asynchronous, non-blocking I/O especially for script writers in shell, python, etc. Since node 0.12, there exists synchronous API such as <a target="_blank" rel="noopener" href="https://nodejs.org/api/child_process.html#child_process_child_process_execsync_command_options"><code>child_prcess.execSync</code></a> and <a target="_blank" rel="noopener" href="https://nodejs.org/api/fs.html"><code>fs.*Sync</code></a>. Therefore you may write the scripts as you did in shell or python. But, since the virtue of node.js is fast from asynchronous I/O, I recommend to try asynchronous features of node.js if you have enough time.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/" data-id="ckfs3bc4w002mx3jd09y23r9b" data-title="Writing Command Line Scripts in Node.js" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/" data-id="ckk9ifviv002mvsjdbdvwbrx8" data-title="Writing Command Line Scripts in Node.js" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -249,7 +247,7 @@
         <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></br>
 This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.</br>
       
-      &copy; 2020 Joo-Won Jung<br>
+      &copy; 2021 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

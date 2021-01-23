@@ -57,7 +57,7 @@
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
   
-<meta name="generator" content="Hexo 5.2.0"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 <body>
   <div id="container">
@@ -147,14 +147,13 @@
 <h2 id="Troubleshooting-in-Ubuntu"><a href="#Troubleshooting-in-Ubuntu" class="headerlink" title="Troubleshooting in Ubuntu"></a>Troubleshooting in Ubuntu</h2><ol>
 <li>Identify your nVidia graphics card<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lspci | grep -i nvidia</span><br></pre></td></tr></table></figure></li>
 <li>Verify CUDA driver and its version<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat /proc/driver/nvidia/version</span><br><span class="line">NVRM version: NVIDIA UNIX x86_64 Kernel Module  375.39  Tue Jan 31 20:47:00 PST 2017</span><br><span class="line">GCC version:  gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.4)</span><br></pre></td></tr></table></figure></li>
-<li>Verify CUDA toolkit in <code>nvidia-docker</code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nvidia-docker run --rm nvidia/cuda nvidia-smi</span><br></pre></td></tr></table></figure>
-</li>
+<li>Verify CUDA toolkit in <code>nvidia-docker</code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nvidia-docker run --rm nvidia/cuda nvidia-smi</span><br></pre></td></tr></table></figure></li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/" data-id="ckfs3bc3z000ix3jd7du2gwye" data-title="TensorFlow over docker with GPU support" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/" data-id="ckk9ifvi8000ivsjdf5gbf847" data-title="TensorFlow over docker with GPU support" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -263,7 +262,7 @@
         <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></br>
 This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.</br>
       
-      &copy; 2020 Joo-Won Jung<br>
+      &copy; 2021 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
