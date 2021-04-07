@@ -54,7 +54,7 @@
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
   
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container">
@@ -144,7 +144,7 @@ And some data engineers or scientists may think this query cannot be written
 in SQL statements, and decide to code in MapReduce or Spark.</p>
 <p>In this post, I will show an example to solve top-<em>k</em> frequent elements problem
 using the rank() function which is one of SQL window functions.</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="Top-k-Frequent-Elements"><a href="#Top-k-Frequent-Elements" class="headerlink" title="Top-k Frequent Elements"></a>Top-<em>k</em> Frequent Elements</h2><p>Top-<em>k</em> frequent elements problem is
 finding the most frequently appearing elements from the given
@@ -181,10 +181,12 @@ that is count of logs, how do you make a SQL query for the log?</p>
 <h3 id="Top-k-most-frequent-remote-addresses"><a href="#Top-k-most-frequent-remote-addresses" class="headerlink" title="Top-k most frequent remote addresses"></a>Top-<em>k</em> most frequent remote addresses</h3><p>If the work requires the most 3-frequent remoteAddr’s for the whole log,
 the following query may suffice:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> remoteAddr, <span class="keyword">count</span>(*) <span class="keyword">AS</span> hits</span><br><span class="line"><span class="keyword">FROM</span> accessLog</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> remoteAddr</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> hits <span class="keyword">DESC</span></span><br><span class="line"><span class="keyword">LIMIT</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="Top-k-most-frequent-IPs-for-each-days"><a href="#Top-k-most-frequent-IPs-for-each-days" class="headerlink" title="Top-k most frequent IPs for each days"></a>Top-<em>k</em> most frequent IPs for each days</h3><p>But, if you need top-3 remoteAddr’s for each day,
 How do you query the log database?
 Here is the place where a window function make it.</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">date</span>, remoteAddr, hits</span><br><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="built_in">date</span>, remoteAddr, hits,</span><br><span class="line">    <span class="keyword">rank</span>() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="built_in">date</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> hits <span class="keyword">DESC</span>) <span class="keyword">AS</span> <span class="keyword">rank</span></span><br><span class="line">  <span class="keyword">FROM</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="keyword">cast</span>(<span class="built_in">time</span> <span class="keyword">AS</span> <span class="built_in">date</span>) <span class="keyword">AS</span> <span class="built_in">date</span>, remoteAddr, <span class="keyword">count</span>(*) <span class="keyword">AS</span> hits</span><br><span class="line">    <span class="keyword">FROM</span> accessLog</span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="built_in">date</span>, remoteAddr</span><br><span class="line">  )</span><br><span class="line">)</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">rank</span> &lt;= <span class="number">3</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="built_in">date</span>, hits <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
+
 <p>How this works? Let’s see step by step from the innermost SELECT statement.</p>
 <p>In line 6 ~ 8, the innermost SELECT counts hits for each date and remoteAddr,
 and generates an intermediate table like as following:</p>
@@ -440,7 +442,7 @@ And WHERE clause in outermost SELECT statement removes needless output.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" data-id="ckk9ifvi5000evsjd5mtn2e2e" data-title="SQL Window Functions: Top-k Elements Example" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" data-id="ckn7rr0ly000hvwjdfk7ch6qd" data-title="SQL Window Functions: Top-k Elements Example" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -492,7 +494,7 @@ And WHERE clause in outermost SELECT statement removes needless output.</p>
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/2DArray/" style="font-size: 10px;">2DArray</a> <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/CUDA/" style="font-size: 10px;">CUDA</a> <a href="/tags/CommandLineInterface/" style="font-size: 13.33px;">CommandLineInterface</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Keras/" style="font-size: 10px;">Keras</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/REPL/" style="font-size: 10px;">REPL</a> <a href="/tags/SQL/" style="font-size: 16.67px;">SQL</a> <a href="/tags/Scala/" style="font-size: 13.33px;">Scala</a> <a href="/tags/Scala-Worksheet/" style="font-size: 10px;">Scala Worksheet</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/SparkSQL/" style="font-size: 16.67px;">SparkSQL</a> <a href="/tags/SqlWindowFunction/" style="font-size: 13.33px;">SqlWindowFunction</a> <a href="/tags/TensorFlow/" style="font-size: 13.33px;">TensorFlow</a> <a href="/tags/bitwise/" style="font-size: 10px;">bitwise</a> <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/interactive-development/" style="font-size: 10px;">interactive development</a> <a href="/tags/nVidia/" style="font-size: 10px;">nVidia</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/nvidia-docker/" style="font-size: 13.33px;">nvidia-docker</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/spark-shell/" style="font-size: 10px;">spark-shell</a> <a href="/tags/toFixed/" style="font-size: 10px;">toFixed</a>
+      <a href="/tags/2DArray/" style="font-size: 10px;">2DArray</a> <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/CUDA/" style="font-size: 10px;">CUDA</a> <a href="/tags/CommandLineInterface/" style="font-size: 13.33px;">CommandLineInterface</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Keras/" style="font-size: 10px;">Keras</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/REPL/" style="font-size: 10px;">REPL</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/ReactHooks/" style="font-size: 10px;">ReactHooks</a> <a href="/tags/SQL/" style="font-size: 16.67px;">SQL</a> <a href="/tags/Scala/" style="font-size: 13.33px;">Scala</a> <a href="/tags/Scala-Worksheet/" style="font-size: 10px;">Scala Worksheet</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/SparkSQL/" style="font-size: 16.67px;">SparkSQL</a> <a href="/tags/SqlWindowFunction/" style="font-size: 13.33px;">SqlWindowFunction</a> <a href="/tags/TensorFlow/" style="font-size: 13.33px;">TensorFlow</a> <a href="/tags/bitwise/" style="font-size: 10px;">bitwise</a> <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/interactive-development/" style="font-size: 10px;">interactive development</a> <a href="/tags/nVidia/" style="font-size: 10px;">nVidia</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/nvidia-docker/" style="font-size: 13.33px;">nvidia-docker</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/spark-shell/" style="font-size: 10px;">spark-shell</a> <a href="/tags/toFixed/" style="font-size: 10px;">toFixed</a>
     </div>
   </div>
 
@@ -501,7 +503,7 @@ And WHERE clause in outermost SELECT statement removes needless output.</p>
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li></ul>
     </div>
   </div>
 
@@ -512,6 +514,10 @@ And WHERE clause in outermost SELECT statement removes needless output.</p>
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/04/Migrate-to-useEffect/">Migrate to useEffect</a>
+          </li>
         
           <li>
             <a href="/2019/08/Compare-Two-Tables-in-SQL/">Compare Two Tables in SQL</a>
@@ -527,10 +533,6 @@ And WHERE clause in outermost SELECT statement removes needless output.</p>
         
           <li>
             <a href="/2019/03/Line-by-line-Processing-in-node-js/">Line-by-line Processing in node.js</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/">SQL Window Functions: row_number, rank, dense_rank</a>
           </li>
         
       </ul>

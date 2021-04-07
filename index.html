@@ -46,7 +46,7 @@
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
   
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container">
@@ -91,6 +91,49 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Migrate-to-useEffect" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/04/Migrate-to-useEffect/" class="article-date">
+  <time class="dt-published" datetime="2021-04-07T18:07:50.000Z" itemprop="datePublished">2021-04-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/04/Migrate-to-useEffect/">Migrate to useEffect</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>TL;DR</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRef, useEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mounted = useRef(<span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line">useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (mounted.current) &#123;</span><br><span class="line">    mounted.current = <span class="literal">true</span>;</span><br><span class="line">    <span class="comment">// componentDidMount part</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// componentDidUpdate part</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// componentWillUnmount part</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;, Array_of_subscribed_props_and_states)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sanori.github.io/2021/04/Migrate-to-useEffect/" data-id="ckn7rr0lt000avwjdfz8u6eu4" data-title="Migrate to useEffect" class="article-share-link">Share</a>
+      
+        <a href="http://sanori.github.io/2021/04/Migrate-to-useEffect/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ReactHooks/" rel="tag">ReactHooks</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Compare-Two-Tables-in-SQL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2019/08/Compare-Two-Tables-in-SQL/" class="article-date">
@@ -127,7 +170,7 @@ But, don’t worry. You can make the cluster of servers compare the tables by si
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/" data-id="ckk9ifvht0002vsjd0rg1ebxp" data-title="Compare Two Tables in SQL" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/" data-id="ckn7rr0lf0002vwjdggpp5yfu" data-title="Compare Two Tables in SQL" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -169,6 +212,7 @@ But, don’t worry. You can make the cluster of servers compare the tables by si
 
 <p>Sometimes, you need to create and manipulate a two-dimensional (2D) array or a matrix. In JavaScript, an array of arrays can be used as a 2D array. </p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mat = [</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">  [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>],</span><br><span class="line">  [<span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>],</span><br><span class="line">  [<span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>]</span><br><span class="line">];</span><br><span class="line"><span class="built_in">console</span>.log(mat[<span class="number">1</span>][<span class="number">2</span>]);    <span class="comment">// gives 6</span></span><br></pre></td></tr></table></figure>
+
 <p>How do you implement if you initialize m x n matrix with zeros?
 If you know about <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill"><code>Array.prototype.fill()</code></a>, you may be tempted to initialize m x n array like <code>Array(m).fill(Array(n).fill(0))</code>, but this does not work properly.
 Since the <code>Array(n).fill(0)</code> creates just <strong>one</strong> array of size <em>n</em> and all the elements of the first array, that represents rows, point to the same, the second array as follows:</p>
@@ -181,7 +225,7 @@ Since the <code>Array(n).fill(0)</code> creates just <strong>one</strong> array 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/" data-id="ckk9ifvhv0003vsjdgosw1hbp" data-title="JavaScript Pitfalls &amp; Tips: 2D Array, Matrix" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/" data-id="ckn7rr0li0003vwjdf2hvfqir" data-title="JavaScript Pitfalls &amp; Tips: 2D Array, Matrix" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -230,7 +274,7 @@ Since the <code>Array(n).fill(0)</code> creates just <strong>one</strong> array 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/" data-id="ckk9ifvhz0007vsjdfrtcdyit" data-title="JavaScript Pitfalls &amp; Tips: toFixed" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/" data-id="ckn7rr0lp0007vwjd34td8xit" data-title="JavaScript Pitfalls &amp; Tips: toFixed" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -278,7 +322,7 @@ You want to do it with JavaScript or node.js. How can you do that?</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/" data-id="ckk9ifvi10009vsjd5bdsgthu" data-title="Line-by-line Processing in node.js" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/" data-id="ckn7rr0lr0009vwjdbcvc0vn5" data-title="Line-by-line Processing in node.js" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -335,7 +379,7 @@ that is, the same elements in order.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/" data-id="ckk9ifvi6000hvsjd9m27cbpo" data-title="SQL Window Functions: row_number, rank, dense_rank" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/" data-id="ckn7rr0m7000ivwjd4o4f867j" data-title="SQL Window Functions: row_number, rank, dense_rank" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -406,7 +450,7 @@ using the rank() function which is one of SQL window functions.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" data-id="ckk9ifvi5000evsjd5mtn2e2e" data-title="SQL Window Functions: Top-k Elements Example" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" data-id="ckn7rr0ly000hvwjdfk7ch6qd" data-title="SQL Window Functions: Top-k Elements Example" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -455,7 +499,7 @@ using the rank() function which is one of SQL window functions.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/" data-id="ckk9ifvhx0005vsjd8ukwdfbg" data-title="JavaScript Pitfalls &amp; Tips: Bitwise Operation" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/" data-id="ckn7rr0lm0005vwjd3406gsf3" data-title="JavaScript Pitfalls &amp; Tips: Bitwise Operation" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -506,7 +550,7 @@ using the rank() function which is one of SQL window functions.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/" data-id="ckk9ifvhy0006vsjd6xl63lwv" data-title="JavaScript Pitfalls &amp; Tips: Sort" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/" data-id="ckn7rr0ln0006vwjdelv79h8z" data-title="JavaScript Pitfalls &amp; Tips: Sort" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -555,62 +599,13 @@ using the rank() function which is one of SQL window functions.</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/" data-id="ckk9ifvi2000avsjdbdu1cum2" data-title="Running Keras directly on TensorFlow" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/" data-id="ckn7rr0lv000cvwjd98cl1cbt" data-title="Running Keras directly on TensorFlow" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/#disqus_thread" class="article-comment-link">Comments</a>
       
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Keras/" rel="tag">Keras</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TensorFlow/" rel="tag">TensorFlow</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nvidia-docker/" rel="tag">nvidia-docker</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Writing-Spark-batches-only-in-SQL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2017/10/Writing-Spark-batches-only-in-SQL/" class="article-date">
-  <time class="dt-published" datetime="2017-10-07T14:57:03.000Z" itemprop="datePublished">2017-10-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2017/10/Writing-Spark-batches-only-in-SQL/">Writing Spark batches only in SQL</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><a target="_blank" rel="noopener" href="http://spark.apache.org/">Apache Spark<sup>TM</sup></a> is known as popular big data framework which is faster than Hadoop MapReduce, easy-to-use, and fault-tolerant. Most of the Spark tutorials require readers to understand Scala, Java, or Python as base programming language. But, in my opinion, SQL is enough to write a spark batch script.</p>
-<p>In this article, I will show that <strong>you can write Spark batches only in SQL if your input data is ready as structured dataset</strong>. This means that you don’t need to learn Scala or Python, RDD, DataFrame if your job can be expressed in SQL. Moreover, the expression power of SparkSQL may be stronger than you think.</p>
-<p>The SQL scripts as follows can be found at <a target="_blank" rel="noopener" href="https://github.com/sanori/spark-sql-example">https://github.com/sanori/spark-sql-example</a>. You can test them yourself.</p>
-        
-          <p class="article-more-link">
-            <a href="/2017/10/Writing-Spark-batches-only-in-SQL/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/" data-id="ckk9ifviw002nvsjdb7by3cfc" data-title="Writing Spark batches only in SQL" class="article-share-link">Share</a>
-      
-        <a href="http://sanori.github.io/2017/10/Writing-Spark-batches-only-in-SQL/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataFrame/" rel="tag">DataFrame</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dataset/" rel="tag">Dataset</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL/" rel="tag">SQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark/" rel="tag">Spark</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SparkSQL/" rel="tag">SparkSQL</a></li></ul>
 
     </footer>
   </div>
@@ -638,7 +633,7 @@ using the rank() function which is one of SQL window functions.</p>
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/2DArray/" style="font-size: 10px;">2DArray</a> <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/CUDA/" style="font-size: 10px;">CUDA</a> <a href="/tags/CommandLineInterface/" style="font-size: 13.33px;">CommandLineInterface</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Keras/" style="font-size: 10px;">Keras</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/REPL/" style="font-size: 10px;">REPL</a> <a href="/tags/SQL/" style="font-size: 16.67px;">SQL</a> <a href="/tags/Scala/" style="font-size: 13.33px;">Scala</a> <a href="/tags/Scala-Worksheet/" style="font-size: 10px;">Scala Worksheet</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/SparkSQL/" style="font-size: 16.67px;">SparkSQL</a> <a href="/tags/SqlWindowFunction/" style="font-size: 13.33px;">SqlWindowFunction</a> <a href="/tags/TensorFlow/" style="font-size: 13.33px;">TensorFlow</a> <a href="/tags/bitwise/" style="font-size: 10px;">bitwise</a> <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/interactive-development/" style="font-size: 10px;">interactive development</a> <a href="/tags/nVidia/" style="font-size: 10px;">nVidia</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/nvidia-docker/" style="font-size: 13.33px;">nvidia-docker</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/spark-shell/" style="font-size: 10px;">spark-shell</a> <a href="/tags/toFixed/" style="font-size: 10px;">toFixed</a>
+      <a href="/tags/2DArray/" style="font-size: 10px;">2DArray</a> <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/CUDA/" style="font-size: 10px;">CUDA</a> <a href="/tags/CommandLineInterface/" style="font-size: 13.33px;">CommandLineInterface</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Keras/" style="font-size: 10px;">Keras</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/REPL/" style="font-size: 10px;">REPL</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/ReactHooks/" style="font-size: 10px;">ReactHooks</a> <a href="/tags/SQL/" style="font-size: 16.67px;">SQL</a> <a href="/tags/Scala/" style="font-size: 13.33px;">Scala</a> <a href="/tags/Scala-Worksheet/" style="font-size: 10px;">Scala Worksheet</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/SparkSQL/" style="font-size: 16.67px;">SparkSQL</a> <a href="/tags/SqlWindowFunction/" style="font-size: 13.33px;">SqlWindowFunction</a> <a href="/tags/TensorFlow/" style="font-size: 13.33px;">TensorFlow</a> <a href="/tags/bitwise/" style="font-size: 10px;">bitwise</a> <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/interactive-development/" style="font-size: 10px;">interactive development</a> <a href="/tags/nVidia/" style="font-size: 10px;">nVidia</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/nvidia-docker/" style="font-size: 13.33px;">nvidia-docker</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/spark-shell/" style="font-size: 10px;">spark-shell</a> <a href="/tags/toFixed/" style="font-size: 10px;">toFixed</a>
     </div>
   </div>
 
@@ -647,7 +642,7 @@ using the rank() function which is one of SQL window functions.</p>
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li></ul>
     </div>
   </div>
 
@@ -658,6 +653,10 @@ using the rank() function which is one of SQL window functions.</p>
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/04/Migrate-to-useEffect/">Migrate to useEffect</a>
+          </li>
         
           <li>
             <a href="/2019/08/Compare-Two-Tables-in-SQL/">Compare Two Tables in SQL</a>
@@ -673,10 +672,6 @@ using the rank() function which is one of SQL window functions.</p>
         
           <li>
             <a href="/2019/03/Line-by-line-Processing-in-node-js/">Line-by-line Processing in node.js</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/">SQL Window Functions: row_number, rank, dense_rank</a>
           </li>
         
       </ul>

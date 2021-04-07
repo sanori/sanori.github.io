@@ -1793,7 +1793,7 @@ If the tables are different, you might want to know how many rows are different 
 In other words, you might want to compare two tables, such as the Linux <code>diff</code> command.</p>
 <p>You might hesitate to compare two tables row by row if you feel the table is so big.
 But, don&#x2019;t worry. You can make the cluster of servers compare the tables by simple SQL statement.</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="Set-operators-in-SQL"><a href="#Set-operators-in-SQL" class="headerlink" title="Set operators in SQL"></a>Set operators in SQL</h2><p>You can use the SQL set operator to compare tables.
 For SQL set operators, the elements of a set are the rows.
@@ -1810,6 +1810,7 @@ Rows that are in A but not in B can be obtained with the statement &#x2018;B EXC
 That is, you must combine the result of <code>EXCEPT B</code> with the result of<code> B EXCEPT A</code>.</p>
 <p>As a result, you can get the difference between the two tables in the same way as the following SQL statement:</p>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">(</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="string">&quot;A&quot;</span> <span class="keyword">AS</span> TBL, *</span><br><span class="line">    <span class="keyword">FROM</span> (</span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A)</span><br><span class="line">        <span class="keyword">EXCEPT</span></span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> B)</span><br><span class="line">    )</span><br><span class="line">) <span class="keyword">UNION</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="string">&quot;B&quot;</span> <span class="keyword">AS</span> TBL, *</span><br><span class="line">    <span class="keyword">FROM</span> (</span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> B)</span><br><span class="line">        <span class="keyword">EXCEPT</span></span><br><span class="line">        (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A)</span><br><span class="line">    )</span><br><span class="line">)</span><br></pre></td></tr></tbody></table></figure>
+
 
 			  		<!-- google Adsense -->
 			  		

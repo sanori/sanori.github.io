@@ -1781,7 +1781,7 @@ h6.categories {
 			  		<div class="amp-img-wrapper"><amp-img src="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png" width="1200" height="675" layout="responsive"></amp-img></div>
 
 <p>Bitwise left shift operator (<code>&lt;&lt;</code>) is used instead of power of 2 (2<sup>n</sup>) operator on integer variable. This idiom may lead to strange result in JavaScript.</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <p>Bitwise operators in JavaScript converts their operands to <em>signed <strong>32</strong>-bit</em> integer, not 64-bit integer (also known as <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html"><code>long</code></a> in Java, <a href="https://en.wikipedia.org/wiki/C_data_types#Basic_types"><code>long long</code></a> in C language).
 Therefore, <code>1 &lt;&lt; n</code> is not the same as <code>Math.pow(2, n)</code> if <code>n &gt; 31</code>.</p>

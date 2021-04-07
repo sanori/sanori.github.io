@@ -55,7 +55,7 @@
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
   
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container">
@@ -123,19 +123,23 @@
         <img src="/2019/04/JavaScript-Pitfalls-Tips-toFixed/js-toFixed-title.png" class="" title="2.55.toFixed(1) !&#x3D;&#x3D; 2.6">
 
 <p><code>Number.prototype.toFixed(n)</code> is a number formatting method that shows n-th digits after the decimal point. It seems to rounds (n+1)-th digits. But, sometimes, it does not round up. For example, the value of <code>2.55.toFixed(1)</code> is <code>2.5</code>, not <code>2.6</code> which is correct. <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed#Using_toFixed">This example is even in MDN documents</a>.</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <p>This strange phenomenon is due to the inaccuracy of floating points notation. What you get if you add 0.05 to 2.55? You must get a 2.6. But, in 64-bit floating points notation, the answer is as follows:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; 2.55 + 0.05</span><br><span class="line">2.5999999999999996</span><br></pre></td></tr></table></figure>
+
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>If we want to round the digit correctly, we should not use <code>toFixed(n)</code>. There are the following alternatives.</p>
 <h3 id="Do-it-in-Integer"><a href="#Do-it-in-Integer" class="headerlink" title="Do it in Integer"></a>Do it in Integer</h3><p>The first alternative is not using floating points, but using integer. For example, set all the currency unit to cents, not dollars.</p>
 <p>Adding 0.5 and get the integer part in 64-bit floating points notation does no harm. Using this feature we can write another toFixed function as follows:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Return the fixed point notation.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">n</span></span> - the number to be fixed notation </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">d</span></span> - the number of digits after decimal points</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns <span class="type">&#123;string&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toFixed</span>(<span class="params">n, d</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> tenToD = <span class="built_in">Math</span>.pow(<span class="number">10</span>, d);</span><br><span class="line">  <span class="keyword">return</span> (<span class="built_in">Math</span>.floor(n * tenToD + <span class="number">0.5</span>) / tenToD).toFixed(d);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>You may use <code>Math.round</code> instead of <code>Math.floor</code> and <code>+ 0.5</code>.</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toFixed</span>(<span class="params">n, d</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> tenToD = <span class="built_in">Math</span>.pow(<span class="number">10</span>, d);</span><br><span class="line">  <span class="keyword">return</span> (<span class="built_in">Math</span>.round(n * tenToD) / tenToD).toFixed(d);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="Arbitrary-precision-libraries"><a href="#Arbitrary-precision-libraries" class="headerlink" title="Arbitrary precision libraries"></a>Arbitrary precision libraries</h3><p>If you need to calculate more precisely than 64-bit floating points notation, you would better use one of the arbitrary precision libraries. Most arbitrary precision libraries can designate precision in decimal places. Moreover, most of the libraries support <code>toFixed</code>.</p>
 <p>For example, you can see the <code>toFixed</code> of <a target="_blank" rel="noopener" href="http://mikemcl.github.io/big.js/">big.js</a> works correctly as follows:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Big = <span class="built_in">require</span>(<span class="string">&#x27;big.js&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> test = Big(<span class="string">&#x27;2.55&#x27;</span>).toFixed(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(test);            <span class="comment">// 2.6</span></span><br><span class="line"><span class="built_in">console</span>.log(test === <span class="string">&#x27;2.6&#x27;</span>);  <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed">Number.prototype.toFixed() - JavaScript | MDN</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/MikeMcl/big.js/wiki">What is the difference between big.js, bignumber.js and decimal.js?</a></li>
@@ -144,7 +148,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/" data-id="ckk9ifvhz0007vsjdfrtcdyit" data-title="JavaScript Pitfalls &amp; Tips: toFixed" class="article-share-link">Share</a>
+      <a data-url="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/" data-id="ckn7rr0lp0007vwjd34td8xit" data-title="JavaScript Pitfalls &amp; Tips: toFixed" class="article-share-link">Share</a>
       
         <a href="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -196,7 +200,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/2DArray/" style="font-size: 10px;">2DArray</a> <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/CUDA/" style="font-size: 10px;">CUDA</a> <a href="/tags/CommandLineInterface/" style="font-size: 13.33px;">CommandLineInterface</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Keras/" style="font-size: 10px;">Keras</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/REPL/" style="font-size: 10px;">REPL</a> <a href="/tags/SQL/" style="font-size: 16.67px;">SQL</a> <a href="/tags/Scala/" style="font-size: 13.33px;">Scala</a> <a href="/tags/Scala-Worksheet/" style="font-size: 10px;">Scala Worksheet</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/SparkSQL/" style="font-size: 16.67px;">SparkSQL</a> <a href="/tags/SqlWindowFunction/" style="font-size: 13.33px;">SqlWindowFunction</a> <a href="/tags/TensorFlow/" style="font-size: 13.33px;">TensorFlow</a> <a href="/tags/bitwise/" style="font-size: 10px;">bitwise</a> <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/interactive-development/" style="font-size: 10px;">interactive development</a> <a href="/tags/nVidia/" style="font-size: 10px;">nVidia</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/nvidia-docker/" style="font-size: 13.33px;">nvidia-docker</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/spark-shell/" style="font-size: 10px;">spark-shell</a> <a href="/tags/toFixed/" style="font-size: 10px;">toFixed</a>
+      <a href="/tags/2DArray/" style="font-size: 10px;">2DArray</a> <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/CUDA/" style="font-size: 10px;">CUDA</a> <a href="/tags/CommandLineInterface/" style="font-size: 13.33px;">CommandLineInterface</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Keras/" style="font-size: 10px;">Keras</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/REPL/" style="font-size: 10px;">REPL</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/ReactHooks/" style="font-size: 10px;">ReactHooks</a> <a href="/tags/SQL/" style="font-size: 16.67px;">SQL</a> <a href="/tags/Scala/" style="font-size: 13.33px;">Scala</a> <a href="/tags/Scala-Worksheet/" style="font-size: 10px;">Scala Worksheet</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/SparkSQL/" style="font-size: 16.67px;">SparkSQL</a> <a href="/tags/SqlWindowFunction/" style="font-size: 13.33px;">SqlWindowFunction</a> <a href="/tags/TensorFlow/" style="font-size: 13.33px;">TensorFlow</a> <a href="/tags/bitwise/" style="font-size: 10px;">bitwise</a> <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/interactive-development/" style="font-size: 10px;">interactive development</a> <a href="/tags/nVidia/" style="font-size: 10px;">nVidia</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/nvidia-docker/" style="font-size: 13.33px;">nvidia-docker</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/spark-shell/" style="font-size: 10px;">spark-shell</a> <a href="/tags/toFixed/" style="font-size: 10px;">toFixed</a>
     </div>
   </div>
 
@@ -205,7 +209,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li></ul>
     </div>
   </div>
 
@@ -216,6 +220,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/04/Migrate-to-useEffect/">Migrate to useEffect</a>
+          </li>
         
           <li>
             <a href="/2019/08/Compare-Two-Tables-in-SQL/">Compare Two Tables in SQL</a>
@@ -231,10 +239,6 @@
         
           <li>
             <a href="/2019/03/Line-by-line-Processing-in-node-js/">Line-by-line Processing in node.js</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/">SQL Window Functions: row_number, rank, dense_rank</a>
           </li>
         
       </ul>
