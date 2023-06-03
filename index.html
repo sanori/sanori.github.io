@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-54TR4FSRPW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-54TR4FSRPW');
+</script>
+<!-- End Google Analytics -->
+
+  
+  <title>Sanori&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Sanori&#39;s writings about software development and computer science.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sanori&#39;s Blog">
+<meta property="og:url" content="http://sanori.github.io/index.html">
+<meta property="og:site_name" content="Sanori&#39;s Blog">
+<meta property="og:description" content="Sanori&#39;s writings about software development and computer science.">
+<meta property="og:locale">
+<meta property="article:author" content="Joo-Won Jung">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Sanori's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sanori&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">The world that sanori perceives</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/links">Links</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sanori.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Migrate-to-useEffect" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/04/Migrate-to-useEffect/" class="article-date">
+  <time class="dt-published" datetime="2021-04-07T18:07:50.000Z" itemprop="datePublished">2021-04-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/04/Migrate-to-useEffect/">Migrate to useEffect</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>TL;DR</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRef, useEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mounted = <span class="title function_">useRef</span>(<span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line"><span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (mounted.<span class="property">current</span>) &#123;</span><br><span class="line">    mounted.<span class="property">current</span> = <span class="literal">true</span>;</span><br><span class="line">    <span class="comment">// componentDidMount part</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// componentDidUpdate part</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// componentWillUnmount part</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;, <span class="title class_">Array</span>_of_subscribed_props_and_states)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sanori.github.io/2021/04/Migrate-to-useEffect/" data-id="clifcg7ka000anfjd8d2n9q7n" data-title="Migrate to useEffect" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+        <a href="http://sanori.github.io/2021/04/Migrate-to-useEffect/#disqus_thread" class="article-comment-link"><span class="fa fa-comment">Comments</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ReactHooks/" rel="tag">ReactHooks</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Compare-Two-Tables-in-SQL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/08/Compare-Two-Tables-in-SQL/" class="article-date">
+  <time class="dt-published" datetime="2019-08-05T17:50:59.000Z" itemprop="datePublished">2019-08-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/08/Compare-Two-Tables-in-SQL/">Compare Two Tables in SQL</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>You may want to compare the results processed while you develop and enhance data processing tasks.
+For example, you might want to see if the table from improved query are the same as the one of the existing query.
+If the tables are different, you might want to know how many rows are different and which field is different.
+In other words, you might want to compare two tables, such as the Linux <code>diff</code> command.</p>
+<p>You might hesitate to compare two tables row by row if you feel the table is so big.
+But, don’t worry. You can make the cluster of servers compare the tables by simple SQL statement.</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/08/Compare-Two-Tables-in-SQL/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/" data-id="clifcg7jw0002nfjdb2vz0flm" data-title="Compare Two Tables in SQL" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+        <a href="http://sanori.github.io/2019/08/Compare-Two-Tables-in-SQL/#disqus_thread" class="article-comment-link"><span class="fa fa-comment">Comments</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL/" rel="tag">SQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SparkSQL/" rel="tag">SparkSQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-JavaScript-Pitfalls-Tips-2D-Array-Matrix" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/" class="article-date">
+  <time class="dt-published" datetime="2019-05-25T13:51:10.000Z" itemprop="datePublished">2019-05-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/">JavaScript Pitfalls &amp; Tips: 2D Array, Matrix</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <img src="/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/js-2d-array-title.png" class="" title="const A &#x3D; Array(4).fill(Array(4).fill(0));">
+
+<p>Sometimes, you need to create and manipulate a two-dimensional (2D) array or a matrix. In JavaScript, an array of arrays can be used as a 2D array. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mat = [</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">  [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>],</span><br><span class="line">  [<span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>],</span><br><span class="line">  [<span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>]</span><br><span class="line">];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(mat[<span class="number">1</span>][<span class="number">2</span>]);    <span class="comment">// gives 6</span></span><br></pre></td></tr></table></figure>
+
+<p>How do you implement if you initialize m x n matrix with zeros?
+If you know about <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill"><code>Array.prototype.fill()</code></a>, you may be tempted to initialize m x n array like <code>Array(m).fill(Array(n).fill(0))</code>, but this does not work properly.
+Since the <code>Array(n).fill(0)</code> creates just <strong>one</strong> array of size <em>n</em> and all the elements of the first array, that represents rows, point to the same, the second array as follows:</p>
+<p>When you got to know <code>Array.prototype.fill()</code> method, you may be tempted to initialize m x n array like <code>Array(m).fill(Array(n).fill(0))</code>, but this does not work properly. Since the <code>Array(n).fill(0)</code> creates just <strong>one</strong> array of size <em>n</em> and all the elements of the first array, that represents rows, point to the same, second array as follows:</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/" data-id="clifcg7k10003nfjd5f23epmp" data-title="JavaScript Pitfalls &amp; Tips: 2D Array, Matrix" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+        <a href="http://sanori.github.io/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/#disqus_thread" class="article-comment-link"><span class="fa fa-comment">Comments</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/2DArray/" rel="tag">2DArray</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/" rel="tag">node.js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-JavaScript-Pitfalls-Tips-toFixed" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/04/JavaScript-Pitfalls-Tips-toFixed/" class="article-date">
+  <time class="dt-published" datetime="2019-04-27T15:19:00.000Z" itemprop="datePublished">2019-04-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/04/JavaScript-Pitfalls-Tips-toFixed/">JavaScript Pitfalls &amp; Tips: toFixed</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <img src="/2019/04/JavaScript-Pitfalls-Tips-toFixed/js-toFixed-title.png" class="" title="2.55.toFixed(1) !&#x3D;&#x3D; 2.6">
+
+<p><code>Number.prototype.toFixed(n)</code> is a number formatting method that shows n-th digits after the decimal point. It seems to rounds (n+1)-th digits. But, sometimes, it does not round up. For example, the value of <code>2.55.toFixed(1)</code> is <code>2.5</code>, not <code>2.6</code> which is correct. <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed#Using_toFixed">This example is even in MDN documents</a>.</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/04/JavaScript-Pitfalls-Tips-toFixed/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/" data-id="clifcg7k80007nfjdhbxhgc3e" data-title="JavaScript Pitfalls &amp; Tips: toFixed" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+        <a href="http://sanori.github.io/2019/04/JavaScript-Pitfalls-Tips-toFixed/#disqus_thread" class="article-comment-link"><span class="fa fa-comment">Comments</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/" rel="tag">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/toFixed/" rel="tag">toFixed</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Line-by-line-Processing-in-node-js" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/03/Line-by-line-Processing-in-node-js/" class="article-date">
+  <time class="dt-published" datetime="2019-03-13T18:06:19.000Z" itemprop="datePublished">2019-03-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/03/Line-by-line-Processing-in-node-js/">Line-by-line Processing in node.js</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Suppose that you have to count the number of accesses for each IP address in the <code>access.log</code> file. And list the IP addresses which accessed more than 100,000 times.
+You want to do it with JavaScript or node.js. How can you do that?</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/03/Line-by-line-Processing-in-node-js/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/" data-id="clifcg7ka0009nfjddeh3735l" data-title="Line-by-line Processing in node.js" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+        <a href="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/#disqus_thread" class="article-comment-link"><span class="fa fa-comment">Comments</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CommandLineInterface/" rel="tag">CommandLineInterface</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/" rel="tag">node.js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SQL-Window-Functions-row-number-rank-dense-rank" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/" class="article-date">
+  <time class="dt-published" datetime="2018-12-17T16:54:39.000Z" itemprop="datePublished">2018-12-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/">SQL Window Functions: row_number, rank, dense_rank</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>SQL Window functions are the functions related to the ordering of elements
+in each given partition.
+In <a href="/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" title="SQL Window Functions: Top-k Elements Example">the last post</a>,
+I have introduced an example of getting top-3 elements
+for each partition using the <code>rank()</code> function.</p>
+<p><code>row_number()</code>, <code>rank()</code> and <code>dense_rank()</code> are SQL Window functions
+that number each element in ordering. They look similar.
+In fact, the results of the functions are the same
+if all the values of the ordering column are unique.
+But, the results of each function become different if there are the tie values,
+that is, the same elements in order.</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sanori.github.io/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/" data-id="clifcg7kl000infjdfgsq7fdb" data-title="SQL Window Functions: row_number, rank, dense_rank" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+        <a href="http://sanori.github.io/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/#disqus_thread" class="article-comment-link"><span class="fa fa-comment">Comments</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL/" rel="tag">SQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SparkSQL/" rel="tag">SparkSQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SqlWindowFunction/" rel="tag">SqlWindowFunction</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SQL-Window-Functions-Top-k-Elements-Example" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" class="article-date">
+  <time class="dt-published" datetime="2018-11-03T13:52:21.000Z" itemprop="datePublished">2018-11-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/11/SQL-Window-Functions-Top-k-Elements-Example/">SQL Window Functions: Top-k Elements Example</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/SQL_window_function">SQL Window functions</a>
+are similar to aggregate functions, such as count(),
+sum() or average(), but has different usage.
+Window functions are related to ordering like rank(), row_number(),
+while aggregate functions are related to summary of set of values
+like count(), sum().
+SQL Window functions specification is
+<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/SQL:2003">ISO&#x2F;ANSI standard since 2003</a>.
+You can use SQL window functions on HiveQL, MySQL, Transact-SQL
+as well as Spark SQL.</p>
+<p>In processing data, there are several cases to split data into groups
+or partitions and get representative values for each group.
+Someone may solve this problem by classifying data by making keys first
+and compute values for each key.
+You may use map() and reduce() in MapReduce framework,
+or use map() and reduceByKey() or aggregate() in Spark RDD API.</p>
+<p>If the argument function of a reduce() is the add (<code>_ + _</code>),
+the query can be written as <code>sum()</code> in SQL.
+If it is the increment(<code>++</code>), it can be transformed to <code>count()</code> in SQL.
+But, if the function of the reduce() is a something like ‘top-10 largest values’,
+it would be vague to find correspondent SQL statements or functions.
+And some data engineers or scientists may think this query cannot be written
+in SQL statements, and decide to code in MapReduce or Spark.</p>
+<p>In this post, I will show an example to solve top-<em>k</em> frequent elements problem
+using the rank() function which is one of SQL window functions.</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/11/SQL-Window-Functions-Top-k-Elements-Example/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" data-id="clifcg7kg000hnfjdergu1q6m" data-title="SQL Window Functions: Top-k Elements Example" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+        <a href="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/#disqus_thread" class="article-comment-link"><span class="fa fa-comment">Comments</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL/" rel="tag">SQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark/" rel="tag">Spark</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SparkSQL/" rel="tag">SparkSQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SqlWindowFunction/" rel="tag">SqlWindowFunction</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-JavaScript-Pitfalls-Tips-Bitwise-Operation" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/" class="article-date">
+  <time class="dt-published" datetime="2018-06-03T08:19:51.000Z" itemprop="datePublished">2018-06-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/">JavaScript Pitfalls &amp; Tips: Bitwise Operation</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <img src="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/js-bitwise-title.png" class="" title="1 &lt;&lt; 31 !&#x3D;&#x3D; Math.pow(2, 31)">
+
+<p>Bitwise left shift operator (<code>&lt;&lt;</code>) is used instead of power of 2 (2<sup>n</sup>) operator on integer variable. This idiom may lead to strange result in JavaScript.</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/" data-id="clifcg7k60005nfjd2d7e3ebs" data-title="JavaScript Pitfalls &amp; Tips: Bitwise Operation" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+        <a href="http://sanori.github.io/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/#disqus_thread" class="article-comment-link"><span class="fa fa-comment">Comments</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bitwise/" rel="tag">bitwise</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/" rel="tag">node.js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-JavaScript-Pitfalls-Tips-Sort" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/05/JavaScript-Pitfalls-Tips-Sort/" class="article-date">
+  <time class="dt-published" datetime="2018-05-24T18:51:03.000Z" itemprop="datePublished">2018-05-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/05/JavaScript-Pitfalls-Tips-Sort/">JavaScript Pitfalls &amp; Tips: Sort</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>JavaScript Quiz:</p>
+<img src="/2018/05/JavaScript-Pitfalls-Tips-Sort/title.png" class="" title="[10, 2, 456, 3548].sort()">
+
+<p>What would be the result of the above JavaScript code? You may expect <code>[2, 10, 456, 3548]</code> since the array seem to be an integer array and JavaScript would sort it in numeric order. But, the correct result is as follows:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">2</span>, <span class="number">3548</span>, <span class="number">456</span>]</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2018/05/JavaScript-Pitfalls-Tips-Sort/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/" data-id="clifcg7k70006nfjd6tzv03x4" data-title="JavaScript Pitfalls &amp; Tips: Sort" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+        <a href="http://sanori.github.io/2018/05/JavaScript-Pitfalls-Tips-Sort/#disqus_thread" class="article-comment-link"><span class="fa fa-comment">Comments</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/" rel="tag">node.js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Running-Keras-directly-on-Tensorflow" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/03/Running-Keras-directly-on-Tensorflow/" class="article-date">
+  <time class="dt-published" datetime="2018-03-15T18:09:20.000Z" itemprop="datePublished">2018-03-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/03/Running-Keras-directly-on-Tensorflow/">Running Keras directly on TensorFlow</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://keras.io/">Keras</a> is a high-level library&#x2F;API for neural network, a.k.a. deep learning. You can write shorter, simpler code using Keras. At the time of writing, Keras can use one of <a target="_blank" rel="noopener" href="https://www.tensorflow.org/">TensorFlow</a>, <a target="_blank" rel="noopener" href="http://deeplearning.net/software/theano/">Theano</a>, and <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/cognitive-toolkit/">CNTK</a> as a backend of deep learning process.</p>
+<p>From TensorFlow 1.4, <a target="_blank" rel="noopener" href="https://github.com/tensorflow/tensorflow/releases/tag/v1.4.0">Keras API became one of core APIs of TensorFlow</a>. Therefore, you don’t need to install both Keras and TensorFlow if you have a plan to use only TensorFlow backend in Keras. In other words, you can run Keras in simple way with full GPU support if you have got nvidia-docker environment which is mentioned in my last blog post, “<a href="/2017/02/Tensorflow-over-docker-with-GPU/">TensorFlow over docker with GPU support</a>“</p>
+<p>In this post, I’ll show you how to modify original Keras code to run on TensorFlow directly.</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/03/Running-Keras-directly-on-Tensorflow/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/" data-id="clifcg7kc000cnfjdhvh1aywr" data-title="Running Keras directly on TensorFlow" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+        <a href="http://sanori.github.io/2018/03/Running-Keras-directly-on-Tensorflow/#disqus_thread" class="article-comment-link"><span class="fa fa-comment">Comments</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Keras/" rel="tag">Keras</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TensorFlow/" rel="tag">TensorFlow</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nvidia-docker/" rel="tag">nvidia-docker</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/2DArray/" style="font-size: 10px;">2DArray</a> <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/CUDA/" style="font-size: 10px;">CUDA</a> <a href="/tags/CommandLineInterface/" style="font-size: 13.33px;">CommandLineInterface</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Keras/" style="font-size: 10px;">Keras</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/REPL/" style="font-size: 10px;">REPL</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/ReactHooks/" style="font-size: 10px;">ReactHooks</a> <a href="/tags/SQL/" style="font-size: 16.67px;">SQL</a> <a href="/tags/Scala/" style="font-size: 13.33px;">Scala</a> <a href="/tags/Scala-Worksheet/" style="font-size: 10px;">Scala Worksheet</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/SparkSQL/" style="font-size: 16.67px;">SparkSQL</a> <a href="/tags/SqlWindowFunction/" style="font-size: 13.33px;">SqlWindowFunction</a> <a href="/tags/TensorFlow/" style="font-size: 13.33px;">TensorFlow</a> <a href="/tags/bitwise/" style="font-size: 10px;">bitwise</a> <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/interactive-development/" style="font-size: 10px;">interactive development</a> <a href="/tags/nVidia/" style="font-size: 10px;">nVidia</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/nvidia-docker/" style="font-size: 13.33px;">nvidia-docker</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/spark-shell/" style="font-size: 10px;">spark-shell</a> <a href="/tags/toFixed/" style="font-size: 10px;">toFixed</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/04/Migrate-to-useEffect/">Migrate to useEffect</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/Compare-Two-Tables-in-SQL/">Compare Two Tables in SQL</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/">JavaScript Pitfalls &amp; Tips: 2D Array, Matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/JavaScript-Pitfalls-Tips-toFixed/">JavaScript Pitfalls &amp; Tips: toFixed</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/Line-by-line-Processing-in-node-js/">Line-by-line Processing in node.js</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+        <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></br>
+This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.</br>
+      
+      &copy; 2023 Joo-Won Jung<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/links" class="mobile-nav-link">Links</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'sanoriblog';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

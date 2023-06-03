@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-54TR4FSRPW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-54TR4FSRPW');
+</script>
+<!-- End Google Analytics -->
+
+  
+  <title>SQL Window Functions: Top-k Elements Example | Sanori&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="SQL Window functions are similar to aggregate functions, such as count(), sum() or average(), but has different usage. Window functions are related to ordering like rank(), row_number(), while aggrega">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL Window Functions: Top-k Elements Example">
+<meta property="og:url" content="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/index.html">
+<meta property="og:site_name" content="Sanori&#39;s Blog">
+<meta property="og:description" content="SQL Window functions are similar to aggregate functions, such as count(), sum() or average(), but has different usage. Window functions are related to ordering like rank(), row_number(), while aggrega">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-11-03T13:52:21.000Z">
+<meta property="article:modified_time" content="2019-03-13T18:08:32.274Z">
+<meta property="article:author" content="Joo-Won Jung">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="SparkSQL">
+<meta property="article:tag" content="Spark">
+<meta property="article:tag" content="SqlWindowFunction">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Sanori's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sanori&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">The world that sanori perceives</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/links">Links</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sanori.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-SQL-Window-Functions-Top-k-Elements-Example" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" class="article-date">
+  <time class="dt-published" datetime="2018-11-03T13:52:21.000Z" itemprop="datePublished">2018-11-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      SQL Window Functions: Top-k Elements Example
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/SQL_window_function">SQL Window functions</a>
+are similar to aggregate functions, such as count(),
+sum() or average(), but has different usage.
+Window functions are related to ordering like rank(), row_number(),
+while aggregate functions are related to summary of set of values
+like count(), sum().
+SQL Window functions specification is
+<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/SQL:2003">ISO&#x2F;ANSI standard since 2003</a>.
+You can use SQL window functions on HiveQL, MySQL, Transact-SQL
+as well as Spark SQL.</p>
+<p>In processing data, there are several cases to split data into groups
+or partitions and get representative values for each group.
+Someone may solve this problem by classifying data by making keys first
+and compute values for each key.
+You may use map() and reduce() in MapReduce framework,
+or use map() and reduceByKey() or aggregate() in Spark RDD API.</p>
+<p>If the argument function of a reduce() is the add (<code>_ + _</code>),
+the query can be written as <code>sum()</code> in SQL.
+If it is the increment(<code>++</code>), it can be transformed to <code>count()</code> in SQL.
+But, if the function of the reduce() is a something like ‘top-10 largest values’,
+it would be vague to find correspondent SQL statements or functions.
+And some data engineers or scientists may think this query cannot be written
+in SQL statements, and decide to code in MapReduce or Spark.</p>
+<p>In this post, I will show an example to solve top-<em>k</em> frequent elements problem
+using the rank() function which is one of SQL window functions.</p>
+<span id="more"></span>
+
+<h2 id="Top-k-Frequent-Elements"><a href="#Top-k-Frequent-Elements" class="headerlink" title="Top-k Frequent Elements"></a>Top-<em>k</em> Frequent Elements</h2><p>Top-<em>k</em> frequent elements problem is
+finding the most frequently appearing elements from the given
+sequence or array of elements,
+not only the most frequent one, but also <em>k</em>-th frequent element.</p>
+<p>Assume that you are given web server log, <code>accessLog</code> in a table format like as follows:</p>
+<table>
+<thead>
+<tr>
+<th>remoteAddr</th>
+<th>time</th>
+<th>request</th>
+<th align="right">status</th>
+<th align="right">bytes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>172.19.0.1</td>
+<td>2018-10-22T17:34:46Z</td>
+<td>GET &#x2F; HTTP&#x2F;1.1</td>
+<td align="right">200</td>
+<td align="right">820</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td align="right">…</td>
+<td align="right">…</td>
+</tr>
+</tbody></table>
+<p>If your work is find the most frequently visited remoteAddr and its hits,
+that is count of logs, how do you make a SQL query for the log?</p>
+<h3 id="Top-k-most-frequent-remote-addresses"><a href="#Top-k-most-frequent-remote-addresses" class="headerlink" title="Top-k most frequent remote addresses"></a>Top-<em>k</em> most frequent remote addresses</h3><p>If the work requires the most 3-frequent remoteAddr’s for the whole log,
+the following query may suffice:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> remoteAddr, <span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">AS</span> hits</span><br><span class="line"><span class="keyword">FROM</span> accessLog</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> remoteAddr</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> hits <span class="keyword">DESC</span></span><br><span class="line">LIMIT <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Top-k-most-frequent-IPs-for-each-days"><a href="#Top-k-most-frequent-IPs-for-each-days" class="headerlink" title="Top-k most frequent IPs for each days"></a>Top-<em>k</em> most frequent IPs for each days</h3><p>But, if you need top-3 remoteAddr’s for each day,
+How do you query the log database?
+Here is the place where a window function make it.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="type">date</span>, remoteAddr, hits</span><br><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="type">date</span>, remoteAddr, hits,</span><br><span class="line">    <span class="built_in">rank</span>() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="type">date</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> hits <span class="keyword">DESC</span>) <span class="keyword">AS</span> rank</span><br><span class="line">  <span class="keyword">FROM</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="built_in">cast</span>(<span class="type">time</span> <span class="keyword">AS</span> <span class="type">date</span>) <span class="keyword">AS</span> <span class="type">date</span>, remoteAddr, <span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">AS</span> hits</span><br><span class="line">    <span class="keyword">FROM</span> accessLog</span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="type">date</span>, remoteAddr</span><br><span class="line">  )</span><br><span class="line">)</span><br><span class="line"><span class="keyword">WHERE</span> rank <span class="operator">&lt;=</span> <span class="number">3</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="type">date</span>, hits <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
+
+<p>How this works? Let’s see step by step from the innermost SELECT statement.</p>
+<p>In line 6 ~ 8, the innermost SELECT counts hits for each date and remoteAddr,
+and generates an intermediate table like as following:</p>
+<table>
+<thead>
+<tr>
+<th>date</th>
+<th>remoteAddr</th>
+<th>hits</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2018-10-22</td>
+<td>172.19.0.1</td>
+<td>34867</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.20</td>
+<td>2334</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.21</td>
+<td>13223</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.23</td>
+<td>9385</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>172.19.0.1</td>
+<td>28762</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.20</td>
+<td>13534</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.21</td>
+<td>2331</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.22</td>
+<td>22937</td>
+</tr>
+</tbody></table>
+<p>In line 3 ~ 4, rank() generates ranks by ‘hits’ for each ‘date’
+from the above table,
+and the rank value is added as an column named ‘rank’.</p>
+<table>
+<thead>
+<tr>
+<th>date</th>
+<th>remoteAddr</th>
+<th>hits</th>
+<th>rank</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2018-10-22</td>
+<td>172.19.0.1</td>
+<td>34867</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.20</td>
+<td>2334</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.21</td>
+<td>13223</td>
+<td>2</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.23</td>
+<td>9385</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>172.19.0.1</td>
+<td>28762</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.20</td>
+<td>13534</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.21</td>
+<td>2331</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.22</td>
+<td>22937</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<p>In line 11, the rows with rank over 3 are omitted.</p>
+<table>
+<thead>
+<tr>
+<th>date</th>
+<th>remoteAddr</th>
+<th>hits</th>
+<th>rank</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2018-10-22</td>
+<td>172.19.0.1</td>
+<td>34867</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.21</td>
+<td>13223</td>
+<td>2</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.23</td>
+<td>9385</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>172.19.0.1</td>
+<td>28762</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.20</td>
+<td>13534</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.22</td>
+<td>22937</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<p>In line 1, rank columns are removed.</p>
+<table>
+<thead>
+<tr>
+<th>date</th>
+<th>remoteAddr</th>
+<th>hits</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2018-10-22</td>
+<td>172.19.0.1</td>
+<td>34867</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.21</td>
+<td>13223</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.23</td>
+<td>9385</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>172.19.0.1</td>
+<td>28762</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.20</td>
+<td>13534</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.22</td>
+<td>22937</td>
+</tr>
+</tbody></table>
+<p>In line 12, the rows are ordered by date and hits.
+Then you can get only most 3 frequent remoteAddr’s for each day.</p>
+<table>
+<thead>
+<tr>
+<th>date</th>
+<th>remoteAddr</th>
+<th>hits</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2018-10-22</td>
+<td>172.19.0.1</td>
+<td>34867</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.21</td>
+<td>13223</td>
+</tr>
+<tr>
+<td>2018-10-22</td>
+<td>192.168.0.23</td>
+<td>9385</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>172.19.0.1</td>
+<td>28762</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.22</td>
+<td>22937</td>
+</tr>
+<tr>
+<td>2018-10-23</td>
+<td>192.168.0.20</td>
+<td>13534</td>
+</tr>
+</tbody></table>
+<p>The window function rank() generates rank of each days (date).
+And WHERE clause in outermost SELECT statement removes needless output.</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li>SQL window function: <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/SQL_window_function">https://en.wikipedia.org/wiki/SQL_window_function</a></li>
+<li>Yin Huai and Michael Armbrust, “<a target="_blank" rel="noopener" href="https://databricks.com/blog/2015/07/15/introducing-window-functions-in-spark-sql.html">Introducing Window Functions in Spark SQL</a>“, <em>Databricks Engneering Blog</em>, July 15, 2015, <a target="_blank" rel="noopener" href="https://databricks.com/blog/2015/07/15/introducing-window-functions-in-spark-sql.html">https://databricks.com/blog/2015/07/15/introducing-window-functions-in-spark-sql.html</a></li>
+<li>Databricks Documentation &gt;
+ <a target="_blank" rel="noopener" href="https://docs.databricks.com/spark/latest/spark-sql/index.html">SQL Guide</a> &gt;
+ <a target="_blank" rel="noopener" href="https://docs.databricks.com/spark/latest/spark-sql/language-manual/select.html">Select</a> &gt;
+ <a target="_blank" rel="noopener" href="https://docs.databricks.com/spark/latest/spark-sql/language-manual/select.html#window-functions">Window functions</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/" data-id="clifcg7kg000hnfjdergu1q6m" data-title="SQL Window Functions: Top-k Elements Example" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+        <a href="http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/#disqus_thread" class="article-comment-link"><span class="fa fa-comment">Comments</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL/" rel="tag">SQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark/" rel="tag">Spark</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SparkSQL/" rel="tag">SparkSQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SqlWindowFunction/" rel="tag">SqlWindowFunction</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/SQL-Window-Functions-row-number-rank-dense-rank/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SQL Window Functions: row_number, rank, dense_rank
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript Pitfalls &amp; Tips: Bitwise Operation</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/2DArray/" style="font-size: 10px;">2DArray</a> <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/CUDA/" style="font-size: 10px;">CUDA</a> <a href="/tags/CommandLineInterface/" style="font-size: 13.33px;">CommandLineInterface</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Keras/" style="font-size: 10px;">Keras</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/REPL/" style="font-size: 10px;">REPL</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/ReactHooks/" style="font-size: 10px;">ReactHooks</a> <a href="/tags/SQL/" style="font-size: 16.67px;">SQL</a> <a href="/tags/Scala/" style="font-size: 13.33px;">Scala</a> <a href="/tags/Scala-Worksheet/" style="font-size: 10px;">Scala Worksheet</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/SparkSQL/" style="font-size: 16.67px;">SparkSQL</a> <a href="/tags/SqlWindowFunction/" style="font-size: 13.33px;">SqlWindowFunction</a> <a href="/tags/TensorFlow/" style="font-size: 13.33px;">TensorFlow</a> <a href="/tags/bitwise/" style="font-size: 10px;">bitwise</a> <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/interactive-development/" style="font-size: 10px;">interactive development</a> <a href="/tags/nVidia/" style="font-size: 10px;">nVidia</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/nvidia-docker/" style="font-size: 13.33px;">nvidia-docker</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/spark-shell/" style="font-size: 10px;">spark-shell</a> <a href="/tags/toFixed/" style="font-size: 10px;">toFixed</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/04/Migrate-to-useEffect/">Migrate to useEffect</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/Compare-Two-Tables-in-SQL/">Compare Two Tables in SQL</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/JavaScript-Pitfalls-Tips-2D-Array-Matrix/">JavaScript Pitfalls &amp; Tips: 2D Array, Matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/JavaScript-Pitfalls-Tips-toFixed/">JavaScript Pitfalls &amp; Tips: toFixed</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/Line-by-line-Processing-in-node-js/">Line-by-line Processing in node.js</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+        <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></br>
+This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.</br>
+      
+      &copy; 2023 Joo-Won Jung<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/links" class="mobile-nav-link">Links</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'sanoriblog';
+  
+  var disqus_url = 'http://sanori.github.io/2018/11/SQL-Window-Functions-Top-k-Elements-Example/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
