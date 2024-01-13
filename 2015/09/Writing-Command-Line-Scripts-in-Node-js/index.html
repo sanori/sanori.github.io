@@ -53,7 +53,7 @@
 
   
   
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 7.0.0"></head>
 
 <body>
   <div id="container">
@@ -140,12 +140,12 @@
 <p>Similar idiom can be applied to node.js as follows. This is <a target="_blank" rel="noopener" href="https://nodejs.org/api/modules.html#modules_accessing_the_main_module">a part of node.js specification</a> since <a target="_blank" rel="noopener" href="https://nodejs.org/docs/v0.4.8/api/modules.html#accessing_the_main_module">node.js 0.4.8</a>.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">require</span>.<span class="property">main</span> === <span class="variable language_">module</span>) &#123;</span><br><span class="line">    <span class="title function_">main</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Synchronous-I-x2F-O"><a href="#Synchronous-I-x2F-O" class="headerlink" title="Synchronous I&#x2F;O"></a>Synchronous I&#x2F;O</h2><p>The most frustrating feature of node.js would be asynchronous, non-blocking I&#x2F;O especially for script writers in shell, python, etc. Since node 0.12, there exists synchronous API such as <a target="_blank" rel="noopener" href="https://nodejs.org/api/child_process.html#child_process_child_process_execsync_command_options"><code>child_prcess.execSync</code></a> and <a target="_blank" rel="noopener" href="https://nodejs.org/api/fs.html"><code>fs.*Sync</code></a>. Therefore you may write the scripts as you did in shell or python. But, since the virtue of node.js is fast from asynchronous I&#x2F;O, I recommend to try asynchronous features of node.js if you have enough time.</p>
+<h2 id="Synchronous-I-O"><a href="#Synchronous-I-O" class="headerlink" title="Synchronous I&#x2F;O"></a>Synchronous I&#x2F;O</h2><p>The most frustrating feature of node.js would be asynchronous, non-blocking I&#x2F;O especially for script writers in shell, python, etc. Since node 0.12, there exists synchronous API such as <a target="_blank" rel="noopener" href="https://nodejs.org/api/child_process.html#child_process_child_process_execsync_command_options"><code>child_prcess.execSync</code></a> and <a target="_blank" rel="noopener" href="https://nodejs.org/api/fs.html"><code>fs.*Sync</code></a>. Therefore you may write the scripts as you did in shell or python. But, since the virtue of node.js is fast from asynchronous I&#x2F;O, I recommend to try asynchronous features of node.js if you have enough time.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/" data-id="clifcg7ks000mnfjdd9kf1mvu" data-title="Writing Command Line Scripts in Node.js" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/" data-id="clrbrec0x000mlbjd0yvl1rtq" data-title="Writing Command Line Scripts in Node.js" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
         <a href="http://sanori.github.io/2015/09/Writing-Command-Line-Scripts-in-Node-js/#disqus_thread" class="article-comment-link"><span class="fa fa-comment">Comments</span></a>
       
@@ -249,7 +249,7 @@
         <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></br>
 This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.</br>
       
-      &copy; 2023 Joo-Won Jung<br>
+      &copy; 2024 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

@@ -52,7 +52,7 @@
 
   
   
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 7.0.0"></head>
 
 <body>
   <div id="container">
@@ -146,7 +146,7 @@ And, since it is asynchronous, the post-processing part should be in the ‘clos
 <p>If you just want to supply a line at a time to stream handler, you may use ‘<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/split"><code>split</code></a>‘ module.</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> split = <span class="built_in">require</span>(<span class="string">&#x27;split&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> freq = &#123;&#125;;</span><br><span class="line">fs.<span class="title function_">createReadStream</span>(<span class="string">&#x27;access.log&#x27;</span>)</span><br><span class="line">  .<span class="title function_">pipe</span>(<span class="title function_">split</span>())</span><br><span class="line">  .<span class="title function_">on</span>(<span class="string">&#x27;data&#x27;</span>, <span class="function">(<span class="params">line</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> ip = line.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>)[<span class="number">0</span>];</span><br><span class="line">    freq[ip] = (freq[ip] + <span class="number">1</span>) || <span class="number">1</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> list = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> ip <span class="keyword">of</span> <span class="title class_">Object</span>.<span class="title function_">keys</span>(freq)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (freq[ip] &gt;= <span class="number">100000</span>) &#123;</span><br><span class="line">            list.<span class="title function_">push</span>([ip, freq[ip]]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    list.<span class="title function_">sort</span>(<span class="function">(<span class="params">a,b</span>) =&gt;</span> b[<span class="number">1</span>] - a[<span class="number">1</span>]);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(list);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
 
-<h2 id="readline-for-async-x2F-await"><a href="#readline-for-async-x2F-await" class="headerlink" title="readline for async&#x2F;await"></a><code>readline</code> for async&#x2F;await</h2><p>For who loves async&#x2F;await or Generator function,
+<h2 id="readline-for-async-await"><a href="#readline-for-async-await" class="headerlink" title="readline for async&#x2F;await"></a><code>readline</code> for async&#x2F;await</h2><p>For who loves async&#x2F;await or Generator function,
 <a target="_blank" rel="noopener" href="https://nodejs.org/dist/latest-v11.x/docs/api/readline.html#readline_rl_symbol_asynciterator">asyncIterator interface of ‘readline’</a>
 was experimentally added to node.js since v11.4.0.
 Using this feature, we can rewrite the script as follows:</p>
@@ -155,7 +155,7 @@ Using this feature, we can rewrite the script as follows:</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/" data-id="clifcg7ka0009nfjddeh3735l" data-title="Line-by-line Processing in node.js" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/" data-id="clrbrec0b0009lbjd93n1fxon" data-title="Line-by-line Processing in node.js" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
         <a href="http://sanori.github.io/2019/03/Line-by-line-Processing-in-node-js/#disqus_thread" class="article-comment-link"><span class="fa fa-comment">Comments</span></a>
       
@@ -264,7 +264,7 @@ Using this feature, we can rewrite the script as follows:</p>
         <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></br>
 This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.</br>
       
-      &copy; 2023 Joo-Won Jung<br>
+      &copy; 2024 Joo-Won Jung<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

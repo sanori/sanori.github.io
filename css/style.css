@@ -1115,6 +1115,15 @@ a.article-title:hover {
 .article-entry .highlight figcaption a {
   float: right;
 }
+.article-entry .highlight .gutter {
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 .article-entry .highlight .gutter pre {
   text-align: right;
   padding-right: 20px;
