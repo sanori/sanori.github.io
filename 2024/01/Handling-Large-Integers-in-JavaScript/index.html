@@ -15,26 +15,22 @@
 <!-- End Google Analytics -->
 
   
-  <title>TensorFlow over docker with GPU support | Sanori&#39;s Blog</title>
+  <title>Handling Large Integers in JavaScript | Sanori&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="I have succeeded to run TensorFlow on my desktop which runs Ubuntu 16.04 LTS with nVidia GeForce GTX 1050. I want to share the easy and fast way to install TensorFlow, so I write this down. This does">
+  <meta name="description" content="Why we should care: JavaScript’s unique Number typeHandling large integers in JavaScript requires care. JavaScript treats numeric variables as a single type called Number. Unlike other programming lan">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TensorFlow over docker with GPU support">
-<meta property="og:url" content="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/index.html">
+<meta property="og:title" content="Handling Large Integers in JavaScript">
+<meta property="og:url" content="http://sanori.github.io/2024/01/Handling-Large-Integers-in-JavaScript/index.html">
 <meta property="og:site_name" content="Sanori&#39;s Blog">
-<meta property="og:description" content="I have succeeded to run TensorFlow on my desktop which runs Ubuntu 16.04 LTS with nVidia GeForce GTX 1050. I want to share the easy and fast way to install TensorFlow, so I write this down. This does">
+<meta property="og:description" content="Why we should care: JavaScript’s unique Number typeHandling large integers in JavaScript requires care. JavaScript treats numeric variables as a single type called Number. Unlike other programming lan">
 <meta property="og:locale">
-<meta property="og:image" content="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/TensorFlow-jupyter.png">
-<meta property="article:published_time" content="2017-02-26T11:14:17.000Z">
-<meta property="article:modified_time" content="2018-11-26T17:19:27.924Z">
+<meta property="article:published_time" content="2024-01-16T16:25:58.000Z">
+<meta property="article:modified_time" content="2024-01-16T16:45:17.618Z">
 <meta property="article:author" content="Joo-Won Jung">
-<meta property="article:tag" content="TensorFlow">
-<meta property="article:tag" content="nvidia-docker">
-<meta property="article:tag" content="docker">
-<meta property="article:tag" content="nVidia">
-<meta property="article:tag" content="CUDA">
+<meta property="article:tag" content="node.js">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="BigInt">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/TensorFlow-jupyter.png">
   
     <link rel="alternate" href="/atom.xml" title="Sanori's Blog" type="application/atom+xml">
   
@@ -100,10 +96,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-Tensorflow-over-docker-with-GPU" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-Handling-Large-Integers-in-JavaScript" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2017/02/Tensorflow-over-docker-with-GPU/" class="article-date">
-  <time class="dt-published" datetime="2017-02-26T11:14:17.000Z" itemprop="datePublished">2017-02-26</time>
+    <a href="/2024/01/Handling-Large-Integers-in-JavaScript/" class="article-date">
+  <time class="dt-published" datetime="2024-01-16T16:25:58.000Z" itemprop="datePublished">2024-01-17</time>
 </a>
     
   </div>
@@ -114,7 +110,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      TensorFlow over docker with GPU support
+      Handling Large Integers in JavaScript
     </h1>
   
 
@@ -122,42 +118,40 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>I have succeeded to run TensorFlow on my desktop which runs Ubuntu 16.04 LTS with nVidia GeForce GTX 1050. I want to share the easy and fast way to install TensorFlow, so I write this down. This does <strong>NOT</strong> require to download and install CUDA toolkit nor cuDNN, but you can get GPU acceleration.</p>
+        <h2 id="Why-we-should-care-JavaScript’s-unique-Number-type"><a href="#Why-we-should-care-JavaScript’s-unique-Number-type" class="headerlink" title="Why we should care: JavaScript’s unique Number type"></a>Why we should care: JavaScript’s unique <code>Number</code> type</h2><p>Handling large integers in JavaScript requires care. JavaScript treats numeric variables as a single type called <code>Number</code>.
+Unlike other programming languages, JavaScript does not divide numbers into real and integer types such as <code>float</code> and <code>int</code> or storage sizes such as <code>short</code>, <code>int</code>, and <code>long</code>. JavaScript’s <code>Number</code> type seems to use the IEEE-754 64-bit floating point number representation.
+This property is very convenient for most casual calculations. However, handling large integers requires slightly different care than other programming languages. Especially in environments like competitive programming or coding tests, you may fail.</p>
 <span id="more"></span>
 
-<h2 id="Prerequisite"><a href="#Prerequisite" class="headerlink" title="Prerequisite"></a>Prerequisite</h2><ul>
-<li>nVidia graphics card (CUDA Compute Capability &gt;&#x3D; 3.0)<ul>
-<li>You can check at <a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-gpus">nVidia documentation</a>.</li>
-</ul>
-</li>
-<li>nVidia driver which supports your graphics card<ul>
-<li>Ubuntu: <a target="_blank" rel="noopener" href="https://launchpad.net/~graphics-drivers/+archive/ubuntu/ppa">ppa:graphics-drivers&#x2F;ppa</a></li>
-</ul>
-</li>
-<li><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/installation/">Docker engine</a></li>
-</ul>
-<h2 id="Quick-start"><a href="#Quick-start" class="headerlink" title="Quick start"></a>Quick start</h2><ol>
-<li>install <a target="_blank" rel="noopener" href="https://github.com/NVIDIA/nvidia-docker">nvidia-docker</a>.</li>
-<li>run TensorFlow using nvidia-docker.<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nvidia-docker run -it --<span class="built_in">rm</span> -p 8888:8888 gcr.io/tensorflow/tensorflow:latest-gpu</span><br></pre></td></tr></table></figure></li>
-<li>&lt;ctrl&gt;-click or copy &amp; paste the URI looks like <code>http://localhost:8888/?token=&lt;hex_string&gt;</code> that appears on your terminal. Then you can get Jupyter notebook on your browser.<img src="/2017/02/Tensorflow-over-docker-with-GPU/TensorFlow-jupyter.png" class="" title="Jupyter Notebook of TensorFlow"></li>
-</ol>
-<h2 id="Why-this-works"><a href="#Why-this-works" class="headerlink" title="Why this works"></a>Why this works</h2><p><a target="_blank" rel="noopener" href="https://github.com/NVIDIA/nvidia-docker">nvidia-docker</a> provides CUDA toolkit and cuDNN and tensorflow docker images utilizes it. All the installation procedures are abstracted by Docker images.</p>
-<h2 id="Troubleshooting-in-Ubuntu"><a href="#Troubleshooting-in-Ubuntu" class="headerlink" title="Troubleshooting in Ubuntu"></a>Troubleshooting in Ubuntu</h2><ol>
-<li>Identify your nVidia graphics card <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lspci | grep -i nvidia</span><br></pre></td></tr></table></figure></li>
-<li>Verify CUDA driver and its version <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> /proc/driver/nvidia/version</span><br><span class="line">NVRM version: NVIDIA UNIX x86_64 Kernel Module  375.39  Tue Jan 31 20:47:00 PST 2017</span><br><span class="line">GCC version:  gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.4)</span><br></pre></td></tr></table></figure></li>
-<li>Verify CUDA toolkit in <code>nvidia-docker</code> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nvidia-docker run --<span class="built_in">rm</span> nvidia/cuda nvidia-smi</span><br></pre></td></tr></table></figure></li>
-</ol>
+<h2 id="How-big-is-a-large-integer"><a href="#How-big-is-a-large-integer" class="headerlink" title="How big is a large integer?"></a>How big is a large integer?</h2><h3 id="Bitwise-operations-32-bits"><a href="#Bitwise-operations-32-bits" class="headerlink" title="Bitwise operations: 32 bits"></a>Bitwise operations: 32 bits</h3><p>As explained in <a href="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/" title="JavaScript Pitfalls &amp; Tips: Bitwise Operation">the previous article</a>, JavaScript treats numbers as 32-bit integers when performing bitwise operations. Therefore, we can observe a strange phenomenon in which the following equation is true without errors:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> &lt;&lt; <span class="number">32</span> === <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>If you want bitwise operations wider than 32 bits, you should use the <code>BigInt</code> type.</p>
+<h3 id="Numeric-operations-53-bits"><a href="#Numeric-operations-53-bits" class="headerlink" title="Numeric operations: 53 bits"></a>Numeric operations: 53 bits</h3><p>JavaScript does not distinguish between real numbers and integers, but precision decreases when numbers grow larger than a certain level. To be more precise, if the calculation result requires more than 53 bits when expressed as an integer, we should not treat the result as an integer. For example, the following expression is true in JavaScript:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">9007199254740992</span> + <span class="number">1</span> === <span class="number">9007199254740992</span></span><br></pre></td></tr></table></figure>
+
+<p>Therefore, if we want exact integer arithmetic, we must check whether the result is between <code>Number.MIN_SAFE_INTEGER</code> and <code>Number.MAX_SAFE_INTEGER</code>. If we wish exact integer arithmetic beyond that range, we should consider the <code>BigInt</code> type.</p>
+<h2 id="Limitations-of-BigInt"><a href="#Limitations-of-BigInt" class="headerlink" title="Limitations of BigInt"></a>Limitations of <code>BigInt</code></h2><p>ECMAScript 2020 introduced the <code>BigInt</code> type for arbitrary precision integer calculations. It solved the problem of handling large integers but also has limitations.</p>
+<h3 id="Incompatible-with-Number-type"><a href="#Incompatible-with-Number-type" class="headerlink" title="Incompatible with Number type"></a>Incompatible with <code>Number</code> type</h3><p>The <code>BigInt</code> type is incompatible with the <code>Number</code> type. For example, <code>1n + 1</code> will raise a TypeError. Therefore, we need to check the types of both operands of binary operators and cast one of them if needed.
+You also cannot use <code>Math.*</code> functions since <code>Math.*</code> functions are defined for the <code>Number</code> types. You can’t use <code>JSON.stringify</code> either.</p>
+<h3 id="BigInt-operations-take-too-long-time-sometimes"><a href="#BigInt-operations-take-too-long-time-sometimes" class="headerlink" title="BigInt operations take too long time sometimes"></a><code>BigInt</code> operations take too long time sometimes</h3><p>The current implementation of <code>BigInt</code> operations is in a best-effort manner without any restrictions. In theory, it has the advantage of being able to compute any large integer. However, in reality, if the result is too large, it may cause the JavaScript engine to stop. You can experience your JavaScript engine hanging with the following simple command:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="title class_">BigInt</span>(<span class="number">1e9</span> + <span class="number">7</span>)</span><br><span class="line">(s ** s) % s</span><br></pre></td></tr></table></figure>
+
+<p>Therefore, unless you have to use the <code>BigInt</code> type, it is better to use the <code>Number</code> type.</p>
+<h2 id="Pitfalls-of-integer-handling-in-JS"><a href="#Pitfalls-of-integer-handling-in-JS" class="headerlink" title="Pitfalls of integer handling in JS"></a>Pitfalls of integer handling in JS</h2><h3 id="Migrating-bit-masking-code-from-other-programming-languages"><a href="#Migrating-bit-masking-code-from-other-programming-languages" class="headerlink" title="Migrating bit-masking code from other programming languages"></a>Migrating bit-masking code from other programming languages</h3><p>In the case of C&#x2F;C++ or Java, bitwise operation assumes 64-bit. Python allows bitwise operations even on large numbers of bits. However, the bitwise operation of the JavaScript’s Number type is limited to 32 bits. So, we should refactor the implementation to the <code>BigInt</code> type if the number of bits to be processed exceeds 32.</p>
+<h3 id="Modular-arithmetic-including-multiplication"><a href="#Modular-arithmetic-including-multiplication" class="headerlink" title="Modular arithmetic including multiplication"></a>Modular arithmetic including multiplication</h3><p>In competitive programming, some problems require modular arithmetic. In most cases, the base decimal is at most 32 bits. Therefore, there is no problem if we implement modulo arithmetic operations with the Number type. However, if the algorithm requires multiplication, you must consider whether the multiplication result exceeds 53 bits.
+For example, <code>10^9 + 7</code>, a widely used prime number as modulo base, requires 30 bits. The multiplication of two numbers can be 60 bits, more than 53 bits. Therefore, we should consider the <code>BigInt</code> type to implement multiplication.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/" data-id="clrgl30u70023yzjd4nk17zty" data-title="TensorFlow over docker with GPU support" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://sanori.github.io/2024/01/Handling-Large-Integers-in-JavaScript/" data-id="clrgl30u4001yyzjd4b2r7lbz" data-title="Handling Large Integers in JavaScript" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
-        <a href="http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/#disqus_thread" class="article-comment-link"><span class="fa fa-comment">Comments</span></a>
+        <a href="http://sanori.github.io/2024/01/Handling-Large-Integers-in-JavaScript/#disqus_thread" class="article-comment-link"><span class="fa fa-comment">Comments</span></a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CUDA/" rel="tag">CUDA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TensorFlow/" rel="tag">TensorFlow</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nVidia/" rel="tag">nVidia</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nvidia-docker/" rel="tag">nvidia-docker</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BigInt/" rel="tag">BigInt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/" rel="tag">node.js</a></li></ul>
 
     </footer>
   </div>
@@ -165,19 +159,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/06/Using-sbt-instead-of-spark-shell/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Using sbt instead of spark-shell
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/09/Writing-Command-Line-Scripts-in-Node-js/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/04/Migrate-to-useEffect/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Writing Command Line Scripts in Node.js</div>
+      <div class="article-nav-title">Migrate to useEffect</div>
     </a>
   
 </nav>
@@ -280,7 +265,7 @@ This work is licensed under a <a rel="license" href="http://creativecommons.org/
 <script>
   var disqus_shortname = 'sanoriblog';
   
-  var disqus_url = 'http://sanori.github.io/2017/02/Tensorflow-over-docker-with-GPU/';
+  var disqus_url = 'http://sanori.github.io/2024/01/Handling-Large-Integers-in-JavaScript/';
   
   (function(){
     var dsq = document.createElement('script');

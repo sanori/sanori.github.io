@@ -6,7 +6,7 @@
   <link href="http://sanori.github.io/atom.xml" rel="self"/>
   
   <link href="http://sanori.github.io/"/>
-  <updated>2022-06-14T15:21:55.890Z</updated>
+  <updated>2024-01-16T16:45:17.618Z</updated>
   <id>http://sanori.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Handling Large Integers in JavaScript</title>
+    <link href="http://sanori.github.io/2024/01/Handling-Large-Integers-in-JavaScript/"/>
+    <id>http://sanori.github.io/2024/01/Handling-Large-Integers-in-JavaScript/</id>
+    <published>2024-01-16T16:25:58.000Z</published>
+    <updated>2024-01-16T16:45:17.618Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Why-we-should-care-JavaScript’s-unique-Number-type"><a href="#Why-we-should-care-JavaScript’s-unique-Number-type" class="headerlink" title="Why we should care: JavaScript’s unique Number type"></a>Why we should care: JavaScript’s unique <code>Number</code> type</h2><p>Handling large integers in JavaScript requires care. JavaScript treats numeric variables as a single type called <code>Number</code>.Unlike other programming languages, JavaScript does not divide numbers into real and integer types such as <code>float</code> and <code>int</code> or storage sizes such as <code>short</code>, <code>int</code>, and <code>long</code>. JavaScript’s <code>Number</code> type seems to use the IEEE-754 64-bit floating point number representation.This property is very convenient for most casual calculations. However, handling large integers requires slightly different care than other programming languages. Especially in environments like competitive programming or coding tests, you may fail.</p><span id="more"></span><h2 id="How-big-is-a-large-integer"><a href="#How-big-is-a-large-integer" class="headerlink" title="How big is a large integer?"></a>How big is a large integer?</h2><h3 id="Bitwise-operations-32-bits"><a href="#Bitwise-operations-32-bits" class="headerlink" title="Bitwise operations: 32 bits"></a>Bitwise operations: 32 bits</h3><p>As explained in <a href="/2018/06/JavaScript-Pitfalls-Tips-Bitwise-Operation/" title="JavaScript Pitfalls &amp; Tips: Bitwise Operation">the previous article</a>, JavaScript treats numbers as 32-bit integers when performing bitwise operations. Therefore, we can observe a strange phenomenon in which the following equation is true without errors:</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> &lt;&lt; <span class="number">32</span> === <span class="number">1</span></span><br></pre></td></tr></table></figure><p>If you want bitwise operations wider than 32 bits, you should use the <code>BigInt</code> type.</p><h3 id="Numeric-operations-53-bits"><a href="#Numeric-operations-53-bits" class="headerlink" title="Numeric operations: 53 bits"></a>Numeric operations: 53 bits</h3><p>JavaScript does not distinguish between real numbers and integers, but precision decreases when numbers grow larger than a certain level. To be more precise, if the calculation result requires more than 53 bits when expressed as an integer, we should not treat the result as an integer. For example, the following expression is true in JavaScript:</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">9007199254740992</span> + <span class="number">1</span> === <span class="number">9007199254740992</span></span><br></pre></td></tr></table></figure><p>Therefore, if we want exact integer arithmetic, we must check whether the result is between <code>Number.MIN_SAFE_INTEGER</code> and <code>Number.MAX_SAFE_INTEGER</code>. If we wish exact integer arithmetic beyond that range, we should consider the <code>BigInt</code> type.</p><h2 id="Limitations-of-BigInt"><a href="#Limitations-of-BigInt" class="headerlink" title="Limitations of BigInt"></a>Limitations of <code>BigInt</code></h2><p>ECMAScript 2020 introduced the <code>BigInt</code> type for arbitrary precision integer calculations. It solved the problem of handling large integers but also has limitations.</p><h3 id="Incompatible-with-Number-type"><a href="#Incompatible-with-Number-type" class="headerlink" title="Incompatible with Number type"></a>Incompatible with <code>Number</code> type</h3><p>The <code>BigInt</code> type is incompatible with the <code>Number</code> type. For example, <code>1n + 1</code> will raise a TypeError. Therefore, we need to check the types of both operands of binary operators and cast one of them if needed.You also cannot use <code>Math.*</code> functions since <code>Math.*</code> functions are defined for the <code>Number</code> types. You can’t use <code>JSON.stringify</code> either.</p><h3 id="BigInt-operations-take-too-long-time-sometimes"><a href="#BigInt-operations-take-too-long-time-sometimes" class="headerlink" title="BigInt operations take too long time sometimes"></a><code>BigInt</code> operations take too long time sometimes</h3><p>The current implementation of <code>BigInt</code> operations is in a best-effort manner without any restrictions. In theory, it has the advantage of being able to compute any large integer. However, in reality, if the result is too large, it may cause the JavaScript engine to stop. You can experience your JavaScript engine hanging with the following simple command:</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="title class_">BigInt</span>(<span class="number">1e9</span> + <span class="number">7</span>)</span><br><span class="line">(s ** s) % s</span><br></pre></td></tr></table></figure><p>Therefore, unless you have to use the <code>BigInt</code> type, it is better to use the <code>Number</code> type.</p><h2 id="Pitfalls-of-integer-handling-in-JS"><a href="#Pitfalls-of-integer-handling-in-JS" class="headerlink" title="Pitfalls of integer handling in JS"></a>Pitfalls of integer handling in JS</h2><h3 id="Migrating-bit-masking-code-from-other-programming-languages"><a href="#Migrating-bit-masking-code-from-other-programming-languages" class="headerlink" title="Migrating bit-masking code from other programming languages"></a>Migrating bit-masking code from other programming languages</h3><p>In the case of C&#x2F;C++ or Java, bitwise operation assumes 64-bit. Python allows bitwise operations even on large numbers of bits. However, the bitwise operation of the JavaScript’s Number type is limited to 32 bits. So, we should refactor the implementation to the <code>BigInt</code> type if the number of bits to be processed exceeds 32.</p><h3 id="Modular-arithmetic-including-multiplication"><a href="#Modular-arithmetic-including-multiplication" class="headerlink" title="Modular arithmetic including multiplication"></a>Modular arithmetic including multiplication</h3><p>In competitive programming, some problems require modular arithmetic. In most cases, the base decimal is at most 32 bits. Therefore, there is no problem if we implement modulo arithmetic operations with the Number type. However, if the algorithm requires multiplication, you must consider whether the multiplication result exceeds 53 bits.For example, <code>10^9 + 7</code>, a widely used prime number as modulo base, requires 30 bits. The multiplication of two numbers can be 60 bits, more than 53 bits. Therefore, we should consider the <code>BigInt</code> type to implement multiplication.</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;Why-we-should-care-JavaScript’s-unique-Number-type&quot;&gt;&lt;a href=&quot;#Why-we-should-care-JavaScript’s-unique-Number-type&quot; class=&quot;headerlink&quot; title=&quot;Why we should care: JavaScript’s unique Number type&quot;&gt;&lt;/a&gt;Why we should care: JavaScript’s unique &lt;code&gt;Number&lt;/code&gt; type&lt;/h2&gt;&lt;p&gt;Handling large integers in JavaScript requires care. JavaScript treats numeric variables as a single type called &lt;code&gt;Number&lt;/code&gt;.
+Unlike other programming languages, JavaScript does not divide numbers into real and integer types such as &lt;code&gt;float&lt;/code&gt; and &lt;code&gt;int&lt;/code&gt; or storage sizes such as &lt;code&gt;short&lt;/code&gt;, &lt;code&gt;int&lt;/code&gt;, and &lt;code&gt;long&lt;/code&gt;. JavaScript’s &lt;code&gt;Number&lt;/code&gt; type seems to use the IEEE-754 64-bit floating point number representation.
+This property is very convenient for most casual calculations. However, handling large integers requires slightly different care than other programming languages. Especially in environments like competitive programming or coding tests, you may fail.&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="node.js" scheme="http://sanori.github.io/tags/node-js/"/>
+    
+    <category term="JavaScript" scheme="http://sanori.github.io/tags/JavaScript/"/>
+    
+    <category term="BigInt" scheme="http://sanori.github.io/tags/BigInt/"/>
+    
+  </entry>
   
   <entry>
     <title>Migrate to useEffect</title>
@@ -221,11 +246,11 @@ using the rank() function which is one of SQL window functions.&lt;/p&gt;</summa
     
     
     
+    <category term="Spark" scheme="http://sanori.github.io/tags/Spark/"/>
+    
     <category term="SQL" scheme="http://sanori.github.io/tags/SQL/"/>
     
     <category term="SparkSQL" scheme="http://sanori.github.io/tags/SparkSQL/"/>
-    
-    <category term="Spark" scheme="http://sanori.github.io/tags/Spark/"/>
     
     <category term="SqlWindowFunction" scheme="http://sanori.github.io/tags/SqlWindowFunction/"/>
     
@@ -325,11 +350,11 @@ using the rank() function which is one of SQL window functions.&lt;/p&gt;</summa
     
     
     
+    <category term="Spark" scheme="http://sanori.github.io/tags/Spark/"/>
+    
     <category term="SQL" scheme="http://sanori.github.io/tags/SQL/"/>
     
     <category term="SparkSQL" scheme="http://sanori.github.io/tags/SparkSQL/"/>
-    
-    <category term="Spark" scheme="http://sanori.github.io/tags/Spark/"/>
     
     <category term="DataFrame" scheme="http://sanori.github.io/tags/DataFrame/"/>
     
